@@ -3,6 +3,7 @@ package xor.bcmc.taxii2;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import xor.bcmc.taxii2.resources.TaxiiResource;
 
 public class JsonHandler {
@@ -36,6 +37,10 @@ public class JsonHandler {
 
     public <T extends TaxiiResource> T fromJson(String json, Class<T> type) {
         return gson.fromJson(json, type);
+    }
+
+    public <T extends TaxiiResource> JsonElement toJsonElement(T taxiiResource) {
+        return gson.toJsonTree(taxiiResource);
     }
 
 }

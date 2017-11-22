@@ -1,12 +1,13 @@
 package xor.bcmc.taxii2.resources;
 
+import xor.bcmc.taxii2.Identifiable;
 
 import java.util.List;
 
 /**
  * <a href="https://www.oasis-open.org/committees/download.php/59353/TAXII2.0Specification-draft3.pdf">ApiRoot Resource</a>
  */
-public class ApiRoot extends TaxiiResource {
+public class ApiRoot extends TaxiiResource implements Identifiable<String> {
 
     private String displayName;
     private String description;
@@ -30,7 +31,6 @@ public class ApiRoot extends TaxiiResource {
     }
 
     public ApiRoot() {
-
     }
 
     public String getDisplayName() {
@@ -110,4 +110,13 @@ public class ApiRoot extends TaxiiResource {
         result = 31 * result + maxContentLength;
         return result;
     }
+
+    public String getId() {
+        return this.getDisplayName();
+    }
+
+    public void setId(String id) {
+        this.setDisplayName(id);
+    }
+
 }

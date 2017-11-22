@@ -1,5 +1,6 @@
 package xor.bcmc.taxii2.resources;
 
+import com.google.gson.JsonElement;
 import xor.bcmc.taxii2.JsonHandler;
 
 public abstract class TaxiiResource {
@@ -8,9 +9,17 @@ public abstract class TaxiiResource {
         return JsonHandler.getInstance().toJson(this);
     }
 
+    public String toString() {
+        return this.toJson();
+    }
+
     public abstract <T extends TaxiiResource> T fromJson(String json);
 
     public <T extends TaxiiResource> T fromJson(String json, Class<T> type) {
         return JsonHandler.getInstance().fromJson(json, type);
+    }
+
+    public JsonElement toJsonElement() {
+        return JsonHandler.getInstance().toJsonElement(this);
     }
 }

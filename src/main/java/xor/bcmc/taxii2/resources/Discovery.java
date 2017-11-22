@@ -1,10 +1,11 @@
 package xor.bcmc.taxii2.resources;
 
 import com.google.gson.annotations.SerializedName;
+import xor.bcmc.taxii2.Identifiable;
 
 import java.util.List;
 
-public class Discovery extends TaxiiResource {
+public class Discovery extends TaxiiResource implements Identifiable<String> {
 
     private String displayName;
     private String description;
@@ -116,5 +117,13 @@ public class Discovery extends TaxiiResource {
         result = 31 * result + (defaultApiRoot != null ? defaultApiRoot.hashCode() : 0);
         result = 31 * result + apiRoots.hashCode();
         return result;
+    }
+
+    public String getId() {
+        return getDisplayName();
+    }
+
+    public void setId(String id) {
+        this.setDisplayName(id);
     }
 }
