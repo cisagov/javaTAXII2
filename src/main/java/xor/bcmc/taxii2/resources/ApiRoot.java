@@ -9,32 +9,32 @@ import java.util.List;
  */
 public class ApiRoot extends TaxiiResource implements Identifiable<String> {
 
-    private String displayName;
+    private String title;
     private String description;
     private List<String> versions;
     // TODO TAXII 2.1
     // private List<Channel> channels;
     // private List<Collection> collections;
-    private int maxContentLength;
+    private int maxContentLength = 0;
 
     /**
      * Construct an ApiRoot resource
      *
-     * @param displayName A human readable text/plain name used to identify this API instance. This is not the name of
+     * @param title A human readable text/plain name used to identify this API instance. This is not the name of
      *                    this API Root that is found in the URL.
      * @param versions Lists the versions of TAXII that this API Root is compatible with. taxii-2.0 MUST be included in
      *                 this list to indicate conformance with this specification.
      */
-    public ApiRoot(String displayName, List<String> versions) {
-        this.displayName = displayName;
+    public ApiRoot(String title, List<String> versions) {
+        this.title = title;
         this.versions = versions;
     }
 
     public ApiRoot() {
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getTitle() {
+        return title;
     }
 
     public String getDescription() {
@@ -49,8 +49,8 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
         return maxContentLength;
     }
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setDescription(String description) {
@@ -65,8 +65,8 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
         this.maxContentLength = maxContentLength;
     }
 
-    public ApiRoot withDisplayName(String displayName) {
-        this.displayName = displayName;
+    public ApiRoot withTitle(String title) {
+        this.title = title;
         return this;
     }
 
@@ -97,14 +97,14 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
         ApiRoot apiRoot = (ApiRoot) o;
 
         if (maxContentLength != apiRoot.maxContentLength) return false;
-        if (!displayName.equals(apiRoot.displayName)) return false;
+        if (!title.equals(apiRoot.title)) return false;
         if (description != null ? !description.equals(apiRoot.description) : apiRoot.description != null) return false;
         return versions.equals(apiRoot.versions);
     }
 
     @Override
     public int hashCode() {
-        int result = displayName.hashCode();
+        int result = title.hashCode();
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + versions.hashCode();
         result = 31 * result + maxContentLength;
@@ -112,11 +112,11 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
     }
 
     public String getId() {
-        return this.getDisplayName();
+        return this.getTitle();
     }
 
     public void setId(String id) {
-        this.setDisplayName(id);
+        this.setTitle(id);
     }
 
 }

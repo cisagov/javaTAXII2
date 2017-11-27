@@ -12,7 +12,7 @@ class ApiRootTest {
 
     static {
         apiRoot = new ApiRoot();
-        apiRoot.withDisplayName("Api Root 1");
+        apiRoot.withTitle("Api Root 1");
         apiRoot.withDescription("Api Description");
         apiRoot.withMaxContentLength(10);
         apiRoot.withVersions(Arrays.asList("Version 1", "Version 2"));

@@ -3,29 +3,30 @@ package xor.bcmc.taxii2.resources;
 import com.google.gson.annotations.SerializedName;
 import xor.bcmc.taxii2.Identifiable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Discovery extends TaxiiResource implements Identifiable<String> {
 
-    private String displayName;
+    private String title;
     private String description;
     private String contact;
 
     @SerializedName("default")
     private String defaultApiRoot;
 
-    private List<String> apiRoots;
+    private List<String> apiRoots = new ArrayList<String>();
 
-    public Discovery(String displayName, List<String> apiRoots) {
-        this.displayName = displayName;
+    public Discovery(String title, List<String> apiRoots) {
+        this.title = title;
         this.apiRoots = apiRoots;
     }
 
     public Discovery() {
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getTitle() {
+        return title;
     }
 
     public String getDescription() {
@@ -44,8 +45,8 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
         return apiRoots;
     }
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setDescription(String description) {
@@ -64,8 +65,8 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
         this.apiRoots = apiRoots;
     }
 
-    public Discovery withDisplayName(String displayName) {
-        this.displayName = displayName;
+    public Discovery withTitle(String title) {
+        this.title = title;
         return this;
     }
 
@@ -100,7 +101,7 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
 
         Discovery discovery = (Discovery) o;
 
-        if (!displayName.equals(discovery.displayName)) return false;
+        if (!title.equals(discovery.title)) return false;
         if (description != null ? !description.equals(discovery.description) : discovery.description != null)
             return false;
         if (contact != null ? !contact.equals(discovery.contact) : discovery.contact != null) return false;
@@ -111,7 +112,7 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
 
     @Override
     public int hashCode() {
-        int result = displayName.hashCode();
+        int result = title.hashCode();
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (contact != null ? contact.hashCode() : 0);
         result = 31 * result + (defaultApiRoot != null ? defaultApiRoot.hashCode() : 0);
@@ -120,10 +121,10 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
     }
 
     public String getId() {
-        return getDisplayName();
+        return getTitle();
     }
 
     public void setId(String id) {
-        this.setDisplayName(id);
+        this.setTitle(id);
     }
 }

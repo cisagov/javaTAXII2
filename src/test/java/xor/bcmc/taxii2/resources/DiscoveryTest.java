@@ -12,7 +12,7 @@ class DiscoveryTest {
 
     static {
         discovery = new Discovery();
-        discovery.withDisplayName("Discovery Root 1");
+        discovery.withTitle("Discovery Root 1");
         discovery.withDescription("Discovery Description");
         discovery.withContact("Discovery Contact");
         discovery.withDefaultApiRoot("Default Api Root");
