@@ -1,14 +1,11 @@
 package xor.bcmc.taxii2.resources;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.TypeAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.google.gson.*;
 import xor.bcmc.taxii2.Identifiable;
 
-import java.io.IOException;
+import java.lang.reflect.Type;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,19 +20,23 @@ public class StatusResource implements Identifiable<String> {
 
     /* --------------------------------------------------------------------- */
     private static final Gson GSON = new GsonBuilder()
-            .registerTypeAdapter(ZonedDateTime.class, new TypeAdapter<ZonedDateTime>() {
+            .registerTypeAdapter(ZonedDateTime.class, new JsonDeserializer<ZonedDateTime>() {
                 @Override
-                public void write(JsonWriter out, ZonedDateTime value) throws IOException {
-                    if (value != null)
-                        out.value(value.toString());
+                public ZonedDateTime deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+                    return DateTimeFormatter.ISO_DATE_TIME.parse(json.getAsString(), ZonedDateTime::from);
                 }
-
+            })
+            .registerTypeAdapter(ZonedDateTime.class, new JsonSerializer<ZonedDateTime>() {
                 @Override
-                public ZonedDateTime read(JsonReader in) throws IOException {
-                    return ZonedDateTime.parse(in.nextString());
+                public JsonElement serialize(ZonedDateTime src, Type typeOfSrc, JsonSerializationContext context)
+                {
+                    return new JsonPrimitive(DateTimeFormatter.ISO_DATE_TIME.format(src));
                 }
             })
             .enableComplexMapKeySerialization()
+            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .setDateFormat("YYYY-MM-DD'T'HH:mm:ss[.s+]Z")
+            .setPrettyPrinting()
             .create();
 
     public static StatusResource fromJson(String json) {
@@ -49,7 +50,7 @@ public class StatusResource implements Identifiable<String> {
     private String id;
 
 //    @Field("status")
-    private STATUS status = STATUS.PENDING;
+    private STATUS status;
     //Optional. The datetime of the request that this status resource is monitoring.
     private ZonedDateTime requestTimestamp;
     //The total number of objects that were in the request. For a STIX bundle this would be the number of objects in the bundle.
@@ -281,4 +282,5 @@ public class StatusResource implements Identifiable<String> {
     public String toString () {
         return GSON.toJson(this);
     }
+
 }

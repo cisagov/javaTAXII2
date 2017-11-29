@@ -15,6 +15,7 @@ public abstract class TaxiiResource {
 
     public abstract <T extends TaxiiResource> T fromJson(String json);
 
+    //TODO This should be static. Right now it requires making an instance object that this method will then make another instance of
     public <T extends TaxiiResource> T fromJson(String json, Class<T> type) {
         return JsonHandler.getInstance().fromJson(json, type);
     }
