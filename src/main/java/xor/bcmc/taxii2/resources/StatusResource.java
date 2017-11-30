@@ -1,13 +1,8 @@
 package xor.bcmc.taxii2.resources;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.TypeAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import xor.bcmc.taxii2.Identifiable;
+import xor.bcmc.taxii2.JsonHandler;
 
-import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,27 +14,11 @@ import java.util.List;
  * not it's completed (status) and the status of individual objects within the request
  * (i.e. whether they are still pending, completed and failed, or completed and succeeded).
  */
-public class StatusResource implements Identifiable<String> {
+public class StatusResource extends TaxiiResource implements Identifiable<String> {
 
     /* --------------------------------------------------------------------- */
-    private static final Gson GSON = new GsonBuilder()
-            .registerTypeAdapter(ZonedDateTime.class, new TypeAdapter<ZonedDateTime>() {
-                @Override
-                public void write(JsonWriter out, ZonedDateTime value) throws IOException {
-                    if (value != null)
-                        out.value(value.toString());
-                }
-
-                @Override
-                public ZonedDateTime read(JsonReader in) throws IOException {
-                    return ZonedDateTime.parse(in.nextString());
-                }
-            })
-            .enableComplexMapKeySerialization()
-            .create();
-
     public static StatusResource fromJson(String json) {
-        return GSON.fromJson(json, StatusResource.class);
+        return JsonHandler.getInstance().fromJson(json, StatusResource.class);
     }
     /* --------------------------------------------------------------------- */
 
@@ -275,10 +254,5 @@ public class StatusResource implements Identifiable<String> {
         result = 31 * result + pendingCount;
         result = 31 * result + ((pendings != null && !pendings.isEmpty())? pendings.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString () {
-        return GSON.toJson(this);
     }
 }

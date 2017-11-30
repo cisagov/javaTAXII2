@@ -1,10 +1,11 @@
 package xor.bcmc.taxii2;
 
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
+import com.google.gson.*;
 import xor.bcmc.taxii2.resources.TaxiiResource;
+
+import java.lang.reflect.Type;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class JsonHandler {
 
@@ -17,6 +18,20 @@ public class JsonHandler {
         builder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
         builder.setDateFormat("YYYY-MM-DD'T'HH:mm:ss[.s+]Z");
         builder.setPrettyPrinting();
+        //From: https://github.com/gkopff/gson-javatime-serialisers
+        builder.registerTypeAdapter(ZonedDateTime.class, new JsonDeserializer<ZonedDateTime>() {
+            @Override
+            public ZonedDateTime deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+                return DateTimeFormatter.ISO_DATE_TIME.parse(json.getAsString(), ZonedDateTime::from);
+            }
+        })
+        .registerTypeAdapter(ZonedDateTime.class, new JsonSerializer<ZonedDateTime>() {
+            @Override
+            public JsonElement serialize(ZonedDateTime src, Type typeOfSrc, JsonSerializationContext context)
+            {
+                return new JsonPrimitive(DateTimeFormatter.ISO_DATE_TIME.format(src));
+            }
+        });
         gson = builder.create();
     }
 
