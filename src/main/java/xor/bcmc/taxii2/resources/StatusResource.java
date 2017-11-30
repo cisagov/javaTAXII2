@@ -50,7 +50,7 @@ public class StatusResource implements Identifiable<String> {
     private String id;
 
 //    @Field("status")
-    private STATUS status;
+    private STATUS status = STATUS.PENDING;
     //Optional. The datetime of the request that this status resource is monitoring.
     private ZonedDateTime requestTimestamp;
     //The total number of objects that were in the request. For a STIX bundle this would be the number of objects in the bundle.
@@ -282,5 +282,4 @@ public class StatusResource implements Identifiable<String> {
     public String toString () {
         return GSON.toJson(this);
     }
-
 }
