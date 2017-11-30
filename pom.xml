@@ -42,4 +42,17 @@
         </plugins>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>BCMC-Artifactory-releases</name>
+            <url>http://192.168.3.52:8081/artifactory/libs-snapshot-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>BCMC-Artifactory-snapshots</name>
+            <url>http://192.168.3.52:8081/artifactory/libs-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 </project>
