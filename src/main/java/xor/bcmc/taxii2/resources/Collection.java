@@ -44,11 +44,11 @@ public class Collection extends TaxiiResource implements Identifiable<String> {
         return description;
     }
 
-    public boolean isCanRead() {
+    public boolean canRead() {
         return canRead;
     }
 
-    public boolean isCanWrite() {
+    public boolean canWrite() {
         return canWrite;
     }
 
