@@ -23,7 +23,7 @@ class DiscoveryTest {
     @Test
     void serializeAndDeserialize() {
         String json = discovery.toJson();
-        assertEquals(new Discovery().fromJson(json), discovery);
+        assertEquals(Discovery.fromJson(json), discovery);
     }
 
 }
