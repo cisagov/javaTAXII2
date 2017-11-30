@@ -1,6 +1,7 @@
 package xor.bcmc.taxii2.resources;
 
 import xor.bcmc.taxii2.Identifiable;
+import xor.bcmc.taxii2.JsonHandler;
 
 import java.util.List;
 
@@ -31,6 +32,10 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
     }
 
     public ApiRoot() {
+    }
+
+    public static ApiRoot fromJson(String json) {
+        return JsonHandler.getInstance().fromJson(json, ApiRoot.class);
     }
 
     public String getTitle() {
@@ -83,10 +88,6 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
     public ApiRoot withMaxContentLength(int maxContentLength) {
         this.maxContentLength = maxContentLength;
         return this;
-    }
-
-    public <T extends TaxiiResource> T fromJson(String json) {
-        return (T) super.fromJson(json, this.getClass());
     }
 
     @Override

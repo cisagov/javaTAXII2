@@ -2,6 +2,7 @@ package xor.bcmc.taxii2.resources;
 
 import com.google.gson.annotations.SerializedName;
 import xor.bcmc.taxii2.Identifiable;
+import xor.bcmc.taxii2.JsonHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,10 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
     }
 
     public Discovery() {
+    }
+
+    public static Discovery fromJson(String json) {
+        return JsonHandler.getInstance().fromJson(json, Discovery.class);
     }
 
     public String getTitle() {
@@ -88,10 +93,6 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
     public Discovery withApiRoots(List<String> apiRoots) {
         this.apiRoots = apiRoots;
         return this;
-    }
-
-    public <T extends TaxiiResource> T fromJson(String json) {
-        return (T) super.fromJson(json, this.getClass());
     }
 
     @Override
