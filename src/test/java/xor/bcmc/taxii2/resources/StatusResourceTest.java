@@ -38,14 +38,14 @@ public class StatusResourceTest {
     public void toStringTest() {
         StatusResource status = getFullTestStatus();
 //        System.out.println(status.toString());
-        StatusResource status2 = new StatusResource().fromJson(status.toString());
+        StatusResource status2 = StatusResource.fromJson(status.toString());
 
         assertEquals(status, status2);
     }
 
     @Test
     public void toString_WithNullValues_Test() {
-        StatusResource status = new StatusResource("emptyStatusResource");
+        StatusResource status = new StatusResource("emptyStatusResource"); //Make sure it doesn't throw an exception
 //        System.out.println(status.toString());
     }
 

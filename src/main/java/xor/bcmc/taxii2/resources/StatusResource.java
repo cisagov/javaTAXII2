@@ -1,11 +1,9 @@
 package xor.bcmc.taxii2.resources;
 
-import com.google.gson.*;
 import xor.bcmc.taxii2.Identifiable;
+import xor.bcmc.taxii2.JsonHandler;
 
-import java.lang.reflect.Type;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,31 +14,11 @@ import java.util.List;
  * not it's completed (status) and the status of individual objects within the request
  * (i.e. whether they are still pending, completed and failed, or completed and succeeded).
  */
-public class StatusResource implements Identifiable<String> {
+public class StatusResource extends TaxiiResource implements Identifiable<String> {
 
     /* --------------------------------------------------------------------- */
-    private static final Gson GSON = new GsonBuilder()
-            .registerTypeAdapter(ZonedDateTime.class, new JsonDeserializer<ZonedDateTime>() {
-                @Override
-                public ZonedDateTime deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-                    return DateTimeFormatter.ISO_DATE_TIME.parse(json.getAsString(), ZonedDateTime::from);
-                }
-            })
-            .registerTypeAdapter(ZonedDateTime.class, new JsonSerializer<ZonedDateTime>() {
-                @Override
-                public JsonElement serialize(ZonedDateTime src, Type typeOfSrc, JsonSerializationContext context)
-                {
-                    return new JsonPrimitive(DateTimeFormatter.ISO_DATE_TIME.format(src));
-                }
-            })
-            .enableComplexMapKeySerialization()
-            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-            .setDateFormat("YYYY-MM-DD'T'HH:mm:ss[.s+]Z")
-            .setPrettyPrinting()
-            .create();
-
     public static StatusResource fromJson(String json) {
-        return GSON.fromJson(json, StatusResource.class);
+        return JsonHandler.getInstance().fromJson(json, StatusResource.class);
     }
     /* --------------------------------------------------------------------- */
 
@@ -276,10 +254,5 @@ public class StatusResource implements Identifiable<String> {
         result = 31 * result + pendingCount;
         result = 31 * result + ((pendings != null && !pendings.isEmpty())? pendings.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString () {
-        return GSON.toJson(this);
     }
 }
