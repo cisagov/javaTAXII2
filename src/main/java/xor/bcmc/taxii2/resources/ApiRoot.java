@@ -9,6 +9,7 @@ import java.util.List;
  * <a href="https://www.oasis-open.org/committees/download.php/59353/TAXII2.0Specification-draft3.pdf">ApiRoot Resource</a>
  */
 public class ApiRoot extends TaxiiResource implements Identifiable<String> {
+    public static final String TAXII_VERSION_20 = " taxii-2.0";
 
     private String title;
     private String description;
