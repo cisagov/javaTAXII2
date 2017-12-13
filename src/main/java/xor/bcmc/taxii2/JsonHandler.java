@@ -14,9 +14,11 @@ public class JsonHandler {
 
     private JsonHandler() {
         // Configure TAXII serialization and deserialization
-        GsonBuilder builder = new GsonBuilder();
-        builder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
-        builder.setDateFormat("YYYY-MM-DD'T'HH:mm:ss[.s+]Z");
+        GsonBuilder builder = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .setDateFormat("YYYY-MM-DD'T'HH:mm:ss[.s+]Z")
+                .excludeFieldsWithoutExposeAnnotation();
+
         //From: https://github.com/gkopff/gson-javatime-serialisers
         builder.registerTypeAdapter(ZonedDateTime.class, new JsonDeserializer<ZonedDateTime>() {
             @Override
@@ -31,6 +33,7 @@ public class JsonHandler {
                 return new JsonPrimitive(DateTimeFormatter.ISO_DATE_TIME.format(src));
             }
         });
+
         gson = builder.create();
     }
 
