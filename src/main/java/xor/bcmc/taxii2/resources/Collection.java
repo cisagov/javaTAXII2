@@ -1,5 +1,6 @@
 package xor.bcmc.taxii2.resources;
 
+import com.google.gson.annotations.Expose;
 import xor.bcmc.taxii2.Identifiable;
 import xor.bcmc.taxii2.JsonHandler;
 
@@ -7,11 +8,22 @@ import java.util.List;
 
 public class Collection extends TaxiiResource implements Identifiable<String> {
 
+    @Expose
     private String id;
+
+    @Expose
     private String title;
+
+    @Expose
     private String description;
+
+    @Expose
     private boolean canRead = false;
+
+    @Expose
     private boolean canWrite = false;
+
+    @Expose
     private List<String> mediaTypes;
 
     public Collection() {

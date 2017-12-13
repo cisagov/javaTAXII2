@@ -1,5 +1,6 @@
 package xor.bcmc.taxii2.resources;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import xor.bcmc.taxii2.Identifiable;
 import xor.bcmc.taxii2.JsonHandler;
@@ -9,13 +10,20 @@ import java.util.List;
 
 public class Discovery extends TaxiiResource implements Identifiable<String> {
 
+    @Expose
     private String title;
+
+    @Expose
     private String description;
+
+    @Expose
     private String contact;
 
+    @Expose
     @SerializedName("default")
     private String defaultApiRoot;
 
+    @Expose
     private List<String> apiRoots = new ArrayList<String>();
 
     public Discovery(String title, List<String> apiRoots) {
