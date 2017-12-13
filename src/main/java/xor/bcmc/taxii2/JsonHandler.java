@@ -17,7 +17,6 @@ public class JsonHandler {
         GsonBuilder builder = new GsonBuilder();
         builder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
         builder.setDateFormat("YYYY-MM-DD'T'HH:mm:ss[.s+]Z");
-        builder.setPrettyPrinting();
         //From: https://github.com/gkopff/gson-javatime-serialisers
         builder.registerTypeAdapter(ZonedDateTime.class, new JsonDeserializer<ZonedDateTime>() {
             @Override
