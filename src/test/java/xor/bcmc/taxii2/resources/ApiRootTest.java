@@ -16,12 +16,14 @@ class ApiRootTest {
         apiRoot.withDescription("Api Description");
         apiRoot.withMaxContentLength(10);
         apiRoot.withVersions(Arrays.asList("Version 1", "Version 2"));
-        System.out.println(apiRoot.toJson());
     }
 
     @Test
     void serializeAndDeserialize() {
         String json = apiRoot.toJson();
         assertEquals(ApiRoot.fromJson(json), apiRoot);
+
+        String toString = apiRoot.toString();
+        assertEquals(ApiRoot.fromJson(toString), apiRoot);
     }
 }

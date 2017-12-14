@@ -252,26 +252,17 @@ public class StatusResource extends TaxiiResource implements Identifiable<String
         if (failureCount != that.failureCount) return false;
         if (pendingCount != that.pendingCount) return false;
         if (!id.equals(that.id)) return false;
-        if (status != that.status) return false;
-        if (requestTimestamp != null ? !requestTimestamp.equals(that.requestTimestamp) : that.requestTimestamp != null)
-            return false;
-        if ((successes != null && !successes.isEmpty()) ? !successes.equals(that.successes) : (that.successes != null && !that.successes.isEmpty())) return false;
-        if ((failures != null && !failures.isEmpty()) ? !failures.equals(that.failures) : (that.failures != null && !that.failures.isEmpty())) return false;
-        return (pendings != null && !pendings.isEmpty()) ? pendings.equals(that.pendings) : (that.pendings == null || that.pendings.isEmpty());
+        return status == that.status;
     }
 
     @Override
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + status.hashCode();
-        result = 31 * result + (requestTimestamp != null ? requestTimestamp.hashCode() : 0);
         result = 31 * result + totalCount;
         result = 31 * result + successCount;
-        result = 31 * result + ((successes != null && !successes.isEmpty())? successes.hashCode() : 0);
         result = 31 * result + failureCount;
-        result = 31 * result + ((failures != null && !failures.isEmpty())? failures.hashCode() : 0);
         result = 31 * result + pendingCount;
-        result = 31 * result + ((pendings != null && !pendings.isEmpty())? pendings.hashCode() : 0);
         return result;
     }
 }

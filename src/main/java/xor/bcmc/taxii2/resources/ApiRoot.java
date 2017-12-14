@@ -10,7 +10,7 @@ import java.util.List;
  * <a href="https://www.oasis-open.org/committees/download.php/59353/TAXII2.0Specification-draft3.pdf">ApiRoot Resource</a>
  */
 public class ApiRoot extends TaxiiResource implements Identifiable<String> {
-    public static final String TAXII_VERSION_20 = " taxii-2.0";
+    public static final String TAXII_VERSION_20 = "taxii-2.0";
 
     @Expose
     private String title;
@@ -22,7 +22,7 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
     private List<String> versions;
 
     @Expose
-    private int max_content_length = 0;
+    private int maxContentLength = 0;
 
     // TODO TAXII 2.1
     // private List<Channel> channels;
@@ -60,8 +60,8 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
         return versions;
     }
 
-    public int getMax_content_length() {
-        return max_content_length;
+    public int getMaxContentLength() {
+        return maxContentLength;
     }
 
     public void setTitle(String title) {
@@ -76,8 +76,8 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
         this.versions = versions;
     }
 
-    public void setMax_content_length(int max_content_length) {
-        this.max_content_length = max_content_length;
+    public void setMax_content_length(int maxContentLength) {
+        this.maxContentLength = maxContentLength;
     }
 
     public ApiRoot withTitle(String title) {
@@ -96,7 +96,7 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
     }
 
     public ApiRoot withMaxContentLength(int maxContentLength) {
-        this.max_content_length = maxContentLength;
+        this.maxContentLength = maxContentLength;
         return this;
     }
 
@@ -107,7 +107,7 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
 
         ApiRoot apiRoot = (ApiRoot) o;
 
-        if (max_content_length != apiRoot.max_content_length) return false;
+        if (maxContentLength != apiRoot.maxContentLength) return false;
         if (!title.equals(apiRoot.title)) return false;
         if (description != null ? !description.equals(apiRoot.description) : apiRoot.description != null) return false;
         return versions.equals(apiRoot.versions);
@@ -118,7 +118,7 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
         int result = title.hashCode();
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + versions.hashCode();
-        result = 31 * result + max_content_length;
+        result = 31 * result + maxContentLength;
         return result;
     }
 
