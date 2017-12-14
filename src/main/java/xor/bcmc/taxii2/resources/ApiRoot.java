@@ -76,7 +76,7 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
         this.versions = versions;
     }
 
-    public void setMax_content_length(int maxContentLength) {
+    public void setMaxContentLength(int maxContentLength) {
         this.maxContentLength = maxContentLength;
     }
 
