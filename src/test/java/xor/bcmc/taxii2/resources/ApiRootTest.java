@@ -21,9 +21,11 @@ class ApiRootTest {
     @Test
     void serializeAndDeserialize() {
         String json = apiRoot.toJson();
+        System.out.println(json);
         assertEquals(ApiRoot.fromJson(json), apiRoot);
 
         String toString = apiRoot.toString();
+        System.out.println(toString);
         assertEquals(ApiRoot.fromJson(toString), apiRoot);
     }
 }
