@@ -8,8 +8,11 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StatusResourceTest {
+
+    private static String FAIL_MESSAGE = "Publishing failed because this is just a test.";
 
     private StatusResource getTestStatus() {
         StatusResource status = new StatusResource(UUID.randomUUID().toString(),
@@ -26,7 +29,7 @@ public class StatusResourceTest {
         successes.add("stixID-1234");
         status.setSuccesses(successes);
         List<StatusFailure> statusFailures = new ArrayList<>();
-        statusFailures.add(new StatusFailure("stixID-1233", "Publishing failed because this is just a test."));
+        statusFailures.add(new StatusFailure("stixID-1233", FAIL_MESSAGE));
         status.setFailures(statusFailures);
         List<String> pendings = new ArrayList<>();
         pendings.add("stixID-1235");
@@ -38,7 +41,9 @@ public class StatusResourceTest {
     public void toStringTest() {
         StatusResource status = getFullTestStatus();
 //        System.out.println(status.toString());
-        StatusResource status2 = StatusResource.fromJson(status.toString());
+        String statusJson = status.toString();
+        assertTrue(statusJson.contains(FAIL_MESSAGE));
+        StatusResource status2 = StatusResource.fromJson(statusJson);
 
         assertEquals(status, status2);
     }
@@ -54,7 +59,7 @@ public class StatusResourceTest {
         StatusResource original = getFullTestStatus();
         String statusJSON = original.toString();
         StatusResource status = StatusResource.fromJson(statusJSON);
-
+//        System.out.println(status.toString());
         assertEquals(original, status);
     }
 
