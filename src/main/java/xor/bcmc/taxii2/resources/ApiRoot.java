@@ -12,6 +12,8 @@ import java.util.List;
 public class ApiRoot extends TaxiiResource implements Identifiable<String> {
     public static final String TAXII_VERSION_20 = "taxii-2.0";
 
+    private String id;
+
     @Expose
     private String title;
 
@@ -123,11 +125,11 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
     }
 
     public String getId() {
-        return this.getTitle();
+        return this.id;
     }
 
     public void setId(String id) {
-        this.setTitle(id);
+        this.id = id;
     }
 
 }
