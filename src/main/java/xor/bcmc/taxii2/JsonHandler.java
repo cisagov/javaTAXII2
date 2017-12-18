@@ -37,6 +37,10 @@ public class JsonHandler {
         gson = builder.create();
     }
 
+    public Gson getGson() {
+        return gson;
+    }
+
     public static JsonHandler getInstance() {
         if (instance == null) {
             synchronized (JsonHandler.class) {
