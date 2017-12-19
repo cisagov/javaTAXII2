@@ -132,4 +132,9 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
         this.id = id;
     }
 
+    public ApiRoot withId(String id) {
+        this.id = id;
+        return this;
+    }
+
 }
