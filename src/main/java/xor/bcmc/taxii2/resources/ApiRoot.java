@@ -5,6 +5,7 @@ import xor.bcmc.taxii2.Identifiable;
 import xor.bcmc.taxii2.JsonHandler;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <a href="https://www.oasis-open.org/committees/download.php/59353/TAXII2.0Specification-draft3.pdf">ApiRoot Resource</a>
@@ -106,22 +107,18 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ApiRoot apiRoot = (ApiRoot) o;
-
-        if (maxContentLength != apiRoot.maxContentLength) return false;
-        if (!title.equals(apiRoot.title)) return false;
-        if (description != null ? !description.equals(apiRoot.description) : apiRoot.description != null) return false;
-        return versions.equals(apiRoot.versions);
+        return maxContentLength == apiRoot.maxContentLength &&
+                Objects.equals(id, apiRoot.id) &&
+                Objects.equals(title, apiRoot.title) &&
+                Objects.equals(description, apiRoot.description) &&
+                Objects.equals(versions, apiRoot.versions);
     }
 
     @Override
     public int hashCode() {
-        int result = title.hashCode();
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + versions.hashCode();
-        result = 31 * result + maxContentLength;
-        return result;
+
+        return Objects.hash(id, title, description, versions, maxContentLength);
     }
 
     public String getId() {

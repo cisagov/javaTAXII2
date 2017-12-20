@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ApiRootTest {
 
@@ -27,5 +27,13 @@ class ApiRootTest {
         String toString = apiRoot.toString();
         System.out.println(toString);
         assertEquals(ApiRoot.fromJson(toString), apiRoot);
+    }
+
+    @Test
+    void equivalience() {
+        String json = "{\"title\":\"Api root 1 title\",\"description\":\"Api root 1 description\",\"versions\":[\"taxii-2.0\",\"taxii-2.1\"],\"max_content_length\":50}";
+        ApiRoot apiRoot1 = ApiRoot.fromJson(json);
+        ApiRoot apiRoot2 = ApiRoot.fromJson(json);
+        assertEquals(apiRoot1, apiRoot2);
     }
 }
