@@ -1,6 +1,6 @@
 package xor.bcmc.taxii2.resources;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 public class StatusResourceTest {
 
