@@ -2,7 +2,9 @@ package xor.bcmc.taxii2.resources;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.ZonedDateTime;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,7 +26,7 @@ public class StatusResourceTest {
 
     private StatusResource getFullTestStatus() {
         StatusResource status = getTestStatus();
-        status.setRequestTimestamp(ZonedDateTime.now());
+        status.setRequestTimestamp(Timestamp.valueOf(LocalDateTime.now(ZoneOffset.UTC)));
         List<String> successes = new ArrayList<>();
         successes.add("stixID-1234");
         status.setSuccesses(successes);
@@ -51,7 +53,7 @@ public class StatusResourceTest {
     @Test
     public void toString_WithNullValues_Test() {
         StatusResource status = new StatusResource("emptyStatusResource"); //Make sure it doesn't throw an exception
-//        System.out.println(status.toString());
+        System.out.println(status.toString());
     }
 
     @Test
