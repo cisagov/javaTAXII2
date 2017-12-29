@@ -4,6 +4,7 @@ import com.google.gson.*;
 import xor.bcmc.taxii2.resources.TaxiiResource;
 
 import java.lang.reflect.Type;
+import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -16,23 +17,37 @@ public class JsonHandler {
         // Configure TAXII serialization and deserialization
         GsonBuilder builder = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .setDateFormat("YYYY-MM-DD'T'HH:mm:ss[.s+]Z")
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                 .excludeFieldsWithoutExposeAnnotation();
 
         //From: https://github.com/gkopff/gson-javatime-serialisers
-        builder.registerTypeAdapter(ZonedDateTime.class, new JsonDeserializer<ZonedDateTime>() {
-            @Override
-            public ZonedDateTime deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-                return DateTimeFormatter.ISO_DATE_TIME.parse(json.getAsString(), ZonedDateTime::from);
-            }
-        })
-        .registerTypeAdapter(ZonedDateTime.class, new JsonSerializer<ZonedDateTime>() {
-            @Override
-            public JsonElement serialize(ZonedDateTime src, Type typeOfSrc, JsonSerializationContext context)
-            {
-                return new JsonPrimitive(DateTimeFormatter.ISO_DATE_TIME.format(src));
-            }
-        });
+        builder
+            .registerTypeAdapter(ZonedDateTime.class, new JsonDeserializer<ZonedDateTime>() {
+                @Override
+                public ZonedDateTime deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+                    return DateTimeFormatter.ISO_DATE_TIME.parse(json.getAsString(), ZonedDateTime::from);
+                }
+            })
+            .registerTypeAdapter(ZonedDateTime.class, new JsonSerializer<ZonedDateTime>() {
+                @Override
+                public JsonElement serialize(ZonedDateTime src, Type typeOfSrc, JsonSerializationContext context)
+                {
+                    return new JsonPrimitive(DateTimeFormatter.ISO_DATE_TIME.format(src));
+                }
+            })
+
+            .registerTypeAdapter(Timestamp.class, new JsonDeserializer<Timestamp>() {
+                @Override
+                public Timestamp deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+                    return TimestampUtil.fromString(json.getAsString());
+                }
+            })
+            .registerTypeAdapter(Timestamp.class, new JsonSerializer<Timestamp>() {
+                @Override
+                public JsonElement serialize(Timestamp src, Type typeOfSrc, JsonSerializationContext context) {
+                    return new JsonPrimitive(TimestampUtil.toString(src));
+                }
+            });
 
         gson = builder.create();
     }

@@ -1,12 +1,12 @@
 package xor.bcmc.taxii2.resources;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import xor.bcmc.taxii2.JsonHandler;
 
 import java.util.Arrays;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 class CollectionTest {
 

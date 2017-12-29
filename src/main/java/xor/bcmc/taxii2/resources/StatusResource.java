@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import xor.bcmc.taxii2.Identifiable;
 import xor.bcmc.taxii2.JsonHandler;
 
-import java.time.ZonedDateTime;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class StatusResource extends TaxiiResource implements Identifiable<String
 
     //Optional. The datetime of the request that this status resource is monitoring.
     @Expose
-    private ZonedDateTime requestTimestamp;
+    private Timestamp requestTimestamp;
 
     //The total number of objects that were in the request. For a STIX bundle this would be the number of objects in the bundle.
     @Expose
@@ -112,15 +112,15 @@ public class StatusResource extends TaxiiResource implements Identifiable<String
         return this;
     }
 
-    public ZonedDateTime getRequestTimestamp() {
+    public Timestamp getRequestTimestamp() {
         return requestTimestamp;
     }
 
-    public void setRequestTimestamp(ZonedDateTime requestTimestamp) {
+    public void setRequestTimestamp(Timestamp requestTimestamp) {
         this.requestTimestamp = requestTimestamp;
     }
 
-    public StatusResource withRequestTimestamp(ZonedDateTime requestTimestamp) {
+    public StatusResource withRequestTimestamp(Timestamp requestTimestamp) {
         this.requestTimestamp = requestTimestamp;
         return this;
     }
