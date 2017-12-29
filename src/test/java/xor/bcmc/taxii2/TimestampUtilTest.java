@@ -3,6 +3,7 @@ package xor.bcmc.taxii2;
 import org.junit.Test;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -60,6 +61,17 @@ public class TimestampUtilTest {
         String timestampStr_ = TimestampUtil.toString(timestamp);
         assertThat(timestampStr_, equalTo("2016-01-01T01:01:01.000100000Z"));
     }
+
+    @Test
+    public void test_now () {
+        Timestamp before = Timestamp.from(Instant.now());
+        Timestamp timestamp = TimestampUtil.now();
+        Timestamp after = Timestamp.from(Instant.now());
+
+        assert timestamp.after(before) || timestamp.equals(before);
+        assert timestamp.before(after) || timestamp.equals(after);
+    }
+
 
     private static void assertDate (Timestamp timestamp,
                                     int year, int month, int day,

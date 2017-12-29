@@ -59,6 +59,11 @@ public class TimestampUtil {
         return sb.toString();
     }
 
+    public static Timestamp now () {
+        Timestamp timestamp = Timestamp.from(Instant.now());
+        return timestamp;
+    }
+
     private static ZonedDateTime parseStandard (String timestampStr) {
         try {
             return ZonedDateTime.from(STANDARD_FORMATTER.parse(timestampStr));

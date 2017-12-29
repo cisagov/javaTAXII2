@@ -1,10 +1,10 @@
 package xor.bcmc.taxii2;
 
-import com.google.gson.*;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.annotations.Expose;
 import org.junit.Test;
 
-import java.lang.reflect.Type;
 import java.sql.Timestamp;
 
 import static org.hamcrest.MatcherAssert.assertThat;
