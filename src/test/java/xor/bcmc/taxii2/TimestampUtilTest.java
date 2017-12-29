@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -41,17 +43,37 @@ public class TimestampUtilTest {
         }
     }
 
+    @Test
+    public void test_toString1 () {
+        String timestampStr = "2016-01-01T01:01:01Z";
+        Timestamp timestamp = TimestampUtil.fromString(timestampStr);
+
+        String timestampStr_ = TimestampUtil.toString(timestamp);
+        assertThat(timestampStr_, equalTo("2016-01-01T01:01:01.000000000Z"));
+    }
+
+    @Test
+    public void test_toString2 () {
+        String timestampStr = "2016-01-01T01:01:01.0001Z";
+        Timestamp timestamp = TimestampUtil.fromString(timestampStr);
+
+        String timestampStr_ = TimestampUtil.toString(timestamp);
+        assertThat(timestampStr_, equalTo("2016-01-01T01:01:01.000100000Z"));
+    }
+
     private static void assertDate (Timestamp timestamp,
                                     int year, int month, int day,
                                     int hour, int min, int second,
                                     int nano) {
         LocalDateTime time = timestamp.toLocalDateTime();
-        assertThat(time.getYear(), equalTo(year));
-        assertThat(time.getMonthValue(), equalTo(month));
-        assertThat(time.getDayOfMonth(), equalTo(day));
-        assertThat(time.getHour(), equalTo(hour));
-        assertThat(time.getMinute(), equalTo(min));
-        assertThat(time.getSecond(), equalTo(second));
-        assertThat(time.getNano(), equalTo(nano));
+        ZonedDateTime time_zoned = time.atZone(ZoneId.of("UTC"));
+
+        assertThat(time_zoned.getYear(), equalTo(year));
+        assertThat(time_zoned.getMonthValue(), equalTo(month));
+        assertThat(time_zoned.getDayOfMonth(), equalTo(day));
+        assertThat(time_zoned.getHour(), equalTo(hour));
+        assertThat(time_zoned.getMinute(), equalTo(min));
+        assertThat(time_zoned.getSecond(), equalTo(second));
+        assertThat(time_zoned.getNano(), equalTo(nano));
     }
 }
