@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 
-class CollectionTest {
+public class CollectionTest {
 
     private static Collection collection;
 
@@ -24,7 +24,7 @@ class CollectionTest {
     }
 
     @Test
-    void serializeAndDeserialize() {
+    public void serializeAndDeserialize() {
         String json = collection.toJson();
         assertEquals(Collection.fromJson(json), collection);
     }

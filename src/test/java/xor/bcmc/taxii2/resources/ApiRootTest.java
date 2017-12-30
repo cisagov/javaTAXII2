@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
-class ApiRootTest {
+public class ApiRootTest {
 
     private static ApiRoot apiRoot;
 
@@ -19,7 +19,7 @@ class ApiRootTest {
     }
 
     @Test
-    void serializeAndDeserialize() {
+    public void serializeAndDeserialize() {
         String json = apiRoot.toJson();
         System.out.println(json);
         assertEquals(ApiRoot.fromJson(json), apiRoot);
@@ -30,7 +30,7 @@ class ApiRootTest {
     }
 
     @Test
-    void equivalience() {
+    public void equivalience() {
         String json = "{\"title\":\"Api root 1 title\",\"description\":\"Api root 1 description\",\"versions\":[\"taxii-2.0\",\"taxii-2.1\"],\"max_content_length\":50}";
         ApiRoot apiRoot1 = ApiRoot.fromJson(json);
         ApiRoot apiRoot2 = ApiRoot.fromJson(json);

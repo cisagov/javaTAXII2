@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
-class DiscoveryTest {
+public class DiscoveryTest {
 
     private static Discovery discovery;
 
@@ -21,7 +21,7 @@ class DiscoveryTest {
     }
 
     @Test
-    void serializeAndDeserialize() {
+    public void serializeAndDeserialize() {
         String json = discovery.toJson();
         assertEquals(Discovery.fromJson(json), discovery);
     }
