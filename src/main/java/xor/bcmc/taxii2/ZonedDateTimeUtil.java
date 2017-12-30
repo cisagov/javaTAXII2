@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
 public class ZonedDateTimeUtil {
-    public static final int MAX_PRECISION = 6;
+    public static final int MAX_PRECISION = 9;
     private static final String STANDARD_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
     private static final DateTimeFormatter STANDARD_FORMATTER = new DateTimeFormatterBuilder()
@@ -29,6 +29,13 @@ public class ZonedDateTimeUtil {
 
     }
 
+    /**
+     *
+     * TODO - optimize - we shouldn't have to loop in parseFractionalSeconds()
+     *
+     * @param timestampStr
+     * @return
+     */
     public static ZonedDateTime fromString(String timestampStr) {
         ZonedDateTime date = parseStandard(timestampStr);
         if (date != null) {
@@ -72,7 +79,7 @@ public class ZonedDateTimeUtil {
     }
 
     private static ZonedDateTime parseFractionalSeconds (String timestampStr) {
-        for (int i=0; i < MAX_PRECISION; i++) {
+        for (int i = MAX_PRECISION-1; i >= 0; i--) {
             DateTimeFormatter formatter = FRACTIONAL_FORMATTERS[i];
             try {
                 return ZonedDateTime.from(formatter.parse(timestampStr));

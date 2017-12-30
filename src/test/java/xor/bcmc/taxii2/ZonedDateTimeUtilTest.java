@@ -62,6 +62,15 @@ public class ZonedDateTimeUtilTest {
         assertThat(timestampStr_, equalTo("2016-01-01T01:01:01.000100000Z"));
     }
 
+    @Test
+    public void test_toString3 () {
+        String timestampStr = "2016-01-01T01:01:01.000000001Z";
+        ZonedDateTime timestamp = ZonedDateTimeUtil.fromString(timestampStr);
+
+        String timestampStr_ = ZonedDateTimeUtil.toString(timestamp);
+        assertThat(timestampStr_, equalTo("2016-01-01T01:01:01.000000001Z"));
+    }
+
     private static void assertDate (ZonedDateTime timestamp,
                                     int year, int month, int day,
                                     int hour, int min, int second,
