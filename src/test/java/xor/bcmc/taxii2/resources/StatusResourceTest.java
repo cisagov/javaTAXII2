@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -26,7 +27,7 @@ public class StatusResourceTest {
 
     private StatusResource getFullTestStatus() {
         StatusResource status = getTestStatus();
-        status.setRequestTimestamp(Timestamp.valueOf(LocalDateTime.now(ZoneOffset.UTC)));
+        status.setRequestTimestamp(ZonedDateTime.now());
         List<String> successes = new ArrayList<>();
         successes.add("stixID-1234");
         status.setSuccesses(successes);

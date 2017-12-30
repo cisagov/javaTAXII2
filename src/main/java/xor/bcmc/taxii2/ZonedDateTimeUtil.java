@@ -1,15 +1,11 @@
 package xor.bcmc.taxii2;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.util.Date;
 
-public class TimestampUtil {
+public class ZonedDateTimeUtil {
     public static final int MAX_PRECISION = 6;
     private static final String STANDARD_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
@@ -33,35 +29,38 @@ public class TimestampUtil {
 
     }
 
-    public static Timestamp fromString(String timestampStr) {
+    public static ZonedDateTime fromString(String timestampStr) {
         ZonedDateTime date = parseStandard(timestampStr);
         if (date != null) {
-            return Timestamp.valueOf(date.toLocalDateTime());
+            return date;
         }
 
         date = parseFractionalSeconds(timestampStr);
         if (date != null) {
-            return Timestamp.valueOf(date.toLocalDateTime());
+            return date;
         }
 
         return null;
     }
 
-    public static String toString (Timestamp timestamp) {
-        String[] timestampParts = timestamp.toString().split(" ");
-        String YMD_part = timestampParts[0];
-        String[] hmsn_parts = timestampParts[1].split("\\.");
-        String HMS_part = hmsn_parts[0];
-        String N_part = String.format("%0$-9s", hmsn_parts[1]).replace(" ", "0");
+    public static String toString (ZonedDateTime dateTime) {
+        String timestampStr = dateTime.toString();
+        String YMD_T_HMSN = timestampStr.split("Z")[0];
+        String[] parts = YMD_T_HMSN.split("\\.");
+        String YMD_T_HMS = parts[0];
 
         StringBuilder sb = new StringBuilder()
-                .append(YMD_part).append("T").append(HMS_part).append(".").append(N_part).append("Z");
-        return sb.toString();
-    }
+                .append(YMD_T_HMS)
+                .append(".");
 
-    public static Timestamp now () {
-        Timestamp timestamp = Timestamp.from(Instant.now());
-        return timestamp;
+        if (parts.length > 1) {
+            sb.append(String.format("%0$-9s", parts[1]).replace(" ", "0"));
+        } else {
+            sb.append(String.format("%0$-9s", "").replace(" ", "0"));
+        }
+
+        sb.append("Z");
+        return sb.toString();
     }
 
     private static ZonedDateTime parseStandard (String timestampStr) {
