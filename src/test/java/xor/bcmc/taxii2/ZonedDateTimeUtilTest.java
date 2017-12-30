@@ -2,8 +2,6 @@ package xor.bcmc.taxii2;
 
 import org.junit.Test;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -69,6 +67,26 @@ public class ZonedDateTimeUtilTest {
 
         String timestampStr_ = ZonedDateTimeUtil.toString(timestamp);
         assertThat(timestampStr_, equalTo("2016-01-01T01:01:01.000000001Z"));
+    }
+
+    @Test
+    public void test_toString_missing_seconds () {
+        ZonedDateTime date = ZonedDateTime.of(
+                LocalDateTime.of(2016, 01, 01, 0, 0, 0, 0),
+                ZoneId.of("UTC"));
+
+        String timestampStr_ = ZonedDateTimeUtil.toString(date);
+        assertThat(timestampStr_, equalTo("2016-01-01T00:00:00.000000000Z"));
+    }
+
+    @Test
+    public void test_toString_zone () {
+        ZonedDateTime date = ZonedDateTime.of(
+                LocalDateTime.of(2016, 01, 01, 0, 0, 0, 0),
+                ZoneId.of("UTC-8"));
+
+        String timestampStr_ = ZonedDateTimeUtil.toString(date);
+        assertThat(timestampStr_, equalTo("2016-01-01T08:00:00.000000000Z"));
     }
 
     private static void assertDate (ZonedDateTime timestamp,

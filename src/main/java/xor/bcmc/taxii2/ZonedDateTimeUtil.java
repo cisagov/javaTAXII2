@@ -51,10 +51,14 @@ public class ZonedDateTimeUtil {
     }
 
     public static String toString (ZonedDateTime dateTime) {
-        String timestampStr = dateTime.toString();
+        String timestampStr = dateTime.withZoneSameInstant(ZoneId.of("UTC")).toString();
         String YMD_T_HMSN = timestampStr.split("Z")[0];
         String[] parts = YMD_T_HMSN.split("\\.");
         String YMD_T_HMS = parts[0];
+
+        if (YMD_T_HMS.length() < 19) {
+            YMD_T_HMS += ":00";
+        }
 
         StringBuilder sb = new StringBuilder()
                 .append(YMD_T_HMS)
