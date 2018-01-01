@@ -16,26 +16,26 @@ public class JsonHandlerTest {
     @Test
     public void test1 () {
         String timestampStr = "2016-01-01T01:01:01Z";
-        ZonedDateTime timestamp = ZonedDateTimeUtil.fromString(timestampStr);
+        ZonedDateTime timestamp = ZonedDateTime.parse(timestampStr);
 
         TimestampJson timestampJson = new TimestampJson(timestamp);
         JsonHandler jsonHandler = JsonHandler.getInstance();
 
         JsonObject timestampJsonObject = new JsonParser().parse(jsonHandler.toJson(timestampJson)).getAsJsonObject();
 
-        assertThat(timestampJsonObject.get("time").getAsString(), equalTo("2016-01-01T01:01:01.000000000Z"));
+        assertThat(timestampJsonObject.get("time").getAsString(), equalTo("2016-01-01T01:01:01Z"));
     }
 
     @Test
     public void test2 () {
         String timestampStr = "2016-01-01T01:01:01.000001Z";
-        ZonedDateTime timestamp = ZonedDateTimeUtil.fromString(timestampStr);
+        ZonedDateTime timestamp = ZonedDateTime.parse(timestampStr);
 
         TimestampJson timestampJson = new TimestampJson(timestamp);
 
         JsonObject timestampJsonObject = new JsonParser().parse(JsonHandler.getInstance().toJson(timestampJson)).getAsJsonObject();
 
-        assertThat(timestampJsonObject.get("time").getAsString(), equalTo("2016-01-01T01:01:01.000001000Z"));
+        assertThat(timestampJsonObject.get("time").getAsString(), equalTo("2016-01-01T01:01:01.000001Z"));
     }
 
     class TimestampJson {
