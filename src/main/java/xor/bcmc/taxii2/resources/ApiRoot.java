@@ -1,6 +1,7 @@
 package xor.bcmc.taxii2.resources;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import xor.bcmc.taxii2.Identifiable;
 import xor.bcmc.taxii2.JsonHandler;
 
@@ -11,8 +12,8 @@ import java.util.Objects;
  * <a href="https://www.oasis-open.org/committees/download.php/59353/TAXII2.0Specification-draft3.pdf">ApiRoot Resource</a>
  */
 public class ApiRoot extends TaxiiResource implements Identifiable<String> {
-    public static final String TAXII_VERSION_20 = "taxii-2.0";
 
+    @Expose(serialize = false)
     private String id;
 
     @Expose
@@ -25,7 +26,7 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
     private List<String> versions;
 
     @Expose
-    private int maxContentLength = 0;
+    private int maxContentLength;
 
     // TODO TAXII 2.1
     // private List<Channel> channels;
@@ -117,7 +118,6 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id, title, description, versions, maxContentLength);
     }
 

@@ -1,6 +1,7 @@
 package xor.bcmc.taxii2.resources;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import xor.bcmc.taxii2.Identifiable;
 import xor.bcmc.taxii2.JsonHandler;
 
@@ -18,9 +19,11 @@ public class Collection extends TaxiiResource implements Identifiable<String> {
     private String description;
 
     @Expose
+    @SerializedName("can_read")
     private boolean canRead = false;
 
     @Expose
+    @SerializedName("can_write")
     private boolean canWrite = false;
 
     @Expose
@@ -61,6 +64,22 @@ public class Collection extends TaxiiResource implements Identifiable<String> {
     }
 
     public boolean canWrite() {
+        return canWrite;
+    }
+
+    public boolean isCanRead() {
+        return canRead;
+    }
+
+    public boolean isCanWrite() {
+        return canWrite;
+    }
+
+    public boolean getCanRead() {
+        return canRead;
+    }
+
+    public boolean getCanWrite() {
         return canWrite;
     }
 
