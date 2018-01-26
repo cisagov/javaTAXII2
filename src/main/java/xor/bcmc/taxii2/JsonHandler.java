@@ -6,6 +6,7 @@ import xor.bcmc.taxii2.resources.TaxiiResource;
 import java.lang.reflect.Type;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Date;
 
 public class JsonHandler {
 
@@ -31,6 +32,20 @@ public class JsonHandler {
                 @Override
                 public JsonElement serialize(ZonedDateTime src, Type typeOfSrc, JsonSerializationContext context) {
                     ZonedDateTime date = src.withZoneSameInstant(ZoneId.of("Z"));
+                    return new JsonPrimitive(date.toString());
+                }
+            })
+            .registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+                @Override
+                public Date deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+                    ZonedDateTime date = ZonedDateTime.parse(json.getAsString());
+                    return Date.from(date.toInstant());
+                }
+            })
+            .registerTypeAdapter(Date.class, new JsonSerializer<Date>() {
+                @Override
+                public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
+                    ZonedDateTime date = ZonedDateTime.ofInstant(src.toInstant(), ZoneId.of("Z"));
                     return new JsonPrimitive(date.toString());
                 }
             });
