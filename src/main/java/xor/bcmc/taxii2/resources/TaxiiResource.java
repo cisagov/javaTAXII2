@@ -3,7 +3,9 @@ package xor.bcmc.taxii2.resources;
 import com.google.gson.JsonElement;
 import xor.bcmc.taxii2.JsonHandler;
 
-public abstract class TaxiiResource {
+import java.io.Serializable;
+
+public abstract class TaxiiResource implements Serializable {
 
     public String toJson() {
         return JsonHandler.getInstance().toJson(this);
