@@ -4,7 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import xor.bcmc.taxii2.Identifiable;
 import xor.bcmc.taxii2.JsonHandler;
+import xor.bcmc.taxii2.validation.Errors;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Collection extends TaxiiResource implements Identifiable<String> {
@@ -161,5 +163,18 @@ public class Collection extends TaxiiResource implements Identifiable<String> {
         result = 31 * result + (canWrite ? 1 : 0);
         result = 31 * result + (mediaTypes != null ? mediaTypes.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public Errors validate() {
+        Errors errors = new Errors();
+        errors.rejectIfNullOrEmpty("id", this.id);
+        errors.rejectIfNullOrEmpty("title", this.title);
+        return errors;
+    }
+
+    @Override
+    public boolean isValid() {
+        return validate().isEmpty();
     }
 }

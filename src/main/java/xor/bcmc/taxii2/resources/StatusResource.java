@@ -3,6 +3,7 @@ package xor.bcmc.taxii2.resources;
 import com.google.gson.annotations.Expose;
 import xor.bcmc.taxii2.Identifiable;
 import xor.bcmc.taxii2.JsonHandler;
+import xor.bcmc.taxii2.validation.Errors;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -24,14 +25,14 @@ public class StatusResource extends TaxiiResource implements Identifiable<String
     /* --------------------------------------------------------------------- */
 
 
-    public enum STATUS { PENDING, COMPLETED }
+    public enum StatusEnum { PENDING, COMPLETED }
 
     @Expose
     private String id;
 
 //    @Field("status")
     @Expose
-    private STATUS status = STATUS.PENDING;
+    private StatusEnum status = StatusEnum.PENDING;
 
     //Optional. The datetime of the request that this status resource is monitoring.
     @Expose
@@ -77,7 +78,7 @@ public class StatusResource extends TaxiiResource implements Identifiable<String
     /**
      * Constructor with only the required TAXII 2.0 fields.
      */
-    public StatusResource(String id, STATUS status, int totalCount, int successCount, int failureCount, int pendingCount) {
+    public StatusResource(String id, StatusEnum status, int totalCount, int successCount, int failureCount, int pendingCount) {
         this.id = id;
         this.status = status;
         this.totalCount = totalCount;
@@ -99,15 +100,15 @@ public class StatusResource extends TaxiiResource implements Identifiable<String
         return this;
     }
 
-    public STATUS getStatus() {
+    public StatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(STATUS status) {
+    public void setStatus(StatusEnum status) {
         this.status = status;
     }
 
-    public StatusResource withStatus(STATUS status) {
+    public StatusResource withStatus(StatusEnum status) {
         this.status = status;
         return this;
     }
@@ -264,5 +265,18 @@ public class StatusResource extends TaxiiResource implements Identifiable<String
         result = 31 * result + failureCount;
         result = 31 * result + pendingCount;
         return result;
+    }
+
+    @Override
+    public Errors validate() {
+        Errors errors = new Errors();
+        errors.rejectIfNullOrEmpty("id", this.id);
+        errors.rejectIfNullOrEmpty("status", this.status.toString());
+        return errors;
+    }
+
+    @Override
+    public boolean isValid() {
+        return validate().isEmpty();
     }
 }

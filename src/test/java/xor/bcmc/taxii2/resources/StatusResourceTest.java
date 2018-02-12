@@ -19,7 +19,7 @@ public class StatusResourceTest {
 
     private StatusResource getTestStatus() {
         StatusResource status = new StatusResource(UUID.randomUUID().toString(),
-                StatusResource.STATUS.PENDING,
+                StatusResource.StatusEnum.PENDING,
                 3,
                 1, 1, 1);
         return status;

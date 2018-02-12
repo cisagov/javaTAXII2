@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import xor.bcmc.taxii2.Identifiable;
 import xor.bcmc.taxii2.JsonHandler;
+import xor.bcmc.taxii2.validation.Errors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,5 +136,19 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
 
     public void setId(String id) {
         this.setTitle(id);
+    }
+
+    @Override
+    public Errors validate() {
+        Errors errors = new Errors();
+        errors.rejectIfNullOrEmpty("title", this.title);
+        // Reject if 'default' ApiRoot is not in the list of Api Roots
+        errors.rejectIfNotContains("default", this.apiRoots, this.defaultApiRoot);
+        return errors;
+    }
+
+    @Override
+    public boolean isValid() {
+        return validate().isEmpty();
     }
 }

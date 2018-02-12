@@ -2,9 +2,12 @@ package xor.bcmc.taxii2.resources;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import xor.bcmc.taxii2.Constants;
 import xor.bcmc.taxii2.Identifiable;
 import xor.bcmc.taxii2.JsonHandler;
+import xor.bcmc.taxii2.validation.Errors;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -134,4 +137,17 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
         return this;
     }
 
+    @Override
+    public Errors validate() {
+        Errors errors = new Errors();
+        errors.rejectIfNullOrEmpty("title", this.title);
+        errors.rejectIfNullOrEmpty("versions", this.versions);
+        errors.rejectIfNotContains("versions", this.versions, Constants.TAXII_VERSION_20);
+        return errors;
+    }
+
+    @Override
+    public boolean isValid() {
+        return validate().isEmpty();
+    }
 }
