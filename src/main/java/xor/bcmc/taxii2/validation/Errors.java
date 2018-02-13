@@ -1,5 +1,7 @@
 package xor.bcmc.taxii2.validation;
 
+import xor.bcmc.taxii2.JsonHandler;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,11 +35,6 @@ public class Errors extends HashMap<String, String> {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("{");
-        for (Map.Entry<String, String> entry : this.entrySet()) {
-            stringBuilder.append(String.format("\"%s\": \"%s\", ", entry.getKey(), entry.getValue()));
-        }
-        stringBuilder.append("}");
-        return stringBuilder.toString();
+        return JsonHandler.getInstance().toJson(this);
     }
 }
