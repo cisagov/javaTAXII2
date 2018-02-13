@@ -26,6 +26,11 @@ public class Errors extends HashMap<String, String> {
         return this;
     }
 
+    public Errors reject(String key, String description) {
+        this.put(key, description);
+        return this;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder("{");
