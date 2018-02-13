@@ -35,7 +35,7 @@ public class Errors extends HashMap<String, String> {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder("{");
         for (Map.Entry<String, String> entry : this.entrySet()) {
-            stringBuilder.append(String.format("\"{}\": \"{}\", ", entry.getKey(), entry.getValue()));
+            stringBuilder.append(String.format("\"%s\": \"%s\", ", entry.getKey(), entry.getValue()));
         }
         stringBuilder.append("}");
         return stringBuilder.toString();
