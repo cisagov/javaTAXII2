@@ -142,9 +142,7 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
         Errors errors = new Errors();
         errors.rejectIfNullOrEmpty("title", this.title);
         errors.rejectIfNullOrEmpty("versions", this.versions);
-        if (!this.versions.contains(Constants.MediaTypes.TAXII) || !this.versions.contains(Constants.MediaTypes.TAXII_20)) {
-            errors.reject("versions", "'versions' must contain TAXII 2.0");
-        }
+        errors.rejectIfNotContains("versions", this.versions, Constants.TAXII_20);
         return errors;
     }
 
