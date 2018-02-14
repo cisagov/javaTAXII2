@@ -29,7 +29,7 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
     private List<String> versions;
 
     @Expose
-    private int maxContentLength;
+    private Integer maxContentLength;
 
     // TODO TAXII 2.1
     // private List<Channel> channels;
