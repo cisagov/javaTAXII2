@@ -34,6 +34,15 @@ public class Collection extends TaxiiResource implements Identifiable<String> {
     public Collection() {
     }
 
+    public Collection(Collection collection) {
+        this.id = collection.getId();
+        this.title = collection.getTitle();
+        this.canRead = collection.getCanRead();
+        this.canWrite = collection.getCanWrite();
+        this.mediaTypes = collection.getMediaTypes();
+        this.description = collection.getDescription();
+    }
+
     public Collection(String id, String title, boolean canRead, boolean canWrite) {
         this.id = id;
         this.title = title;
