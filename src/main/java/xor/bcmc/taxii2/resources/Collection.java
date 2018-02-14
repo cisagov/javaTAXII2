@@ -22,11 +22,11 @@ public class Collection extends TaxiiResource implements Identifiable<String> {
 
     @Expose
     @SerializedName("can_read")
-    private Boolean canRead = false;
+    private Boolean canRead;
 
     @Expose
     @SerializedName("can_write")
-    private Boolean canWrite = false;
+    private Boolean canWrite;
 
     @Expose
     private List<String> mediaTypes;
