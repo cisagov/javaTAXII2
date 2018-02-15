@@ -75,8 +75,34 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
         this.defaultApiRoot = defaultApiRoot;
     }
 
+    public void setDefaultApiRoot(String host, int port, ApiRoot defaultApiRoot) {
+        this.defaultApiRoot = String.format("https://%s:%d/%s", host, port, defaultApiRoot.getId());
+    }
+
+    public Discovery withDefaultApiRoot(String host, int port, ApiRoot defaultApiRoot) {
+        this.defaultApiRoot = String.format("https://%s:%d/%s", host, port, defaultApiRoot.getId());
+        return this;
+    }
+
     public void setApiRoots(List<String> apiRoots) {
         this.apiRoots = apiRoots;
+    }
+
+    public void setApiRoots(String host, int port, List<ApiRoot> apiRoots) {
+        List<String> apiRootsList = new ArrayList<>();
+        for (ApiRoot apiRoot: apiRoots) {
+            apiRootsList.add(String.format("https://%s:%d/%s", host, port, apiRoot.getId()));
+        }
+        this.apiRoots = apiRootsList;
+    }
+
+    public Discovery withApiRoots(String host, int port, List<ApiRoot> apiRoots) {
+        List<String> apiRootsList = new ArrayList<>();
+        for (ApiRoot apiRoot: apiRoots) {
+            apiRootsList.add(String.format("https://%s:%d/%s", host, port, apiRoot.getId()));
+        }
+        this.apiRoots = apiRootsList;
+        return this;
     }
 
     public Discovery withTitle(String title) {
