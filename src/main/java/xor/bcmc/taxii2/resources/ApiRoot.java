@@ -67,7 +67,7 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
         return versions;
     }
 
-    public int getMaxContentLength() {
+    public Integer getMaxContentLength() {
         return maxContentLength;
     }
 
@@ -83,7 +83,7 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
         this.versions = versions;
     }
 
-    public void setMaxContentLength(int maxContentLength) {
+    public void setMaxContentLength(Integer maxContentLength) {
         this.maxContentLength = maxContentLength;
     }
 
@@ -102,7 +102,7 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
         return this;
     }
 
-    public ApiRoot withMaxContentLength(int maxContentLength) {
+    public ApiRoot withMaxContentLength(Integer maxContentLength) {
         this.maxContentLength = maxContentLength;
         return this;
     }
