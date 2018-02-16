@@ -70,27 +70,27 @@ public class Collection extends TaxiiResource implements Identifiable<String> {
         return description;
     }
 
-    public boolean canRead() {
+    public Boolean canRead() {
         return canRead;
     }
 
-    public boolean canWrite() {
+    public Boolean canWrite() {
         return canWrite;
     }
 
-    public boolean isCanRead() {
+    public Boolean isCanRead() {
         return canRead;
     }
 
-    public boolean isCanWrite() {
+    public Boolean isCanWrite() {
         return canWrite;
     }
 
-    public boolean getCanRead() {
+    public Boolean getCanRead() {
         return canRead;
     }
 
-    public boolean getCanWrite() {
+    public Boolean getCanWrite() {
         return canWrite;
     }
 
@@ -106,11 +106,11 @@ public class Collection extends TaxiiResource implements Identifiable<String> {
         this.description = description;
     }
 
-    public void setCanRead(boolean canRead) {
+    public void setCanRead(Boolean canRead) {
         this.canRead = canRead;
     }
 
-    public void setCanWrite(boolean canWrite) {
+    public void setCanWrite(Boolean canWrite) {
         this.canWrite = canWrite;
     }
 
@@ -133,12 +133,12 @@ public class Collection extends TaxiiResource implements Identifiable<String> {
         return this;
     }
 
-    public Collection withCanRead(boolean canRead) {
+    public Collection withCanRead(Boolean canRead) {
         this.canRead = canRead;
         return this;
     }
 
-    public Collection withCanWrite(boolean canWrite) {
+    public Collection withCanWrite(Boolean canWrite) {
         this.canWrite = canWrite;
         return this;
     }
