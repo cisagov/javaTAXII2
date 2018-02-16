@@ -25,7 +25,7 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
     private String defaultApiRoot;
 
     @Expose
-    private List<String> apiRoots = new ArrayList<String>();
+    private List<String> apiRoots;
 
     public Discovery(String title, List<String> apiRoots) {
         this.title = title;
