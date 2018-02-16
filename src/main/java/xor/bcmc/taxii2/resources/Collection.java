@@ -8,6 +8,7 @@ import xor.bcmc.taxii2.validation.Errors;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Collection extends TaxiiResource implements Identifiable<String> {
 
@@ -152,26 +153,18 @@ public class Collection extends TaxiiResource implements Identifiable<String> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Collection that = (Collection) o;
-
-        if (canRead != that.canRead) return false;
-        if (canWrite != that.canWrite) return false;
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (!title.equals(that.title)) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        return mediaTypes != null ? mediaTypes.equals(that.mediaTypes) : that.mediaTypes == null;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(canRead, that.canRead) &&
+                Objects.equals(canWrite, that.canWrite) &&
+                Objects.equals(mediaTypes, that.mediaTypes);
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + title.hashCode();
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (canRead ? 1 : 0);
-        result = 31 * result + (canWrite ? 1 : 0);
-        result = 31 * result + (mediaTypes != null ? mediaTypes.hashCode() : 0);
-        return result;
+        return Objects.hash(id, title, description, canRead, canWrite, mediaTypes);
     }
 
     @Override
