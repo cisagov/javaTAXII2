@@ -32,6 +32,14 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
         this.apiRoots = apiRoots;
     }
 
+    public Discovery(Discovery discovery) {
+        this.title = discovery.getTitle();
+        this.description = discovery.getDescription();
+        this.contact = discovery.getContact();
+        this.defaultApiRoot = discovery.getDefaultApiRoot();
+        this.apiRoots = discovery.getApiRoots();
+    }
+
     public Discovery() {
     }
 
