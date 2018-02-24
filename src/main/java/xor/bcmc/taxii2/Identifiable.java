@@ -7,4 +7,6 @@ public interface Identifiable<E> {
     // a reserved word, therefore, no object id of string
     // "_abilities" should be created.
     void setId (E id);
+
+    Identifiable<E> withId(E id);
 }

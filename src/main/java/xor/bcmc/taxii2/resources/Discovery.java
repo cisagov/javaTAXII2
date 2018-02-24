@@ -172,6 +172,11 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
         this.setTitle(id);
     }
 
+    public Discovery withId(String id) {
+        this.setTitle(id);
+        return this;
+    }
+
     @Override
     public Errors validate() {
         Errors errors = new Errors();
