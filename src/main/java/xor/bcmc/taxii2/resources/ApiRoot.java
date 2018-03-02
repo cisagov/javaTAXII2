@@ -1,13 +1,11 @@
 package xor.bcmc.taxii2.resources;
 
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import xor.bcmc.taxii2.Constants;
 import xor.bcmc.taxii2.Identifiable;
 import xor.bcmc.taxii2.JsonHandler;
 import xor.bcmc.taxii2.validation.Errors;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -112,7 +110,7 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ApiRoot apiRoot = (ApiRoot) o;
-        return maxContentLength == apiRoot.maxContentLength &&
+        return Objects.equals(maxContentLength, apiRoot.maxContentLength) &&
                 Objects.equals(id, apiRoot.id) &&
                 Objects.equals(title, apiRoot.title) &&
                 Objects.equals(description, apiRoot.description) &&
