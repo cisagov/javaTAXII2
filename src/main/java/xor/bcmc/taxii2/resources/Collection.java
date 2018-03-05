@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Collection extends TaxiiResource implements Identifiable<String> {
+    public static final String RESOURCE_TYPE = "Collection";
 
     @Expose
     private String id;
