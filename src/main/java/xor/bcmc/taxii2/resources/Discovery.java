@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Discovery extends TaxiiResource implements Identifiable<String> {
+    public static final String RESOURCE_TYPE = "Discovery";
 
     @Expose
     private String title;

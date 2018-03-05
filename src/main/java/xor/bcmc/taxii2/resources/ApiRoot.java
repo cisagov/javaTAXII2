@@ -15,6 +15,7 @@ import java.util.Objects;
  * <a href="https://www.oasis-open.org/committees/download.php/59353/TAXII2.0Specification-draft3.pdf">ApiRoot Resource</a>
  */
 public class ApiRoot extends TaxiiResource implements Identifiable<String> {
+    public static final String RESOURCE_TYPE = "ApiRoot";
 
     @Expose(serialize = false)
     private String id;
