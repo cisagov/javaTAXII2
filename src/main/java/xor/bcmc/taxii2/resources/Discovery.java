@@ -26,6 +26,7 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
     private String defaultApiRoot;
 
     @Expose
+    @SerializedName("api_roots")
     private List<String> apiRoots;
 
     public Discovery(String title, List<String> apiRoots) {
