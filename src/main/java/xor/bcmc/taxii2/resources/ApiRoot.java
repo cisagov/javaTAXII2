@@ -34,7 +34,7 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
 
     // TODO TAXII 2.1
     // private List<Channel> channels;
-    // private List<Collection> collections;
+    // private List<Collection> collection;
 
     /**
      * Construct an ApiRoot resource
@@ -113,16 +113,16 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ApiRoot apiRoot = (ApiRoot) o;
-        return maxContentLength == apiRoot.maxContentLength &&
-                Objects.equals(id, apiRoot.id) &&
-                Objects.equals(title, apiRoot.title) &&
+        return Objects.equals(title, apiRoot.title) &&
                 Objects.equals(description, apiRoot.description) &&
-                Objects.equals(versions, apiRoot.versions);
+                Objects.equals(versions, apiRoot.versions) &&
+                Objects.equals(maxContentLength, apiRoot.maxContentLength);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, versions, maxContentLength);
+
+        return Objects.hash(title, description, versions, maxContentLength);
     }
 
     public String getId() {
