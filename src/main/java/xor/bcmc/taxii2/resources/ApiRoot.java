@@ -143,6 +143,10 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
         Errors errors = new Errors();
         errors.rejectIfNullOrEmpty("title", this.title);
         errors.rejectIfNullOrEmpty("versions", this.versions);
+        /*
+            taxii_spec_compliance(4.2.1)
+                (66) A value of taxii-2.0 MUST be present in the api-root versions field to indicate conformance with this specification
+         */
         errors.rejectIfNotContains("versions", this.versions, Constants.TAXII_20);
         return errors;
     }
