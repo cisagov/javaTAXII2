@@ -1,11 +1,13 @@
 package xor.bcmc.taxii2.resources;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import xor.bcmc.taxii2.Constants;
 import xor.bcmc.taxii2.Identifiable;
 import xor.bcmc.taxii2.JsonHandler;
 import xor.bcmc.taxii2.validation.Errors;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,7 +34,7 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
 
     // TODO TAXII 2.1
     // private List<Channel> channels;
-    // private List<Collection> collections;
+    // private List<Collection> collection;
 
     /**
      * Construct an ApiRoot resource
@@ -111,16 +113,16 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ApiRoot apiRoot = (ApiRoot) o;
-        return Objects.equals(maxContentLength, apiRoot.maxContentLength) &&
-                Objects.equals(id, apiRoot.id) &&
-                Objects.equals(title, apiRoot.title) &&
+        return Objects.equals(title, apiRoot.title) &&
                 Objects.equals(description, apiRoot.description) &&
-                Objects.equals(versions, apiRoot.versions);
+                Objects.equals(versions, apiRoot.versions) &&
+                Objects.equals(maxContentLength, apiRoot.maxContentLength);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, versions, maxContentLength);
+
+        return Objects.hash(title, description, versions, maxContentLength);
     }
 
     public String getId() {

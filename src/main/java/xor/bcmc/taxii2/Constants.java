@@ -7,5 +7,6 @@ public interface Constants {
         String TAXII = "application/vnd.oasis.taxii+json";
         String TAXII_20 = "application/vnd.oasis.taxii+json; version=2.0";
         String STIX = "application/vnd.oasis.stix+json";
+        String STIX_20 = "application/vnd.oasis.stix+json; version=2.0";
     }
 }
