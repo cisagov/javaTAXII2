@@ -6,7 +6,7 @@ import xor.bcmc.taxii2.validation.Errors;
 
 import java.util.Map;
 
-public class Error extends TaxiiResource{
+public class TaxiiError extends TaxiiResource{
 
     @Expose
     private String title;
@@ -29,13 +29,13 @@ public class Error extends TaxiiResource{
     @Expose
     private Map<String, String> details;
 
-    public Error () {}
+    public TaxiiError() {}
 
     public String getTitle() {
         return title;
     }
 
-    public Error withTitle(String title) {
+    public TaxiiError withTitle(String title) {
         this.title = title;
         return this;
     }
@@ -44,7 +44,7 @@ public class Error extends TaxiiResource{
         return description;
     }
 
-    public Error withDescription(String description) {
+    public TaxiiError withDescription(String description) {
         this.description = description;
         return this;
     }
@@ -53,7 +53,7 @@ public class Error extends TaxiiResource{
         return errorId;
     }
 
-    public Error withErrorId(String errorId) {
+    public TaxiiError withErrorId(String errorId) {
         this.errorId = errorId;
         return this;
     }
@@ -62,7 +62,7 @@ public class Error extends TaxiiResource{
         return errorCode;
     }
 
-    public Error withErrorCode(String errorCode) {
+    public TaxiiError withErrorCode(String errorCode) {
         this.errorCode = errorCode;
         return this;
     }
@@ -71,7 +71,7 @@ public class Error extends TaxiiResource{
         return httpStatus;
     }
 
-    public Error withHttpStatus(String httpStatus) {
+    public TaxiiError withHttpStatus(String httpStatus) {
         this.httpStatus = httpStatus;
         return this;
     }
@@ -80,7 +80,7 @@ public class Error extends TaxiiResource{
         return externalDetails;
     }
 
-    public Error withExternalDetails(String externalDetails) {
+    public TaxiiError withExternalDetails(String externalDetails) {
         this.externalDetails = externalDetails;
         return this;
     }
@@ -89,7 +89,7 @@ public class Error extends TaxiiResource{
         return details;
     }
 
-    public Error withDetails(Map<String, String> details) {
+    public TaxiiError withDetails(Map<String, String> details) {
         this.details = details;
         return this;
     }
