@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class StatusResourceTest {
 
@@ -43,7 +44,7 @@ public class StatusResourceTest {
     @Test
     public void toStringTest() {
         StatusResource status = getFullTestStatus();
-//        System.out.println(status.toString());
+        System.out.println(status.toString());
         String statusJson = status.toString();
         assertTrue(statusJson.contains(FAIL_MESSAGE));
         StatusResource status2 = StatusResource.fromJson(statusJson);
@@ -62,7 +63,7 @@ public class StatusResourceTest {
         StatusResource original = getFullTestStatus();
         String statusJSON = original.toString();
         StatusResource status = StatusResource.fromJson(statusJSON);
-//        System.out.println(status.toString());
+        System.out.println(status.toString());
         assertEquals(original, status);
     }
 
@@ -71,7 +72,20 @@ public class StatusResourceTest {
         StatusResource original = new StatusResource("emptyStatusResource");
         String statusJSON = original.toString();
         StatusResource status = StatusResource.fromJson(statusJSON);
-//        System.out.println(status.toString());
+        System.out.println(status.toString());
+        assertEquals(original, status);
+    }
+
+    @Test
+    public void toJSON_fromJSON_WithEmptyLists_Test(){
+        StatusResource original = new StatusResource("emptyStatusResource");
+        original.setFailures(new ArrayList<>());
+        original.setPendings(new ArrayList<>());
+        original.setSuccesses(new ArrayList<>());
+        String statusJSON = original.toString();
+        assertFalse("JSON representation contains an empty list! \n" + statusJSON, statusJSON.contains("[]")); //No empty lists!
+        StatusResource status = StatusResource.fromJson(statusJSON);
+        System.out.println(status.toString());
         assertEquals(original, status);
     }
 }
