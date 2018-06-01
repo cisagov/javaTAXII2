@@ -1,6 +1,7 @@
 package xor.bcmc.taxii2.resources;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import xor.bcmc.taxii2.Identifiable;
 import xor.bcmc.taxii2.JsonHandler;
 import xor.bcmc.taxii2.validation.Errors;
@@ -25,7 +26,13 @@ public class StatusResource extends TaxiiResource implements Identifiable<String
     /* --------------------------------------------------------------------- */
 
 
-    public enum StatusEnum { PENDING, COMPLETED }
+    public enum StatusEnum {
+        @SerializedName("pending")
+        PENDING,
+
+        @SerializedName("complete")
+        COMPLETE
+    }
 
     @Expose
     private String id;
