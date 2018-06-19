@@ -1,10 +1,13 @@
 package xor.bcmc.taxii2.resources;
 
+import com.google.gson.JsonParser;
 import org.junit.Test;
 
 import java.util.Arrays;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class ApiRootTest {
 
@@ -35,5 +38,37 @@ public class ApiRootTest {
         ApiRoot apiRoot1 = ApiRoot.fromJson(json);
         ApiRoot apiRoot2 = ApiRoot.fromJson(json);
         assertEquals(apiRoot1, apiRoot2);
+    }
+
+    /*
+    {
+        "title": "Api Root 1",
+        "description": "API Root Description",
+        "versions": [
+            "taxii-2.0"
+        ],
+        "max_content_length": 0,
+        "x_flarecloud_field1":"value1",
+        "x_flarecloud_field2":{"key2":"value2"},
+        "x_flarecloud_field3":["value3a","value3b"]
+    }
+     */
+    @Test
+    public void deserializeExtraFields() {
+        String json = "    {\n" +
+                "        \"title\": \"Api Root 1\",\n" +
+                "        \"description\": \"API Root Description\",\n" +
+                "        \"versions\": [\n" +
+                "            \"taxii-2.0\"\n" +
+                "        ],\n" +
+                "        \"max_content_length\": 0,\n" +
+                "        \"x_flarecloud_field1\":\"value1\",\n" +
+                "        \"x_flarecloud_field2\":{\"key2\":\"value2\"},\n" +
+                "        \"x_flarecloud_field3\":[\"value3a\",\"value3b\"]\n" +
+                "    }";
+        ApiRoot apiRoot = ApiRoot.fromJson(json);
+        assertThat(apiRoot.getExtraFields().get("x_flarecloud_field1").getAsString(), equalTo("value1"));
+        assertThat(apiRoot.getExtraFields().get("x_flarecloud_field2").getAsJsonObject().get("key2").getAsString(), equalTo("value2"));
+        assertThat(apiRoot.getExtraFields().get("x_flarecloud_field3").getAsJsonArray(), equalTo(new JsonParser().parse("[\"value3a\",\"value3b\"]").getAsJsonArray()));
     }
 }

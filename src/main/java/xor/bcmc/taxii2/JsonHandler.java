@@ -1,6 +1,8 @@
 package xor.bcmc.taxii2;
 
 import com.google.gson.*;
+import xor.bcmc.taxii2.gson.ApiRootDeserializer;
+import xor.bcmc.taxii2.resources.ApiRoot;
 import xor.bcmc.taxii2.resources.TaxiiResource;
 
 import java.lang.reflect.Type;
@@ -24,7 +26,8 @@ public class JsonHandler {
         //From: https://github.com/gkopff/gson-javatime-serialisers
         builder.registerTypeAdapter(Date.class, new DateAdapter())
                .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeTypeAdapter())
-               .registerTypeAdapter(List.class, new CollectionAdapter());
+               .registerTypeAdapter(List.class, new CollectionAdapter())
+               .registerTypeAdapter(ApiRoot.class, new ApiRootDeserializer());
 
         gson = builder.create();
     }

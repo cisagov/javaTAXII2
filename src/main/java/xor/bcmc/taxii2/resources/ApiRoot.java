@@ -1,14 +1,15 @@
 package xor.bcmc.taxii2.resources;
 
+import com.google.gson.JsonElement;
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import xor.bcmc.taxii2.Constants;
 import xor.bcmc.taxii2.Identifiable;
 import xor.bcmc.taxii2.JsonHandler;
 import xor.bcmc.taxii2.validation.Errors;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -31,6 +32,9 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
 
     @Expose
     private Integer maxContentLength;
+
+    @Expose
+    private Map<String, JsonElement> extraFields = new HashMap<>();
 
     // TODO TAXII 2.1
     // private List<Channel> channels;
@@ -106,6 +110,15 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
     public ApiRoot withMaxContentLength(Integer maxContentLength) {
         this.maxContentLength = maxContentLength;
         return this;
+    }
+
+    public ApiRoot withExtraField(String field, JsonElement value) {
+        this.extraFields.put(field, value);
+        return this;
+    }
+
+    public Map<String, JsonElement> getExtraFields() {
+        return extraFields;
     }
 
     @Override
