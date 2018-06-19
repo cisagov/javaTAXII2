@@ -32,10 +32,6 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
 
     @Expose
     private Integer maxContentLength;
-
-    @Expose
-    private Map<String, JsonElement> customProperties = new HashMap<>();
-
     // TODO TAXII 2.1
     // private List<Channel> channels;
     // private List<Collection> collection;
@@ -110,15 +106,6 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
     public ApiRoot withMaxContentLength(Integer maxContentLength) {
         this.maxContentLength = maxContentLength;
         return this;
-    }
-
-    public ApiRoot withCustomProperty(String field, JsonElement value) {
-        this.customProperties.put(field, value);
-        return this;
-    }
-
-    public Map<String, JsonElement> getCustomProperties() {
-        return customProperties;
     }
 
     @Override

@@ -1,9 +1,8 @@
 package xor.bcmc.taxii2;
 
 import com.google.gson.*;
-import xor.bcmc.taxii2.gson.ApiRootDeserializer;
-import xor.bcmc.taxii2.resources.ApiRoot;
-import xor.bcmc.taxii2.resources.TaxiiResource;
+import xor.bcmc.taxii2.gson.TaxiiResourceDeserializer;
+import xor.bcmc.taxii2.resources.*;
 
 import java.lang.reflect.Type;
 import java.time.ZoneId;
@@ -25,9 +24,16 @@ public class JsonHandler {
 
         //From: https://github.com/gkopff/gson-javatime-serialisers
         builder.registerTypeAdapter(Date.class, new DateAdapter())
-               .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeTypeAdapter())
-               .registerTypeAdapter(List.class, new CollectionAdapter())
-               .registerTypeAdapter(ApiRoot.class, new ApiRootDeserializer());
+                .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeTypeAdapter())
+                .registerTypeAdapter(List.class, new CollectionAdapter())
+
+                .registerTypeAdapter(ApiRoot.class, new ApiRootDeserializer())
+                .registerTypeAdapter(Collection.class, new CollectionDeserializer())
+                .registerTypeAdapter(Collections.class, new CollectionsDeserializer())
+                .registerTypeAdapter(Discovery.class, new DiscoveryDeserializer())
+                .registerTypeAdapter(ManifestEntry.class, new ManifestEntryDeserializer())
+                .registerTypeAdapter(ManifestResource.class, new ManifestResourceDeserializer())
+                .registerTypeAdapter(StatusResource.class, new StatusResourceDeserializer());
 
         gson = builder.create();
     }
@@ -106,6 +112,61 @@ public class JsonHandler {
         public JsonElement serialize(ZonedDateTime src, Type type, JsonSerializationContext jsonSerializationContext) {
             ZonedDateTime date = src.withZoneSameInstant(ZoneId.of("Z"));
             return new JsonPrimitive(date.toString());
+        }
+    }
+
+
+    /**
+     *
+     * Custom Deserializers for TaxiiResources (to include custom properties)
+     *
+     */
+    private class ApiRootDeserializer extends TaxiiResourceDeserializer {
+        @Override
+        public ApiRoot deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
+            return build(jsonElement, new ApiRoot(), context);
+        }
+    }
+
+    private class CollectionDeserializer extends TaxiiResourceDeserializer {
+        @Override
+        public Collection deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
+            return build(jsonElement, new Collection(), context);
+        }
+    }
+
+    private class CollectionsDeserializer extends TaxiiResourceDeserializer {
+        @Override
+        public Collections deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
+            return build(jsonElement, new Collections(), context);
+        }
+    }
+
+    private class DiscoveryDeserializer extends TaxiiResourceDeserializer {
+        @Override
+        public Discovery deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
+            return build(jsonElement, new Discovery(), context);
+        }
+    }
+
+    private class ManifestEntryDeserializer extends TaxiiResourceDeserializer {
+        @Override
+        public ManifestEntry deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
+            return build(jsonElement, new ManifestEntry(), context);
+        }
+    }
+
+    private class ManifestResourceDeserializer extends TaxiiResourceDeserializer {
+        @Override
+        public ManifestResource deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
+            return build(jsonElement, new ManifestResource(), context);
+        }
+    }
+
+    private class StatusResourceDeserializer extends TaxiiResourceDeserializer {
+        @Override
+        public StatusResource deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
+            return build(jsonElement, new StatusResource(), context);
         }
     }
 }
