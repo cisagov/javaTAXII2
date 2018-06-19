@@ -1,5 +1,6 @@
 package xor.bcmc.taxii2.resources;
 
+import com.google.gson.JsonPrimitive;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -17,6 +18,7 @@ public class DiscoveryTest {
         discovery.withContact("Discovery Contact");
         discovery.withDefaultApiRoot("Default Api Root");
         discovery.withApiRoots(Arrays.asList("Api Root 1", "Api Root 2"));
+        discovery.withCustomProperty("x_flarecloud_property", new JsonPrimitive("value1"));
         System.out.println(discovery.toJson());
     }
 
