@@ -54,7 +54,7 @@ public class ApiRootTest {
     }
      */
     @Test
-    public void deserializeExtraFields() {
+    public void deserializeCustomProperties() {
         String json = "    {\n" +
                 "        \"title\": \"Api Root 1\",\n" +
                 "        \"description\": \"API Root Description\",\n" +
@@ -67,8 +67,8 @@ public class ApiRootTest {
                 "        \"x_flarecloud_field3\":[\"value3a\",\"value3b\"]\n" +
                 "    }";
         ApiRoot apiRoot = ApiRoot.fromJson(json);
-        assertThat(apiRoot.getExtraFields().get("x_flarecloud_field1").getAsString(), equalTo("value1"));
-        assertThat(apiRoot.getExtraFields().get("x_flarecloud_field2").getAsJsonObject().get("key2").getAsString(), equalTo("value2"));
-        assertThat(apiRoot.getExtraFields().get("x_flarecloud_field3").getAsJsonArray(), equalTo(new JsonParser().parse("[\"value3a\",\"value3b\"]").getAsJsonArray()));
+        assertThat(apiRoot.getCustomProperties().get("x_flarecloud_field1").getAsString(), equalTo("value1"));
+        assertThat(apiRoot.getCustomProperties().get("x_flarecloud_field2").getAsJsonObject().get("key2").getAsString(), equalTo("value2"));
+        assertThat(apiRoot.getCustomProperties().get("x_flarecloud_field3").getAsJsonArray(), equalTo(new JsonParser().parse("[\"value3a\",\"value3b\"]").getAsJsonArray()));
     }
 }

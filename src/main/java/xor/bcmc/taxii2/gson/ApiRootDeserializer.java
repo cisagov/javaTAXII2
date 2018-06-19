@@ -35,7 +35,7 @@ public class ApiRootDeserializer implements JsonDeserializer<ApiRoot> {
                             ((JsonPrimitive)get(json, key, JsonPrimitive.class)).getAsInt());
                     break;
                 default:
-                    apiRoot.withExtraField(key, json.get(key));
+                    apiRoot.withCustomProperty(key, json.get(key));
                     break;
             }
         }
