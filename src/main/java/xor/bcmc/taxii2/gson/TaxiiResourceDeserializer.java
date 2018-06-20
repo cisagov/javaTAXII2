@@ -3,12 +3,9 @@ package xor.bcmc.taxii2.gson;
 import com.google.common.base.CaseFormat;
 import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
-import xor.bcmc.taxii2.resources.ApiRoot;
 import xor.bcmc.taxii2.resources.TaxiiResource;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,7 +71,7 @@ public abstract class TaxiiResourceDeserializer implements JsonDeserializer {
                     ((Map<String, JsonElement>)customPropertiesField.get(emptyObject))
                             .put(key, jsonValue);
                 } catch (IllegalAccessException e) {
-                    throw new JsonParseException("Error accessing field='" + field.getName() + "' of " + emptyObject.getClass().getSimpleName() + ": " + e);
+                    throw new JsonParseException("Error accessing field='" + customPropertiesField.getName() + "' of " + emptyObject.getClass().getSimpleName() + ": " + e);
                 }
 
             }
