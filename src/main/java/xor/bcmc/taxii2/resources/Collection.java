@@ -6,7 +6,6 @@ import xor.bcmc.taxii2.Identifiable;
 import xor.bcmc.taxii2.JsonHandler;
 import xor.bcmc.taxii2.validation.Errors;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 

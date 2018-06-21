@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 public class DiscoveryTest {
@@ -26,6 +27,17 @@ public class DiscoveryTest {
     public void serializeAndDeserialize() {
         String json = discovery.toJson();
         assertEquals(Discovery.fromJson(json), discovery);
+    }
+
+    @Test
+    public void bareMinimumFieldsTest() {
+        Discovery emptyDiscovery = new Discovery("Title", null);
+        assertTrue(emptyDiscovery.validate().isEmpty());
+
+        String json = emptyDiscovery.toJson();
+        assertEquals(Discovery.fromJson(json), emptyDiscovery);
+        String toString = emptyDiscovery.toString();
+        assertEquals(Discovery.fromJson(toString), emptyDiscovery);
     }
 
 }
