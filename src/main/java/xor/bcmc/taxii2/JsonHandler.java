@@ -74,7 +74,7 @@ public class JsonHandler {
             if (src == null || src.isEmpty()) // exclusion is made here. Null objects aren't serialized
                 return null;
 
-            JsonArray array = new JsonArray(src.size());
+            JsonArray array = new JsonArray(src.size()); //This will throw an exception for GSON 2.4. Update to 2.8.2
             for (Object child : src) {
                 array.add(context.serialize(child));
             }
