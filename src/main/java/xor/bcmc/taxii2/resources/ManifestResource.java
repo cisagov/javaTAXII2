@@ -9,7 +9,7 @@ import java.util.List;
 public class ManifestResource extends TaxiiResource {
 
     @Expose
-    private List<ManifestEntry> objects = new ArrayList<>();
+    private List<ManifestEntry> objects;
 
     public ManifestResource(){
     }
@@ -20,6 +20,9 @@ public class ManifestResource extends TaxiiResource {
 
     public ManifestResource withObject( ManifestEntry object)
     {
+        if (objects == null)
+            objects = new ArrayList<>();
+
         objects.add( object );
         return this;
     }
@@ -41,6 +44,21 @@ public class ManifestResource extends TaxiiResource {
     @Override
     public boolean isValid() {
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ManifestResource that = (ManifestResource) o;
+
+        return objects != null ? objects.equals(that.objects) : that.objects == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return objects != null ? objects.hashCode() : 0;
     }
 }
 

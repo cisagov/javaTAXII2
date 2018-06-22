@@ -31,7 +31,7 @@ public class Collection extends TaxiiResource implements Identifiable<String> {
     private Boolean canWrite;
 
     @Expose
-    private List<String> mediaTypes = new ArrayList<>();
+    private List<String> mediaTypes;
 
     public Collection() {
     }
@@ -146,6 +146,8 @@ public class Collection extends TaxiiResource implements Identifiable<String> {
     }
 
     public Collection withMediaTypes(List<String> mediaTypes) {
+        if(mediaTypes == null)
+            mediaTypes = new ArrayList<>();
         this.mediaTypes = mediaTypes;
         return this;
     }

@@ -1,5 +1,6 @@
 package xor.bcmc.taxii2.resources;
 
+import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import org.junit.Test;
 
@@ -27,6 +28,17 @@ public class DiscoveryTest {
     public void serializeAndDeserialize() {
         String json = discovery.toJson();
         assertEquals(Discovery.fromJson(json), discovery);
+    }
+
+    @Test
+    public void serializeAndDeserializeEmptyList() {
+        Discovery discovery_ = new Discovery();
+        discovery_.setTitle("SomeTitle");
+        JsonObject jsonObject = discovery_.toJsonElement().getAsJsonObject();
+        assertThat(jsonObject.get("api_roots"), equalTo(null));
+
+        Discovery discovery__ = Discovery.fromJson(jsonObject.toString());
+        assertThat(discovery__.getApiRoots(), equalTo(null));
     }
 
     @Test

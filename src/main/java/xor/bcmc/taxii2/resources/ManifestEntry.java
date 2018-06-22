@@ -16,7 +16,7 @@ public class ManifestEntry extends TaxiiResource implements Identifiable<String>
     @Expose
     private List<String> versions;
     @Expose
-    private List<String> mediaTypes = new ArrayList<>();
+    private List<String> mediaTypes;
 
 
     public ManifestEntry(){
@@ -73,12 +73,18 @@ public class ManifestEntry extends TaxiiResource implements Identifiable<String>
 
     public ManifestEntry withMediaTypes(List<String> mediaTypes)
     {
+        if (this.mediaTypes == null)
+            this.mediaTypes = new ArrayList<>();
+
         this.mediaTypes.addAll(mediaTypes);
         return this;
     }
 
     public ManifestEntry withMediaType(String mediaType)
     {
+        if (mediaTypes == null)
+            mediaTypes = new ArrayList<>();
+
         this.mediaTypes.add( mediaType );
         return this;
     }
@@ -97,6 +103,28 @@ public class ManifestEntry extends TaxiiResource implements Identifiable<String>
     @Override
     public boolean isValid() {
         return validate().isEmpty();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ManifestEntry that = (ManifestEntry) o;
+
+        if (!id.equals(that.id)) return false;
+        if (date_added != null ? (date_added.compareTo(date_added) != 0) : that.date_added != null) return false;
+        if (versions != null ? !versions.equals(that.versions) : that.versions != null) return false;
+        return mediaTypes != null ? mediaTypes.equals(that.mediaTypes) : that.mediaTypes == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + (date_added != null ? date_added.hashCode() : 0);
+        result = 31 * result + (versions != null ? versions.hashCode() : 0);
+        result = 31 * result + (mediaTypes != null ? mediaTypes.hashCode() : 0);
+        return result;
     }
 }
 

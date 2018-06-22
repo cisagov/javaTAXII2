@@ -27,7 +27,7 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
 
     @Expose
     @SerializedName("api_roots")
-    private List<String> apiRoots = new ArrayList<>();
+    private List<String> apiRoots;
 
     public Discovery(String title, List<String> apiRoots) {
         this.title = title;
@@ -153,7 +153,10 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
         if (contact != null ? !contact.equals(discovery.contact) : discovery.contact != null) return false;
         if (defaultApiRoot != null ? !defaultApiRoot.equals(discovery.defaultApiRoot) : discovery.defaultApiRoot != null)
             return false;
-        return apiRoots.equals(discovery.apiRoots);
+        if (apiRoots != null ? !apiRoots.equals(discovery.apiRoots) : discovery.apiRoots != null)
+            return false;
+
+        return true;
     }
 
     @Override

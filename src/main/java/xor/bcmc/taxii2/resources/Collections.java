@@ -3,13 +3,12 @@ package xor.bcmc.taxii2.resources;
 import com.google.gson.annotations.Expose;
 import xor.bcmc.taxii2.validation.Errors;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Collections extends TaxiiResource {
 
     @Expose
-    private List<Collection> collections = new ArrayList<>();
+    private List<Collection> collections;
 
     public Collections() {
     }
@@ -28,7 +27,7 @@ public class Collections extends TaxiiResource {
 
     @Override
     public Errors validate() {
-        return null;
+        return new Errors();
     }
 
     @Override
@@ -47,6 +46,12 @@ public class Collections extends TaxiiResource {
     }
 
     private boolean equal(List<Collection> thisCollections, List<Collection> thatCollections){
+        if ((thisCollections == null && thatCollections != null) || (thisCollections != null && thatCollections == null))
+            return false;
+
+        if (thisCollections == null && thatCollections == null)
+            return true;
+
         for (Collection collection : thisCollections){
             boolean found = false;
             for (Collection collection_ : thatCollections){
