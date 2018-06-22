@@ -61,7 +61,7 @@ public class StatusResourceDeserializer implements JsonDeserializer<StatusResour
                             ((JsonPrimitive)get(json, key, JsonPrimitive.class)).getAsInt());
                     break;
                 case "pendings":
-                    statusResource.setSuccesses(
+                    statusResource.setPendings(
                             context.deserialize(((JsonArray)get(json, key, JsonArray.class)), new TypeToken<List<String>>(){}.getType()));
                     break;
                 default:

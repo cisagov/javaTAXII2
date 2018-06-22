@@ -1,18 +1,18 @@
 package xor.bcmc.taxii2.resources;
 
+import com.google.gson.JsonPrimitive;
 import org.junit.Test;
+import xor.bcmc.taxii2.JsonHandler;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.*;
 
 public class StatusResourceTest {
 
@@ -28,17 +28,28 @@ public class StatusResourceTest {
 
     private StatusResource getFullTestStatus() {
         StatusResource status = getTestStatus();
-        status.setRequestTimestamp(ZonedDateTime.now());
+        status.setRequestTimestamp(ZonedDateTime.now().withZoneSameLocal(ZoneId.of("Z")));
         List<String> successes = new ArrayList<>();
-        successes.add("stixID-1234");
+        successes.add("stixID-1234-s");
         status.setSuccesses(successes);
         List<StatusFailure> statusFailures = new ArrayList<>();
-        statusFailures.add(new StatusFailure("stixID-1233", FAIL_MESSAGE));
+        statusFailures.add(new StatusFailure("stixID-1233-f", FAIL_MESSAGE));
         status.setFailures(statusFailures);
         List<String> pendings = new ArrayList<>();
-        pendings.add("stixID-1235");
+        pendings.add("stixID-1235-p");
         status.setPendings(pendings);
         return status;
+    }
+
+    @Test
+    public void serializeAndDeserialize() {
+        StatusResource status = getFullTestStatus();
+        status.withCustomProperty("x_flarecloud_property2", new JsonPrimitive("value2"));
+
+        String json = status.toJson();
+        System.out.println(json);
+        assertThat(StatusResource.fromJson(json), equalTo(status));
+        assertTrue(status.getCustomProperties().get("x_flarecloud_property2").getAsString().equals("value2"));
     }
 
     @Test
@@ -79,9 +90,6 @@ public class StatusResourceTest {
     @Test
     public void toJSON_fromJSON_WithEmptyLists_Test(){
         StatusResource original = new StatusResource("emptyStatusResource");
-        original.setFailures(new ArrayList<>());
-        original.setPendings(new ArrayList<>());
-        original.setSuccesses(new ArrayList<>());
         String statusJSON = original.toString();
         assertFalse("JSON representation contains an empty list! \n" + statusJSON, statusJSON.contains("[]")); //No empty lists!
         StatusResource status = StatusResource.fromJson(statusJSON);
