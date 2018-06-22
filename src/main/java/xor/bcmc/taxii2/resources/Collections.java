@@ -3,12 +3,13 @@ package xor.bcmc.taxii2.resources;
 import com.google.gson.annotations.Expose;
 import xor.bcmc.taxii2.validation.Errors;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Collections extends TaxiiResource {
 
     @Expose
-    private List<Collection> collections;
+    private List<Collection> collections = new ArrayList<>();
 
     public Collections() {
     }

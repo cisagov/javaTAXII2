@@ -27,7 +27,7 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
 
     @Expose
     @SerializedName("api_roots")
-    private List<String> apiRoots;
+    private List<String> apiRoots = new ArrayList<>();
 
     public Discovery(String title, List<String> apiRoots) {
         this.title = title;
@@ -183,8 +183,10 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
     public Errors validate() {
         Errors errors = new Errors();
         errors.rejectIfNullOrEmpty("title", this.title);
-        // Reject if 'default' ApiRoot is not in the list of Api Roots
-        errors.rejectIfNotContains("default", this.apiRoots, this.defaultApiRoot);
+        // "default" is optional, but if it is present,
+        // reject if "default" ApiRoot is not in the list of Api Roots
+        if (defaultApiRoot != null)
+            errors.rejectIfNotContains("default", this.apiRoots, this.defaultApiRoot);
         return errors;
     }
 
