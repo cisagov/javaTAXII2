@@ -2,11 +2,14 @@ package xor.bcmc.taxii2.resources;
 
 import com.google.gson.JsonPrimitive;
 import org.junit.Test;
+import xor.bcmc.taxii2.JsonHandler;
 
 import java.util.Arrays;
 import java.util.UUID;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class CollectionsTest {
     private static Collection collection;
@@ -30,6 +33,7 @@ public class CollectionsTest {
 
         String json = collections.toJson();
         System.out.println(json);
-//        assertEquals(Collection.fromJson(json), collection);
+        assertThat(JsonHandler.getInstance().getGson().fromJson(json, Collections.class), equalTo(collections));
+        assertEquals(collections.getCollections().get(0), collection);
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 public class ManifestResource extends TaxiiResource {
 
     @Expose
-    private List<ManifestEntry> objects;
+    private List<ManifestEntry> objects = new ArrayList<>();
 
     public ManifestResource(){
     }
@@ -18,13 +18,10 @@ public class ManifestResource extends TaxiiResource {
         this.objects = objects;
     }
 
-    public void addObject( ManifestEntry object)
+    public ManifestResource withObject( ManifestEntry object)
     {
-        if ( objects == null )
-        {
-            objects = new ArrayList<ManifestEntry>();
-        }
         objects.add( object );
+        return this;
     }
 
     // Getters
@@ -32,7 +29,7 @@ public class ManifestResource extends TaxiiResource {
         return objects;
     }
 
-    public void setMediaTypes(List<ManifestEntry> objects) {
+    public void setObjects(List<ManifestEntry> objects) {
         this.objects = objects;
     }
 

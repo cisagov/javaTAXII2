@@ -1,7 +1,7 @@
 package xor.bcmc.taxii2;
 
 import com.google.gson.*;
-import xor.bcmc.taxii2.gson.TaxiiResourceDeserializer;
+import xor.bcmc.taxii2.gson.*;
 import xor.bcmc.taxii2.resources.*;
 
 import java.lang.reflect.Type;
@@ -112,61 +112,6 @@ public class JsonHandler {
         public JsonElement serialize(ZonedDateTime src, Type type, JsonSerializationContext jsonSerializationContext) {
             ZonedDateTime date = src.withZoneSameInstant(ZoneId.of("Z"));
             return new JsonPrimitive(date.toString());
-        }
-    }
-
-
-    /**
-     *
-     * Custom Deserializers for TaxiiResources (to include custom properties)
-     *
-     */
-    private class ApiRootDeserializer extends TaxiiResourceDeserializer {
-        @Override
-        public ApiRoot deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
-            return build(jsonElement, new ApiRoot(), context);
-        }
-    }
-
-    private class CollectionDeserializer extends TaxiiResourceDeserializer {
-        @Override
-        public Collection deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
-            return build(jsonElement, new Collection(), context);
-        }
-    }
-
-    private class CollectionsDeserializer extends TaxiiResourceDeserializer {
-        @Override
-        public Collections deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
-            return build(jsonElement, new Collections(), context);
-        }
-    }
-
-    private class DiscoveryDeserializer extends TaxiiResourceDeserializer {
-        @Override
-        public Discovery deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
-            return build(jsonElement, new Discovery(), context);
-        }
-    }
-
-    private class ManifestEntryDeserializer extends TaxiiResourceDeserializer {
-        @Override
-        public ManifestEntry deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
-            return build(jsonElement, new ManifestEntry(), context);
-        }
-    }
-
-    private class ManifestResourceDeserializer extends TaxiiResourceDeserializer {
-        @Override
-        public ManifestResource deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
-            return build(jsonElement, new ManifestResource(), context);
-        }
-    }
-
-    private class StatusResourceDeserializer extends TaxiiResourceDeserializer {
-        @Override
-        public StatusResource deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
-            return build(jsonElement, new StatusResource(), context);
         }
     }
 }

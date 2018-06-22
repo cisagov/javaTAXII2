@@ -16,7 +16,7 @@ public class ManifestEntry extends TaxiiResource implements Identifiable<String>
     @Expose
     private List<String> versions;
     @Expose
-    private List<String> mediaTypes;
+    private List<String> mediaTypes = new ArrayList<>();
 
 
     public ManifestEntry(){
@@ -32,7 +32,7 @@ public class ManifestEntry extends TaxiiResource implements Identifiable<String>
     public ManifestEntry(String id, ZonedDateTime date_added, String mediaType, List<String> versions) {
         this.id = id;
         this.date_added = date_added;
-        this.setMediaTypes( mediaType);
+        this.withMediaType( mediaType);
         this.versions = versions;
     }
 
@@ -71,18 +71,16 @@ public class ManifestEntry extends TaxiiResource implements Identifiable<String>
         this.date_added = date;
     }
 
-    public void setMediaTypes(List<String> mediaType)
+    public ManifestEntry withMediaTypes(List<String> mediaTypes)
     {
-        this.mediaTypes = mediaType;
+        this.mediaTypes.addAll(mediaTypes);
+        return this;
     }
 
-    public void setMediaTypes(String mediaType)
+    public ManifestEntry withMediaType(String mediaType)
     {
-        if(this.mediaTypes == null)
-        {
-            this.mediaTypes = new ArrayList<String>();
-        }
         this.mediaTypes.add( mediaType );
+        return this;
     }
 
     public void setVersions(List<String> versions) {
