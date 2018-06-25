@@ -187,10 +187,10 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
     public Errors validate() {
         Errors errors = new Errors();
         errors.rejectIfNullOrEmpty("title", this.title);
-        // Reject if 'default' ApiRoot is not in the list of Api Roots
-        if (this.defaultApiRoot != null) {
+        // "default" is optional, but if it is present,
+        // reject if "default" ApiRoot is not in the list of Api Roots
+        if (defaultApiRoot != null)
             errors.rejectIfNotContains("default", this.apiRoots, this.defaultApiRoot);
-        }
         return errors;
     }
 

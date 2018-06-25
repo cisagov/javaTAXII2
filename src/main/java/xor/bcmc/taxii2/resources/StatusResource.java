@@ -23,6 +23,7 @@ public class StatusResource extends TaxiiResource implements Identifiable<String
     public static StatusResource fromJson(String json) {
         return JsonHandler.getInstance().fromJson(json, StatusResource.class);
     }
+
     /* --------------------------------------------------------------------- */
 
 
@@ -249,6 +250,20 @@ public class StatusResource extends TaxiiResource implements Identifiable<String
     }
 
     @Override
+    public Errors validate() {
+        Errors errors = new Errors();
+        errors.rejectIfNullOrEmpty("id", this.id);
+        errors.rejectIfNullOrEmpty("status", this.status.toString());
+        return errors;
+    }
+
+    @Override
+    public boolean isValid() {
+        return validate().isEmpty();
+    }
+
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -260,30 +275,23 @@ public class StatusResource extends TaxiiResource implements Identifiable<String
         if (failureCount != that.failureCount) return false;
         if (pendingCount != that.pendingCount) return false;
         if (!id.equals(that.id)) return false;
-        return status == that.status;
+        if (status != that.status) return false;
+        if (requestTimestamp != null ? (requestTimestamp.compareTo(that.requestTimestamp) != 0) : that.requestTimestamp != null)
+            return false;
+        if (successes != null ? !successes.equals(that.successes) : that.successes != null) return false;
+        if (failures != null ? !failures.equals(that.failures) : that.failures != null) return false;
+        return pendings != null ? pendings.equals(that.pendings) : that.pendings == null;
     }
 
     @Override
     public int hashCode() {
         int result = id.hashCode();
-        result = 31 * result + status.hashCode();
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (requestTimestamp != null ? requestTimestamp.hashCode() : 0);
         result = 31 * result + totalCount;
         result = 31 * result + successCount;
         result = 31 * result + failureCount;
         result = 31 * result + pendingCount;
         return result;
-    }
-
-    @Override
-    public Errors validate() {
-        Errors errors = new Errors();
-        errors.rejectIfNullOrEmpty("id", this.id);
-        errors.rejectIfNullOrEmpty("status", this.status.toString());
-        return errors;
-    }
-
-    @Override
-    public boolean isValid() {
-        return validate().isEmpty();
     }
 }

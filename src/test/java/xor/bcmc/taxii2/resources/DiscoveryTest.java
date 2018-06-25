@@ -1,12 +1,13 @@
 package xor.bcmc.taxii2.resources;
 
+import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import org.junit.Test;
 
 import java.util.Arrays;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.*;
 
 public class DiscoveryTest {
 
@@ -30,14 +31,35 @@ public class DiscoveryTest {
     }
 
     @Test
-    public void bareMinimumFieldsTest() {
-        Discovery emptyDiscovery = new Discovery("Title", null);
-        assertTrue(emptyDiscovery.validate().isEmpty());
+    public void serializeAndDeserializeEmptyList() {
+        Discovery discovery_ = new Discovery();
+        discovery_.setTitle("SomeTitle");
+        JsonObject jsonObject = discovery_.toJsonElement().getAsJsonObject();
+        assertThat(jsonObject.get("api_roots"), equalTo(null));
 
-        String json = emptyDiscovery.toJson();
-        assertEquals(Discovery.fromJson(json), emptyDiscovery);
-        String toString = emptyDiscovery.toString();
-        assertEquals(Discovery.fromJson(toString), emptyDiscovery);
+        Discovery discovery__ = Discovery.fromJson(jsonObject.toString());
+        assertThat(discovery__.getApiRoots(), equalTo(null));
     }
 
+    @Test
+    public void withoutOptionalFieldsEquals() {
+        Discovery discovery_ = new Discovery();
+        discovery_.setTitle("SomeTitle");
+        assertTrue(!discovery.equals(discovery_));
+    }
+
+    @Test
+    public void withoutOptionalFieldsValidate() {
+        Discovery discovery_ = new Discovery();
+        discovery_.setTitle("SomeTitle");
+        assertThat(discovery_.validate().keySet().size(), equalTo(0));
+    }
+
+    @Test
+    public void withoutOptionalFieldsSerializeAndDeserialize() {
+        Discovery discovery_ = new Discovery();
+        discovery_.setTitle("SomeTitle");
+        String json = discovery_.toJson();
+        assertEquals(Discovery.fromJson(json), discovery_);
+    }
 }

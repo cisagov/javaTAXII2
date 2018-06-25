@@ -27,11 +27,47 @@ public class Collections extends TaxiiResource {
 
     @Override
     public Errors validate() {
-        return null;
+        return new Errors();
     }
 
     @Override
     public boolean isValid() {
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Collections that = (Collections) o;
+
+        return collections != null ? equal(this.collections, that.collections) : that.collections == null;
+    }
+
+    private boolean equal(List<Collection> thisCollections, List<Collection> thatCollections){
+        if ((thisCollections == null && thatCollections != null) || (thisCollections != null && thatCollections == null))
+            return false;
+
+        if (thisCollections == null && thatCollections == null)
+            return true;
+
+        for (Collection collection : thisCollections){
+            boolean found = false;
+            for (Collection collection_ : thatCollections){
+                if (collection.getId().equals(collection_.getId())){
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+                return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return collections != null ? collections.hashCode() : 0;
     }
 }

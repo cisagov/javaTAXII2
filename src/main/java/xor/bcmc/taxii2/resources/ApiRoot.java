@@ -108,23 +108,6 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
         return this;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ApiRoot apiRoot = (ApiRoot) o;
-        return Objects.equals(title, apiRoot.title) &&
-                Objects.equals(description, apiRoot.description) &&
-                Objects.equals(versions, apiRoot.versions) &&
-                Objects.equals(maxContentLength, apiRoot.maxContentLength);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(title, description, versions, maxContentLength);
-    }
-
     public String getId() {
         return this.id;
     }
@@ -154,5 +137,27 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
     @Override
     public boolean isValid() {
         return validate().isEmpty();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ApiRoot apiRoot = (ApiRoot) o;
+
+        if (title != null ? !title.equals(apiRoot.title) : apiRoot.title != null) return false;
+        if (description != null ? !description.equals(apiRoot.description) : apiRoot.description != null) return false;
+        if (versions != null ? !versions.equals(apiRoot.versions) : apiRoot.versions != null) return false;
+        return maxContentLength != null ? maxContentLength.equals(apiRoot.maxContentLength) : apiRoot.maxContentLength == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = title != null ? title.hashCode() : 0;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (versions != null ? versions.hashCode() : 0);
+        result = 31 * result + (maxContentLength != null ? maxContentLength.hashCode() : 0);
+        return result;
     }
 }

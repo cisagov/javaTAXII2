@@ -145,6 +145,8 @@ public class Collection extends TaxiiResource implements Identifiable<String> {
     }
 
     public Collection withMediaTypes(List<String> mediaTypes) {
+        if(mediaTypes == null)
+            mediaTypes = new ArrayList<>();
         this.mediaTypes = mediaTypes;
         return this;
     }

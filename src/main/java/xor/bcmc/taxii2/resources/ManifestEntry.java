@@ -32,7 +32,7 @@ public class ManifestEntry extends TaxiiResource implements Identifiable<String>
     public ManifestEntry(String id, ZonedDateTime date_added, String mediaType, List<String> versions) {
         this.id = id;
         this.date_added = date_added;
-        this.setMediaTypes( mediaType);
+        this.withMediaType( mediaType);
         this.versions = versions;
     }
 
@@ -71,18 +71,22 @@ public class ManifestEntry extends TaxiiResource implements Identifiable<String>
         this.date_added = date;
     }
 
-    public void setMediaTypes(List<String> mediaType)
+    public ManifestEntry withMediaTypes(List<String> mediaTypes)
     {
-        this.mediaTypes = mediaType;
+        if (this.mediaTypes == null)
+            this.mediaTypes = new ArrayList<>();
+
+        this.mediaTypes.addAll(mediaTypes);
+        return this;
     }
 
-    public void setMediaTypes(String mediaType)
+    public ManifestEntry withMediaType(String mediaType)
     {
-        if(this.mediaTypes == null)
-        {
-            this.mediaTypes = new ArrayList<String>();
-        }
+        if (mediaTypes == null)
+            mediaTypes = new ArrayList<>();
+
         this.mediaTypes.add( mediaType );
+        return this;
     }
 
     public void setVersions(List<String> versions) {
@@ -99,6 +103,28 @@ public class ManifestEntry extends TaxiiResource implements Identifiable<String>
     @Override
     public boolean isValid() {
         return validate().isEmpty();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ManifestEntry that = (ManifestEntry) o;
+
+        if (!id.equals(that.id)) return false;
+        if (date_added != null ? (date_added.compareTo(date_added) != 0) : that.date_added != null) return false;
+        if (versions != null ? !versions.equals(that.versions) : that.versions != null) return false;
+        return mediaTypes != null ? mediaTypes.equals(that.mediaTypes) : that.mediaTypes == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + (date_added != null ? date_added.hashCode() : 0);
+        result = 31 * result + (versions != null ? versions.hashCode() : 0);
+        result = 31 * result + (mediaTypes != null ? mediaTypes.hashCode() : 0);
+        return result;
     }
 }
 

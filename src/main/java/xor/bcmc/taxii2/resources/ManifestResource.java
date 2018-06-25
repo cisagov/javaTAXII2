@@ -18,13 +18,13 @@ public class ManifestResource extends TaxiiResource {
         this.objects = objects;
     }
 
-    public void addObject( ManifestEntry object)
+    public ManifestResource withObject( ManifestEntry object)
     {
-        if ( objects == null )
-        {
-            objects = new ArrayList<ManifestEntry>();
-        }
+        if (objects == null)
+            objects = new ArrayList<>();
+
         objects.add( object );
+        return this;
     }
 
     // Getters
@@ -32,7 +32,7 @@ public class ManifestResource extends TaxiiResource {
         return objects;
     }
 
-    public void setMediaTypes(List<ManifestEntry> objects) {
+    public void setObjects(List<ManifestEntry> objects) {
         this.objects = objects;
     }
 
@@ -44,6 +44,21 @@ public class ManifestResource extends TaxiiResource {
     @Override
     public boolean isValid() {
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ManifestResource that = (ManifestResource) o;
+
+        return objects != null ? objects.equals(that.objects) : that.objects == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return objects != null ? objects.hashCode() : 0;
     }
 }
 
