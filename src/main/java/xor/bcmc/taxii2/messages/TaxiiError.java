@@ -8,25 +8,18 @@ import java.util.Map;
 
 public class TaxiiError extends TaxiiResource{
 
-    @Expose
     private String title;
 
-    @Expose
     private String description;
 
-    @Expose
     private String errorId;
 
-    @Expose
     private String errorCode;
 
-    @Expose
     private String httpStatus;
 
-    @Expose
     private String externalDetails;
 
-    @Expose
     private Map<String, String> details;
 
     public TaxiiError() {}

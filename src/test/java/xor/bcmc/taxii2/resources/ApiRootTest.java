@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 public class ApiRootTest {
@@ -70,5 +71,13 @@ public class ApiRootTest {
         assertThat(apiRoot.getCustomProperties().get("x_flarecloud_field1").getAsString(), equalTo("value1"));
         assertThat(apiRoot.getCustomProperties().get("x_flarecloud_field2").getAsJsonObject().get("key2").getAsString(), equalTo("value2"));
         assertThat(apiRoot.getCustomProperties().get("x_flarecloud_field3").getAsJsonArray(), equalTo(new JsonParser().parse("[\"value3a\",\"value3b\"]").getAsJsonArray()));
+    }
+
+    @Test
+    public void idNotSerialized() {
+        ApiRoot apiRoot = new ApiRoot();
+        apiRoot.withId("ShouldBeHidden");
+        System.out.println(apiRoot);
+        assertFalse(apiRoot.toJson().contains("ShouldBeHidden"));
     }
 }

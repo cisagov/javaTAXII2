@@ -1,6 +1,8 @@
 package xor.bcmc.taxii2;
 
 import com.google.gson.*;
+import com.google.gson.annotations.Expose;
+import com.google.gson.internal.Excluder;
 import xor.bcmc.taxii2.gson.*;
 import xor.bcmc.taxii2.resources.*;
 
@@ -19,15 +21,13 @@ public class JsonHandler {
         // Configure TAXII serialization and deserialization
         GsonBuilder builder = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                .excludeFieldsWithoutExposeAnnotation();
-
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         //From: https://github.com/gkopff/gson-javatime-serialisers
         builder.registerTypeAdapter(Date.class, new DateAdapter())
                 .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeTypeAdapter())
-                .registerTypeAdapter(List.class, new CollectionAdapter())
-
+                .registerTypeAdapter(List.class, new ListAdapter())
                 .registerTypeAdapter(ApiRoot.class, new ApiRootDeserializer())
+                .registerTypeAdapter(ApiRoot.class, new ApiRootSerializer())
                 .registerTypeAdapter(Collection.class, new CollectionDeserializer())
                 .registerTypeAdapter(Collections.class, new CollectionsDeserializer())
                 .registerTypeAdapter(Discovery.class, new DiscoveryDeserializer())
@@ -68,7 +68,7 @@ public class JsonHandler {
     /**
      * According to TAXII 2 spec, Section 2 Data Types: empty lists are prohibited
      */
-    class CollectionAdapter implements JsonSerializer<List<?>> {
+    class ListAdapter implements JsonSerializer<List<?>> {
         @Override
         public JsonElement serialize(List<?> src, Type typeOfSrc, JsonSerializationContext context) {
             if (src == null || src.isEmpty()) // exclusion is made here. Null objects aren't serialized

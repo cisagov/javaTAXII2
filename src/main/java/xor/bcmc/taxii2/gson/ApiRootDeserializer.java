@@ -20,6 +20,10 @@ public class ApiRootDeserializer implements JsonDeserializer<ApiRoot> {
 
         for (String key : json.keySet()) {
             switch (key){
+                case "id":
+                    apiRoot.setId(
+                            ((JsonPrimitive)get(json, key, JsonPrimitive.class)).getAsString());
+                    break;
                 case "title":
                     apiRoot.setTitle(
                             ((JsonPrimitive)get(json, key, JsonPrimitive.class)).getAsString());

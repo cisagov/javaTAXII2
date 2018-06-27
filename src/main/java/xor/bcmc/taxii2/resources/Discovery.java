@@ -12,20 +12,15 @@ import java.util.List;
 public class Discovery extends TaxiiResource implements Identifiable<String> {
     public static final String RESOURCE_TYPE = "Discovery";
 
-    @Expose
     private String title;
 
-    @Expose
     private String description;
 
-    @Expose
     private String contact;
 
-    @Expose
     @SerializedName("default")
     private String defaultApiRoot;
 
-    @Expose
     @SerializedName("api_roots")
     private List<String> apiRoots;
 
