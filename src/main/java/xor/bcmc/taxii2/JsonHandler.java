@@ -1,8 +1,6 @@
 package xor.bcmc.taxii2;
 
 import com.google.gson.*;
-import com.google.gson.annotations.Expose;
-import com.google.gson.internal.Excluder;
 import xor.bcmc.taxii2.gson.*;
 import xor.bcmc.taxii2.resources.*;
 
