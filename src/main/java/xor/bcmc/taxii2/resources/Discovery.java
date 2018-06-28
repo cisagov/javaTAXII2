@@ -153,10 +153,11 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
         if (contact != null ? !contact.equals(discovery.contact) : discovery.contact != null) return false;
         if (defaultApiRoot != null ? !defaultApiRoot.equals(discovery.defaultApiRoot) : discovery.defaultApiRoot != null)
             return false;
-        if (apiRoots != null ? !apiRoots.equals(discovery.apiRoots) : discovery.apiRoots != null)
-            return false;
-
-        return true;
+        if (apiRoots == null) {
+            return discovery.apiRoots == null; //If both are null, then the objects are equal.
+        } else {
+            return apiRoots.equals(discovery.apiRoots);
+        }
     }
 
     @Override
@@ -165,7 +166,7 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (contact != null ? contact.hashCode() : 0);
         result = 31 * result + (defaultApiRoot != null ? defaultApiRoot.hashCode() : 0);
-        result = 31 * result + apiRoots.hashCode();
+        result = 31 * result + (apiRoots != null ? apiRoots.hashCode() : 0);
         return result;
     }
 
