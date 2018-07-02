@@ -49,6 +49,9 @@ public class ApiRootAdapter implements JsonSerializer<ApiRoot>, JsonDeserializer
         return apiRoot;
     }
 
+    /**
+     * Omit serialization of ID field
+     */
     @Override
     public JsonElement serialize(ApiRoot src, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject apiRoot = new JsonObject();
