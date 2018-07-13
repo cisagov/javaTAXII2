@@ -9,13 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManifestEntry extends TaxiiResource implements Identifiable<String> {
-    @Expose
+
+    @Expose(serialize = false)
     private String id;
-    @Expose
     private ZonedDateTime date_added;    // Collection RecToObjectRec
-    @Expose
     private List<String> versions;
-    @Expose
     private List<String> mediaTypes;
 
 

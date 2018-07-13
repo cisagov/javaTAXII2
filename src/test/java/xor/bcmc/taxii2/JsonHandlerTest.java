@@ -39,7 +39,6 @@ public class JsonHandlerTest {
     }
 
     class ZonedDateTimeJson {
-        @Expose
         private ZonedDateTime time;
 
         public ZonedDateTimeJson() {}
@@ -72,7 +71,6 @@ public class JsonHandlerTest {
     }
 
     class DateJson {
-        @Expose
         private Date time;
 
         public DateJson() {}

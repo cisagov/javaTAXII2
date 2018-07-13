@@ -9,9 +9,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class TaxiiResource implements Serializable, Validatable {
-    protected Map<String, JsonElement> customProperties = new HashMap<>();
+    protected Map<String, JsonElement> customProperties;
 
     public TaxiiResource withCustomProperty(String field, JsonElement value) {
+        if (customProperties == null) {
+            customProperties = new HashMap<>();
+        }
         this.customProperties.put(field, value);
         return this;
     }
@@ -21,7 +24,7 @@ public abstract class TaxiiResource implements Serializable, Validatable {
     }
 
     public String toJson() {
-        return JsonHandler.getInstance().toJson(this);
+        return JsonHandler.getInstance().getGson().toJson(this);
     }
 
     public String toString() {
