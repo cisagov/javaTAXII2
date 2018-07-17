@@ -10,6 +10,8 @@ import java.util.Date;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class JsonHandlerTest {
 
@@ -71,6 +73,15 @@ public class JsonHandlerTest {
         assertThat(dateJsonJson.get("time").getAsString(), equalTo("2016-01-01T01:01:01Z"));
     }
 
+    @Test
+    public void testJsonHandlerExpose() {
+        ExposeTestClass object = new ExposeTestClass("exposedVal", "notExposedVal");
+        String objectString = JsonHandler.getInstance().toJson(object);
+        System.out.println(objectString);
+        assertTrue(objectString.contains("exposedVal"));
+        assertFalse(objectString.contains("notExposedVal"));
+    }
+
     class DateJson {
         @Expose
         private Date time;
@@ -87,6 +98,26 @@ public class JsonHandlerTest {
 
         public void setTime(Date time) {
             this.time = time;
+        }
+    }
+
+    class ExposeTestClass {
+        @Expose
+        private String exposed;
+
+        private String notExposed;
+
+        public ExposeTestClass(String exposedValue, String notExposedValue) {
+            this.exposed = exposedValue;
+            this.notExposed = notExposedValue;
+        }
+
+        public String getExposed() {
+            return exposed;
+        }
+
+        public String getNotExposed() {
+            return notExposed;
         }
     }
 }
