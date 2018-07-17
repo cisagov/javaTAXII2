@@ -79,4 +79,12 @@ public class CollectionTest {
         String json = collection_.toJson();
         assertEquals(Collection.fromJson(json), collection_);
     }
+
+    @Test
+    public void customPropertiesNotSerialized() {
+        Collection collection = new Collection();
+        collection.withCustomProperty("key", new JsonPrimitive("value"));
+        System.out.println(collection);
+        assertFalse(collection.toJson().contains("custom_properties"));
+    }
 }

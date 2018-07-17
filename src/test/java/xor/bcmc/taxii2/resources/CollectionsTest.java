@@ -9,9 +9,7 @@ import java.util.Arrays;
 import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class CollectionsTest {
     private static Collection collection;
@@ -63,5 +61,13 @@ public class CollectionsTest {
         Collections collections1 = new Collections();
 
         assertTrue(collections1.validate().keySet().size() == 0);
+    }
+
+    @Test
+    public void customPropertiesNotSerialized() {
+        Collections collections = new Collections();
+        collections.withCustomProperty("key", new JsonPrimitive("value"));
+        System.out.println(collections);
+        assertFalse(collections.toJson().contains("custom_properties"));
     }
 }

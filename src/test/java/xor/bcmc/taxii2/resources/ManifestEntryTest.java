@@ -1,6 +1,7 @@
 package xor.bcmc.taxii2.resources;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import org.junit.Test;
 import xor.bcmc.taxii2.JsonHandler;
 
@@ -8,6 +9,7 @@ import java.time.ZonedDateTime;
 import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -55,5 +57,13 @@ public class ManifestEntryTest {
         manifestEntry.setId("indicator--29aba82c-5393-42a8-9edb-6a2cb1df070b");
 
         assertTrue(manifestEntry.validate().keySet().size() == 0);
+    }
+
+    @Test
+    public void customPropertiesNotSerialized() {
+        ManifestEntry manifestEntry = new ManifestEntry();
+        manifestEntry.withCustomProperty("key", new JsonPrimitive("value"));
+        System.out.println(manifestEntry);
+        assertFalse(manifestEntry.toJson().contains("custom_properties"));
     }
 }

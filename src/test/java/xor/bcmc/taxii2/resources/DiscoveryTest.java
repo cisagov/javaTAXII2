@@ -62,4 +62,12 @@ public class DiscoveryTest {
         String json = discovery_.toJson();
         assertEquals(Discovery.fromJson(json), discovery_);
     }
+
+    @Test
+    public void customPropertiesNotSerialized() {
+        Discovery discovery = new Discovery();
+        discovery.withCustomProperty("key", new JsonPrimitive("value"));
+        System.out.println(discovery);
+        assertFalse(discovery.toJson().contains("custom_properties"));
+    }
 }

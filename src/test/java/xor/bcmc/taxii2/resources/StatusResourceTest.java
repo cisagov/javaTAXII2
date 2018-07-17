@@ -96,4 +96,12 @@ public class StatusResourceTest {
         System.out.println(status.toString());
         assertEquals(original, status);
     }
+
+    @Test
+    public void customPropertiesNotSerialized() {
+        StatusResource statusResource = new StatusResource();
+        statusResource.withCustomProperty("key", new JsonPrimitive("value"));
+        System.out.println(statusResource);
+        assertFalse(statusResource.toJson().contains("custom_properties"));
+    }
 }
