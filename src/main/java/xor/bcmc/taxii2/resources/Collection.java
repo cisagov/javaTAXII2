@@ -13,19 +13,24 @@ import java.util.Objects;
 public class Collection extends TaxiiResource implements Identifiable<String> {
     public static final String RESOURCE_TYPE = "Collection";
 
-    @Expose(serialize = false)
+    @Expose
     private String id;
 
+    @Expose
     private String title;
 
+    @Expose
     private String description;
 
+    @Expose
     @SerializedName("can_read")
     private Boolean canRead;
 
+    @Expose
     @SerializedName("can_write")
     private Boolean canWrite;
 
+    @Expose
     private List<String> mediaTypes;
 
     public Collection() {

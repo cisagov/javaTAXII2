@@ -35,34 +35,44 @@ public class StatusResource extends TaxiiResource implements Identifiable<String
         COMPLETE
     }
 
+    @Expose
     private String id;
 
 //    @Field("status")
+    @Expose
     private StatusEnum status = StatusEnum.PENDING;
 
     //Optional. The datetime of the request that this status resource is monitoring.
+    @Expose
     private ZonedDateTime requestTimestamp;
 
     //The total number of objects that were in the request. For a STIX bundle this would be the number of objects in the bundle.
+    @Expose
     private int totalCount;
 
+    @Expose
     private int successCount;
 
     //Optional. A list of object IDs that were successfully processed.
     // For STIX objects the STIX ID MUST be used here.
     // For object types that do not have their own identifier, the server MAY use any value as the id.
+    @Expose
     private List<String> successes;
 
+    @Expose
     private int failureCount;
 
     //Optional. A list of objects that were not successfully processed.
+    @Expose
     private List<StatusFailure> failures;
 
+    @Expose
     private int pendingCount;
 
     //Optional. A list of objects for objects that have yet to be processed.
     // For STIX objects the STIX ID MUST be used here.
     // For object types that do not have their own identifier, the server MAY use any value as the id.
+    @Expose
     private List<String> pendings;
 
     public StatusResource() {

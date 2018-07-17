@@ -19,12 +19,15 @@ public class JsonHandler {
         // Configure TAXII serialization and deserialization
         GsonBuilder builder = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                .excludeFieldsWithoutExposeAnnotation();
+
         //From: https://github.com/gkopff/gson-javatime-serialisers
         builder.registerTypeAdapter(Date.class, new DateAdapter())
                 .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeTypeAdapter())
-                .registerTypeAdapter(List.class, new ListAdapter())
-                .registerTypeAdapter(ApiRoot.class, new ApiRootAdapter())
+                .registerTypeAdapter(List.class, new CollectionAdapter())
+
+                .registerTypeAdapter(ApiRoot.class, new ApiRootDeserializer())
                 .registerTypeAdapter(Collection.class, new CollectionDeserializer())
                 .registerTypeAdapter(Collections.class, new CollectionsDeserializer())
                 .registerTypeAdapter(Discovery.class, new DiscoveryDeserializer())
@@ -65,7 +68,7 @@ public class JsonHandler {
     /**
      * According to TAXII 2 spec, Section 2 Data Types: empty lists are prohibited
      */
-    class ListAdapter implements JsonSerializer<List<?>> {
+    class CollectionAdapter implements JsonSerializer<List<?>> {
         @Override
         public JsonElement serialize(List<?> src, Type typeOfSrc, JsonSerializationContext context) {
             if (src == null || src.isEmpty()) // exclusion is made here. Null objects aren't serialized
