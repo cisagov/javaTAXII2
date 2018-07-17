@@ -64,6 +64,22 @@ public class DiscoveryTest {
     }
 
     @Test
+    public void checkSerialization() {
+        JsonObject discoveryJson = discovery.toJsonElement().getAsJsonObject();
+        assertTrue(discoveryJson.get("title").getAsString().equals(discovery.getTitle()));
+        assertTrue(discoveryJson.get("description").getAsString().equals(discovery.getDescription()));
+        assertTrue(discoveryJson.get("contact").getAsString().equals(discovery.getContact()));
+        assertTrue(discoveryJson.get("default").getAsString().equals(discovery.getDefaultApiRoot()));
+        assertTrue(discoveryJson.get("api_roots").getAsJsonArray().get(0).getAsString().equals("Api Root 1"));
+        assertTrue(discoveryJson.get("api_roots").getAsJsonArray().get(1).getAsString().equals("Api Root 2"));
+
+        assertTrue(discoveryJson.keySet().size() == 5);
+
+        Discovery discovery_ = Discovery.fromJson(discoveryJson.toString());
+        assertTrue(discovery.equals(discovery_));
+    }
+
+    @Test
     public void customPropertiesNotSerialized() {
         Discovery discovery = new Discovery();
         discovery.withCustomProperty("key", new JsonPrimitive("value"));

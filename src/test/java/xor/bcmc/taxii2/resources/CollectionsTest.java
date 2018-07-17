@@ -64,6 +64,28 @@ public class CollectionsTest {
     }
 
     @Test
+    public void checkSerialization() {
+        Collections collections = new Collections(Arrays.asList(collection));
+        System.out.println(collections);
+
+        JsonObject collectionsJson = collections.toJsonElement().getAsJsonObject();
+        assertTrue(collectionsJson.get("collections") != null);
+
+        JsonObject collectionJson = collectionsJson.get("collections").getAsJsonArray().get(0).getAsJsonObject();
+        assertTrue(collectionJson.get("id").getAsString().equals(collection.getId()));
+        assertTrue(collectionJson.get("title").getAsString().equals(collection.getTitle()));
+        assertTrue(collectionJson.get("description").getAsString().equals(collection.getDescription()));
+        assertTrue(collectionJson.get("can_read").getAsBoolean() == collection.getCanRead());
+        assertTrue(collectionJson.get("can_write").getAsBoolean() == collection.getCanWrite());
+        assertTrue(collectionJson.get("media_types").getAsJsonArray().get(0).getAsString().equals("taxii2.0"));
+
+        assertTrue(collectionsJson.keySet().size() == 1);
+
+        Collections collections_ = JsonHandler.getInstance().fromJson(collectionsJson.toString(), Collections.class);
+        assertTrue(collections.equals(collections_));
+    }
+
+    @Test
     public void customPropertiesNotSerialized() {
         Collections collections = new Collections();
         collections.withCustomProperty("key", new JsonPrimitive("value"));

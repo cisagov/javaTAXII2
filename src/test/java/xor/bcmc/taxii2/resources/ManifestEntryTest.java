@@ -5,6 +5,7 @@ import com.google.gson.JsonPrimitive;
 import org.junit.Test;
 import xor.bcmc.taxii2.JsonHandler;
 
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 
@@ -57,6 +58,26 @@ public class ManifestEntryTest {
         manifestEntry.setId("indicator--29aba82c-5393-42a8-9edb-6a2cb1df070b");
 
         assertTrue(manifestEntry.validate().keySet().size() == 0);
+    }
+
+    @Test
+    public void checkSerialization() {
+        ManifestEntry manifestEntry = new ManifestEntry();
+        manifestEntry.setId("indicator--29aba82c-5393-42a8-9edb-6a2cb1df070b");
+        manifestEntry.setDateAdded(ZonedDateTime.now());
+        manifestEntry.setVersions(Arrays.asList("2016-11-03T12:30:59.000Z"));
+        manifestEntry.withMediaType("application/vnd.oasis.stix+json; version=2.0");
+
+        JsonObject manifestEntryJson = manifestEntry.toJsonElement().getAsJsonObject();
+        assertTrue(manifestEntryJson.get("id").getAsString().equals(manifestEntry.getId()));
+        assertTrue(manifestEntryJson.get("date_added").getAsString().equals(manifestEntry.getDateAdded().withZoneSameInstant(ZoneId.of("Z")).toString()));
+        assertTrue(manifestEntryJson.get("versions").getAsJsonArray().get(0).getAsString().equals(manifestEntry.getVersions().get(0)));
+        assertTrue(manifestEntryJson.get("media_types").getAsJsonArray().get(0).getAsString().equals(manifestEntry.getMediaTypes().get(0)));
+
+        assertTrue(manifestEntryJson.keySet().size() == 4);
+
+        ManifestEntry manifestEntry_ = JsonHandler.getInstance().fromJson(manifestEntryJson.toString(), ManifestEntry.class);
+        assertTrue(manifestEntry.equals(manifestEntry_));
     }
 
     @Test
