@@ -25,7 +25,7 @@ public class JsonHandler {
         //From: https://github.com/gkopff/gson-javatime-serialisers
         builder.registerTypeAdapter(Date.class, new DateAdapter())
                 .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeTypeAdapter())
-                .registerTypeAdapter(List.class, new CollectionAdapter())
+                .registerTypeAdapter(List.class, new ListAdapter())
 
                 .registerTypeAdapter(ApiRoot.class, new ApiRootDeserializer())
                 .registerTypeAdapter(Collection.class, new CollectionDeserializer())
@@ -68,7 +68,7 @@ public class JsonHandler {
     /**
      * According to TAXII 2 spec, Section 2 Data Types: empty lists are prohibited
      */
-    class CollectionAdapter implements JsonSerializer<List<?>> {
+    class ListAdapter implements JsonSerializer<List<?>> {
         @Override
         public JsonElement serialize(List<?> src, Type typeOfSrc, JsonSerializationContext context) {
             if (src == null || src.isEmpty()) // exclusion is made here. Null objects aren't serialized
