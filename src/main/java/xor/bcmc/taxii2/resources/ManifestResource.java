@@ -8,6 +8,7 @@ import java.util.List;
 
 public class ManifestResource extends TaxiiResource {
 
+    @Expose
     private List<ManifestEntry> objects;
 
     public ManifestResource(){

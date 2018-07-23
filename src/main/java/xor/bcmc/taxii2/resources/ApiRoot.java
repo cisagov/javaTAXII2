@@ -21,12 +21,16 @@ public class ApiRoot extends TaxiiResource implements Identifiable<String> {
     @Expose(serialize = false)
     private String id;
 
+    @Expose
     private String title;
 
+    @Expose
     private String description;
 
+    @Expose
     private List<String> versions;
 
+    @Expose
     private Integer maxContentLength;
     // TODO TAXII 2.1
     // private List<Channel> channels;

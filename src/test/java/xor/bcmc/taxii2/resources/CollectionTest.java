@@ -79,4 +79,28 @@ public class CollectionTest {
         String json = collection_.toJson();
         assertEquals(Collection.fromJson(json), collection_);
     }
+
+    @Test
+    public void checkSerialization() {
+        JsonObject collectionJson = collection.toJsonElement().getAsJsonObject();
+        assertTrue(collectionJson.get("id").getAsString().equals(collection.getId()));
+        assertTrue(collectionJson.get("title").getAsString().equals(collection.getTitle()));
+        assertTrue(collectionJson.get("description").getAsString().equals(collection.getDescription()));
+        assertTrue(collectionJson.get("can_read").getAsBoolean() == collection.getCanRead());
+        assertTrue(collectionJson.get("can_write").getAsBoolean() == collection.getCanWrite());
+        assertTrue(collectionJson.get("media_types").getAsJsonArray().get(0).getAsString().equals("taxii2.0"));
+
+        assertTrue(collectionJson.keySet().size() == 6);
+
+        Collection collection_ = Collection.fromJson(collectionJson.toString());
+        assertTrue(collection.equals(collection_));
+    }
+
+    @Test
+    public void customPropertiesNotSerialized() {
+        Collection collection = new Collection();
+        collection.withCustomProperty("key", new JsonPrimitive("value"));
+        System.out.println(collection);
+        assertFalse(collection.toJson().contains("custom_properties"));
+    }
 }

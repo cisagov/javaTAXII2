@@ -9,9 +9,7 @@ import java.util.Arrays;
 import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class CollectionsTest {
     private static Collection collection;
@@ -63,5 +61,35 @@ public class CollectionsTest {
         Collections collections1 = new Collections();
 
         assertTrue(collections1.validate().keySet().size() == 0);
+    }
+
+    @Test
+    public void checkSerialization() {
+        Collections collections = new Collections(Arrays.asList(collection));
+        System.out.println(collections);
+
+        JsonObject collectionsJson = collections.toJsonElement().getAsJsonObject();
+        assertTrue(collectionsJson.get("collections") != null);
+
+        JsonObject collectionJson = collectionsJson.get("collections").getAsJsonArray().get(0).getAsJsonObject();
+        assertTrue(collectionJson.get("id").getAsString().equals(collection.getId()));
+        assertTrue(collectionJson.get("title").getAsString().equals(collection.getTitle()));
+        assertTrue(collectionJson.get("description").getAsString().equals(collection.getDescription()));
+        assertTrue(collectionJson.get("can_read").getAsBoolean() == collection.getCanRead());
+        assertTrue(collectionJson.get("can_write").getAsBoolean() == collection.getCanWrite());
+        assertTrue(collectionJson.get("media_types").getAsJsonArray().get(0).getAsString().equals("taxii2.0"));
+
+        assertTrue(collectionsJson.keySet().size() == 1);
+
+        Collections collections_ = JsonHandler.getInstance().fromJson(collectionsJson.toString(), Collections.class);
+        assertTrue(collections.equals(collections_));
+    }
+
+    @Test
+    public void customPropertiesNotSerialized() {
+        Collections collections = new Collections();
+        collections.withCustomProperty("key", new JsonPrimitive("value"));
+        System.out.println(collections);
+        assertFalse(collections.toJson().contains("custom_properties"));
     }
 }

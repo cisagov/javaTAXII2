@@ -1,14 +1,14 @@
 package xor.bcmc.taxii2.resources;
 
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import org.junit.Test;
 
 import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class ApiRootTest {
 
@@ -76,8 +76,30 @@ public class ApiRootTest {
     @Test
     public void idNotSerialized() {
         ApiRoot apiRoot = new ApiRoot();
-        apiRoot.withId("ShouldBeHidden");
+        apiRoot.withId("ShouldBeHidden")
+                .withTitle("titlex")
+                .withDescription("descriptionx")
+                .withVersions(Arrays.asList("versionx"))
+                .withMaxContentLength(1000);
         System.out.println(apiRoot);
-        assertFalse(apiRoot.toJson().contains("ShouldBeHidden"));
+
+        JsonObject apiRootJson = apiRoot.toJsonElement().getAsJsonObject();
+        assertTrue(apiRootJson.get("id") == null);
+        assertTrue(apiRootJson.get("title").getAsString().equals("titlex"));
+        assertTrue(apiRootJson.get("description").getAsString().equals("descriptionx"));
+        assertTrue(apiRootJson.get("versions").getAsJsonArray().get(0).getAsString().equals("versionx"));
+        assertTrue(apiRootJson.get("max_content_length").getAsInt() == 1000);
+        assertTrue(apiRootJson.keySet().size() == 4);
+
+        ApiRoot apiRoot_ = ApiRoot.fromJson(apiRootJson.toString());
+        assertTrue(apiRoot.equals(apiRoot_));
+    }
+
+    @Test
+    public void customPropertiesNotSerialized() {
+        ApiRoot apiRoot = new ApiRoot();
+        apiRoot.withCustomProperty("key", new JsonPrimitive("value"));
+        System.out.println(apiRoot);
+        assertFalse(apiRoot.toJson().contains("custom_properties"));
     }
 }

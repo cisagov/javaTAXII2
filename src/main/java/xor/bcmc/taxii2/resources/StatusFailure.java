@@ -14,11 +14,13 @@ public class StatusFailure implements Identifiable<String> {
      *  For STIX objects the id MUST be the STIX Object id.
      *  For object types that do not have their own identifier, the server MAY use any value as the id.
      */
+    @Expose
     private String id;
 
     /**
      * (Optional) A message indicating why the object failed to be created.
      */
+    @Expose
     private String message;
 
     public StatusFailure() {}
