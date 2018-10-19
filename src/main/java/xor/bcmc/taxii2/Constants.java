@@ -6,7 +6,9 @@ public interface Constants {
     interface MediaTypes {
         String TAXII = "application/vnd.oasis.taxii+json";
         String TAXII_20 = "application/vnd.oasis.taxii+json; version=2.0";
+        String TAXII_21 = "application/taxii+json;version=2.1";
         String STIX = "application/vnd.oasis.stix+json";
         String STIX_20 = "application/vnd.oasis.stix+json; version=2.0";
+        String STIX_21 = "application/stix+json;version=2.1"; //This is how the TAXII 2.1 spec has the header in examples. Need to reference with STIX 2.1 spec
     }
 }
