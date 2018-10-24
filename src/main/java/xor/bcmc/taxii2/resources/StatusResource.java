@@ -276,7 +276,7 @@ public class StatusResource extends TaxiiResource implements Identifiable<String
         if (pendingCount != that.pendingCount) return false;
         if (!id.equals(that.id)) return false;
         if (status != that.status) return false;
-        if (requestTimestamp != null ? (requestTimestamp.compareTo(that.requestTimestamp) != 0) : that.requestTimestamp != null)
+        if (requestTimestamp != null ? !requestTimestamp.isEqual(that.requestTimestamp) : that.requestTimestamp != null)
             return false;
         if (successes != null ? !successes.equals(that.successes) : that.successes != null) return false;
         if (failures != null ? !failures.equals(that.failures) : that.failures != null) return false;
