@@ -113,7 +113,7 @@ public class ManifestEntry extends TaxiiResource implements Identifiable<String>
         ManifestEntry that = (ManifestEntry) o;
 
         if (!id.equals(that.id)) return false;
-        if (date_added != null ? (date_added.compareTo(date_added) != 0) : that.date_added != null) return false;
+        if (date_added != null ? (date_added.compareTo(that.date_added) != 0) : that.date_added != null) return false;
         if (versions != null ? !versions.equals(that.versions) : that.versions != null) return false;
         return mediaTypes != null ? mediaTypes.equals(that.mediaTypes) : that.mediaTypes == null;
     }
