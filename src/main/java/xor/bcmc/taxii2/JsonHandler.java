@@ -3,6 +3,8 @@ package xor.bcmc.taxii2;
 import com.google.gson.*;
 import xor.bcmc.taxii2.gson.*;
 import xor.bcmc.taxii2.resources.*;
+import xor.bcmc.taxii21.gson.*;
+import xor.bcmc.taxii21.resources.*;
 
 import java.lang.reflect.Type;
 import java.time.ZoneId;
@@ -31,6 +33,8 @@ public class JsonHandler {
                 .registerTypeAdapter(Collection.class, new CollectionDeserializer())
                 .registerTypeAdapter(Collections.class, new CollectionsDeserializer())
                 .registerTypeAdapter(Discovery.class, new DiscoveryDeserializer())
+                .registerTypeAdapter(ManifestEntry21.class, new ManifestEntry21Deserializer())
+                .registerTypeAdapter(ManifestResource21.class, new ManifestResource21Deserializer())
                 .registerTypeAdapter(ManifestEntry.class, new ManifestEntryDeserializer())
                 .registerTypeAdapter(ManifestResource.class, new ManifestResourceDeserializer())
                 .registerTypeAdapter(StatusResource.class, new StatusResourceDeserializer());

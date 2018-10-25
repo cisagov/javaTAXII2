@@ -1,4 +1,4 @@
-package xor.bcmc.taxii2.resources;
+package xor.bcmc.taxii21.resources;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -9,43 +9,44 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Collections;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
-public class ManifestResourceTest {
+public class ManifestResource21Test {
     @Test
     public void serializeAndDeserialize() {
-        ManifestEntry entry = new ManifestEntry();
+        ManifestEntry21 entry = new ManifestEntry21();
         entry.withId("id1");
 
-        ManifestResource manifestResource = new ManifestResource();
+        ManifestResource21 manifestResource = new ManifestResource21();
         manifestResource.setObjects(
                 Collections.singletonList(entry));
 
         String json = manifestResource.toJson();
-        ManifestResource manifestResource_ = JsonHandler.getInstance().getGson().fromJson(json, ManifestResource.class);
+        ManifestResource21 manifestResource_ = JsonHandler.getInstance().getGson().fromJson(json, ManifestResource21.class);
         assertEquals(manifestResource, manifestResource_);
     }
 
     @Test
     public void serializeAndDeserializeEmptyList() {
-        ManifestResource manifestResource = new ManifestResource();
+        ManifestResource21 manifestResource = new ManifestResource21();
 
         String json = manifestResource.toJson();
-        ManifestResource manifestResource_ = JsonHandler.getInstance().getGson().fromJson(json, ManifestResource.class);
+        ManifestResource21 manifestResource_ = JsonHandler.getInstance().getGson().fromJson(json, ManifestResource21.class);
         assertEquals(manifestResource, manifestResource_);
     }
 
     @Test
     public void withoutOptionalFieldsEquals() {
-        ManifestResource manifestResource1 = new ManifestResource();
-        ManifestResource manifestResource2 = new ManifestResource();
+        ManifestResource21 manifestResource1 = new ManifestResource21();
+        ManifestResource21 manifestResource2 = new ManifestResource21();
 
         assertEquals(manifestResource1, manifestResource2);
     }
 
     @Test
     public void withoutOptionalFieldsValidate() {
-        ManifestResource manifestResource = new ManifestResource();
+        ManifestResource21 manifestResource = new ManifestResource21();
 
         assertEquals(0, manifestResource.validate().keySet().size());
     }
@@ -53,13 +54,13 @@ public class ManifestResourceTest {
     @Test
     public void checkSerialization() {
 
-        ManifestEntry manifestEntry = new ManifestEntry();
+        ManifestEntry21 manifestEntry = new ManifestEntry21();
         manifestEntry.setId("indicator--29aba82c-5393-42a8-9edb-6a2cb1df070b");
         manifestEntry.setDateAdded(ZonedDateTime.now());
-        manifestEntry.setVersions(Collections.singletonList("2016-11-03T12:30:59.000Z"));
-        manifestEntry.withMediaType("application/vnd.oasis.stix+json; version=2.0");
+        manifestEntry.setVersion("2016-11-03T12:30:59.000Z");
+        manifestEntry.setMediaType("application/vnd.oasis.stix+json; version=2.0");
 
-        ManifestResource manifestResource = new ManifestResource(Collections.singletonList(manifestEntry));
+        ManifestResource21 manifestResource = new ManifestResource21(Collections.singletonList(manifestEntry));
 
         JsonObject manifestResourceJson = manifestResource.toJsonElement().getAsJsonObject();
         assertEquals(1, manifestResourceJson.get("objects").getAsJsonArray().size());
@@ -67,18 +68,18 @@ public class ManifestResourceTest {
         JsonObject manifestEntryJson = manifestResourceJson.get("objects").getAsJsonArray().get(0).getAsJsonObject();
         assertEquals(manifestEntryJson.get("id").getAsString(), manifestEntry.getId());
         assertEquals(manifestEntryJson.get("date_added").getAsString(), manifestEntry.getDateAdded().withZoneSameInstant(ZoneId.of("Z")).toString());
-        assertEquals(manifestEntryJson.get("versions").getAsJsonArray().get(0).getAsString(), manifestEntry.getVersions().get(0));
-        assertEquals(manifestEntryJson.get("media_types").getAsJsonArray().get(0).getAsString(), manifestEntry.getMediaTypes().get(0));
+        assertEquals(manifestEntryJson.get("version").getAsString(), manifestEntry.getVersion());
+        assertEquals(manifestEntryJson.get("media_type").getAsString(), manifestEntry.getMediaType());
 
         assertEquals(1, manifestResourceJson.keySet().size());
 
-        ManifestResource manifestResource_ = JsonHandler.getInstance().fromJson(manifestResourceJson.toString(), ManifestResource.class);
+        ManifestResource21 manifestResource_ = JsonHandler.getInstance().fromJson(manifestResourceJson.toString(), ManifestResource21.class);
         assertEquals(manifestResource, manifestResource_);
     }
 
     @Test
     public void customPropertiesNotSerialized() {
-        ManifestResource manifestResource = new ManifestResource();
+        ManifestResource21 manifestResource = new ManifestResource21();
         manifestResource.withCustomProperty("key", new JsonPrimitive("value"));
         System.out.println(manifestResource);
         assertFalse(manifestResource.toJson().contains("custom_properties"));

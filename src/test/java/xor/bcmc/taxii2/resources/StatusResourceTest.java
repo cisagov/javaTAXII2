@@ -30,7 +30,7 @@ public class StatusResourceTest {
 
     private StatusResource getFullTestStatus() {
         StatusResource status = getTestStatus();
-        status.setRequestTimestamp(ZonedDateTime.now().withZoneSameLocal(ZoneId.of("Z")));
+        status.setRequestTimestamp(ZonedDateTime.now());
         List<String> successes = new ArrayList<>();
         successes.add("stixID-1234-s");
         status.setSuccesses(successes);
