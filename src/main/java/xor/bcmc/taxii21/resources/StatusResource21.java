@@ -228,6 +228,28 @@ public class StatusResource21 extends TaxiiResource implements Identifiable<Stri
         return this;
     }
 
+    public StatusResource21 withSuccess(StatusDetails success) {
+        if (this.successes == null) {
+            this.successes = new ArrayList<>();
+        }
+        this.successes.add(success);
+        return this;
+    }
+    public StatusResource21 withFailure(StatusDetails failure) {
+        if (this.failures == null) {
+            this.failures = new ArrayList<>();
+        }
+        this.failures.add(failure);
+        return this;
+    }
+    public StatusResource21 withPending(StatusDetails pending) {
+        if (this.pendings == null) {
+            this.pendings = new ArrayList<>();
+        }
+        this.pendings.add(pending);
+        return this;
+    }
+
     @Override
     public Errors validate() {
         Errors errors = new Errors();
