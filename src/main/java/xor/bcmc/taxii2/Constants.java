@@ -10,7 +10,7 @@ public interface Constants {
          */
         @Deprecated
         String OASIS_TAXII = "application/vnd.oasis.taxii+json";
-        String TAXII = "application/vnd.oasis.taxii+json";
+        String TAXII = "application/taxii+json";
         String TAXII_20 = "application/vnd.oasis.taxii+json; version=2.0";
         String TAXII_21 = "application/taxii+json;version=2.1";
         /**
