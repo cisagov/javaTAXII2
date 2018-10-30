@@ -4,6 +4,12 @@ public interface Constants {
     String TAXII_20 = "taxii-2.0";
     
     interface MediaTypes {
+        /**
+         * This media type was defined in TAXII 2.0 spec,
+         * but deprecated in TAXII 2.1 spec
+         */
+        @Deprecated
+        String OASIS_TAXII = "application/vnd.oasis.taxii+json";
         String TAXII = "application/vnd.oasis.taxii+json";
         String TAXII_20 = "application/vnd.oasis.taxii+json; version=2.0";
         String TAXII_21 = "application/taxii+json;version=2.1";
