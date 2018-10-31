@@ -1,5 +1,8 @@
 package xor.bcmc.taxii2;
 
+import java.util.Arrays;
+import java.util.List;
+
 public interface Constants {
     String TAXII_20 = "taxii-2.0";
     
@@ -22,5 +25,7 @@ public interface Constants {
         String STIX = "application/stix+json";
         String STIX_20 = "application/vnd.oasis.stix+json; version=2.0";
         String STIX_21 = "application/stix+json;version=2.1"; //This is how the TAXII 2.1 spec has the header in examples. Need to reference with STIX 2.1 spec
+
+        List<String> ALL_TAXII = Arrays.asList(TAXII_21, TAXII, TAXII_20);
     }
 }
