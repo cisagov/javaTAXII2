@@ -30,6 +30,7 @@ public class JsonHandler {
                 .registerTypeAdapter(List.class, new ListAdapter())
 
                 .registerTypeAdapter(ApiRoot.class, new ApiRootDeserializer())
+                .registerTypeAdapter(ApiRoot21.class, new ApiRoot21Deserializer())
                 .registerTypeAdapter(Collection.class, new CollectionDeserializer())
                 .registerTypeAdapter(Collections.class, new CollectionsDeserializer())
                 .registerTypeAdapter(Discovery.class, new DiscoveryDeserializer())
