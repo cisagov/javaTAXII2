@@ -4,7 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import xor.bcmc.taxii2.Identifiable;
 import xor.bcmc.taxii2.JsonHandler;
-import xor.bcmc.taxii2.resources.StatusFailure;
 import xor.bcmc.taxii2.resources.TaxiiResource;
 import xor.bcmc.taxii2.validation.Errors;
 
@@ -35,7 +34,10 @@ public class StatusResource21 extends TaxiiResource implements Identifiable<Stri
         PENDING,
 
         @SerializedName("complete")
-        COMPLETE
+        COMPLETE,
+
+        @SerializedName("failure")
+        FAILURE
     }
 
     @Expose
