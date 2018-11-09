@@ -12,6 +12,9 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 
+/**
+ *
+ */
 public class JsonHandler {
 
     private static JsonHandler instance;
@@ -39,7 +42,7 @@ public class JsonHandler {
                 .registerTypeAdapter(ManifestEntry.class, new ManifestEntryDeserializer())
                 .registerTypeAdapter(ManifestResource.class, new ManifestResourceDeserializer())
                 .registerTypeAdapter(StatusResource.class, new StatusResourceDeserializer())
-                .registerTypeAdapter(StatusResource.class, new StatusResource21Deserializer());
+                .registerTypeAdapter(StatusResource21.class, new StatusResource21Deserializer());
 
         gson = builder.create();
     }
