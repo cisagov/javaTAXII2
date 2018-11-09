@@ -38,7 +38,8 @@ public class JsonHandler {
                 .registerTypeAdapter(ManifestResource21.class, new ManifestResource21Deserializer())
                 .registerTypeAdapter(ManifestEntry.class, new ManifestEntryDeserializer())
                 .registerTypeAdapter(ManifestResource.class, new ManifestResourceDeserializer())
-                .registerTypeAdapter(StatusResource.class, new StatusResourceDeserializer());
+                .registerTypeAdapter(StatusResource.class, new StatusResourceDeserializer())
+                .registerTypeAdapter(StatusResource.class, new StatusResource21Deserializer());
 
         gson = builder.create();
     }
