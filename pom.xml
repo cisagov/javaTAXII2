@@ -6,7 +6,7 @@
 
     <groupId>xor.bcmc</groupId>
     <artifactId>taxii2</artifactId>
-    <version>0.1.0${version.postfix}</version>
+    <version>0.1.0-SNAPSHOT</version>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
@@ -42,17 +42,17 @@
         </plugins>
     </build>
 
-    <profiles>
-        <profile>
-            <id>version.postfix-defined</id>
-            <activation>
-                <property>
-                    <name>env.VERSION_POSTFIX</name>
-                </property>
-            </activation>
-            <properties>
-                <version.postfix>-${env.VERSION_POSTFIX}</version.postfix>
-            </properties>
-        </profile>
-    </profiles>
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>BCMC-Artifactory-releases</name>
+            <url>http://192.168.3.52:8081/artifactory/libs-snapshot-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>BCMC-Artifactory-snapshots</name>
+            <url>http://192.168.3.52:8081/artifactory/libs-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 </project>
