@@ -4,7 +4,7 @@ import hudson.util.*
 String LIB_NAME = "taxii2"
 String POM_FILEPATH = "pom.xml"
 
-String TEST_BUILD_FILEPATH = "FLAREcloud-tests/_jenkins/UnitLibTest.groovy"
+String TEST_BUILD_FILEPATH = "FLAREcloud-tests/UnitLibTest.groovy"
 String TEST_REPO_SSH_URL = "github.com/bcmc/FLAREcloud-tests.git"
 
 def UnitTest
