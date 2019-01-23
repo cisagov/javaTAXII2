@@ -13,7 +13,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
+ * The singleton GSON object with our TAXII 2.0 and 2.1 Type Adapters for
+ * serializing and deserializing
  */
 public class JsonHandler {
 
