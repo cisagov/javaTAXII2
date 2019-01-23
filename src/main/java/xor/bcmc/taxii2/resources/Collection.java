@@ -7,6 +7,7 @@ import xor.bcmc.taxii2.JsonHandler;
 import xor.bcmc.taxii2.validation.Errors;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -149,6 +150,13 @@ public class Collection extends TaxiiResource implements Identifiable<String> {
         if(mediaTypes == null)
             mediaTypes = new ArrayList<>();
         this.mediaTypes = mediaTypes;
+        return this;
+    }
+
+    public Collection withMediaTypes(String... mediaTypeStrings) {
+        if(mediaTypes == null)
+            mediaTypes = new ArrayList<>();
+        mediaTypes.addAll(Arrays.asList(mediaTypeStrings));
         return this;
     }
 

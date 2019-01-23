@@ -47,10 +47,10 @@ public class Collections extends TaxiiResource {
 
     private boolean equal(List<Collection> thisCollections, List<Collection> thatCollections){
         if ((thisCollections == null && thatCollections != null) || (thisCollections != null && thatCollections == null))
-            return false;
+            return false; //One is null and the other is not
 
-        if (thisCollections == null && thatCollections == null)
-            return true;
+        if (thisCollections == null)
+            return true; //both collections are null
 
         for (Collection collection : thisCollections){
             boolean found = false;

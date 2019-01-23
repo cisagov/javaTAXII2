@@ -3,6 +3,8 @@ package xor.bcmc.taxii2;
 import com.google.gson.*;
 import xor.bcmc.taxii2.gson.*;
 import xor.bcmc.taxii2.resources.*;
+import xor.bcmc.taxii21.gson.*;
+import xor.bcmc.taxii21.resources.*;
 
 import java.lang.reflect.Type;
 import java.time.ZoneId;
@@ -10,6 +12,10 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The singleton GSON object with our TAXII 2.0 and 2.1 Type Adapters for
+ * serializing and deserializing
+ */
 public class JsonHandler {
 
     private static JsonHandler instance;
@@ -28,12 +34,16 @@ public class JsonHandler {
                 .registerTypeAdapter(List.class, new ListAdapter())
 
                 .registerTypeAdapter(ApiRoot.class, new ApiRootDeserializer())
+                .registerTypeAdapter(ApiRoot21.class, new ApiRoot21Deserializer())
                 .registerTypeAdapter(Collection.class, new CollectionDeserializer())
                 .registerTypeAdapter(Collections.class, new CollectionsDeserializer())
                 .registerTypeAdapter(Discovery.class, new DiscoveryDeserializer())
+                .registerTypeAdapter(ManifestEntry21.class, new ManifestEntry21Deserializer())
+                .registerTypeAdapter(ManifestResource21.class, new ManifestResource21Deserializer())
                 .registerTypeAdapter(ManifestEntry.class, new ManifestEntryDeserializer())
                 .registerTypeAdapter(ManifestResource.class, new ManifestResourceDeserializer())
-                .registerTypeAdapter(StatusResource.class, new StatusResourceDeserializer());
+                .registerTypeAdapter(StatusResource.class, new StatusResourceDeserializer())
+                .registerTypeAdapter(StatusResource21.class, new StatusResource21Deserializer());
 
         gson = builder.create();
     }

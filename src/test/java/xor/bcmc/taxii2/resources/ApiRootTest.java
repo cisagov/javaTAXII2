@@ -31,10 +31,16 @@ public class ApiRootTest {
         String toString = apiRoot.toString();
         System.out.println(toString);
         assertEquals(ApiRoot.fromJson(toString), apiRoot);
+
+        ApiRoot emptyApiRoot = new ApiRoot();
+        json = emptyApiRoot.toJson();
+        assertEquals(ApiRoot.fromJson(json), emptyApiRoot);
+        toString = emptyApiRoot.toString();
+        assertEquals(ApiRoot.fromJson(toString), emptyApiRoot);
     }
 
     @Test
-    public void equivalience() {
+    public void equivalence() {
         String json = "{\"title\":\"Api root 1 title\",\"description\":\"Api root 1 description\",\"versions\":[\"taxii-2.0\",\"taxii-2.1\"],\"max_content_length\":50}";
         ApiRoot apiRoot1 = ApiRoot.fromJson(json);
         ApiRoot apiRoot2 = ApiRoot.fromJson(json);
