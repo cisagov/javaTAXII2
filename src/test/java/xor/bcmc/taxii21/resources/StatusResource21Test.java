@@ -163,4 +163,21 @@ public class StatusResource21Test {
         System.out.println(statusResource);
         assertFalse(statusResource.toJson().contains("custom_properties"));
     }
+
+    @Test
+    public void checkStatusDetailsEquals() {
+        ZonedDateTime version = ZonedDateTime.now(ZoneId.of("Z"));
+
+        StatusDetails details1 = new StatusDetails("attack-pattern--0c7b5b88-8ff7-4a4d-aa9d-feb398cd0061", version);
+        StatusDetails details2 = new StatusDetails("attack-pattern--0c7b5b88-8ff7-4a4d-aa9d-feb398cd0061", version);
+        assertTrue(details1.equals(details2));
+
+        details1 = new StatusDetails("attack-pattern--0c7b5b88-8ff7-4a4d-aa9d-feb398cd0061", version);
+        details2 = new StatusDetails("attack-pattern--0c7b5b88-8ff7-4a4d-aa9d-feb398cd0061", version.plusDays(1L));
+        assertFalse(details1.equals(details2));
+
+        details1 = new StatusDetails("attack-pattern--1c7b5b88-8ff7-4a4d-aa9d-feb398cd0061", version);
+        details2 = new StatusDetails("attack-pattern--0c7b5b88-8ff7-4a4d-aa9d-feb398cd0061", version);
+        assertFalse(details1.equals(details2));
+    }
 }

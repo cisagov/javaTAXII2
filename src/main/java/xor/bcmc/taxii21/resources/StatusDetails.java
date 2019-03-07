@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import xor.bcmc.taxii2.Identifiable;
 
 import java.time.ZonedDateTime;
+import java.util.Objects;
 
 /**
  * From Taxii Spec 2.0, section 4.3.1
@@ -100,17 +101,16 @@ public class StatusDetails implements Identifiable<String> {
     }
 
     @Override
-    public boolean equals(Object statusResource) {
-        if (statusResource == null)
-            return false;
-        if (!(statusResource instanceof StatusDetails))
-            return false;
-        StatusDetails status = (StatusDetails) statusResource;
-        return this.getId().equals(status.getId());
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StatusDetails that = (StatusDetails) o;
+        return id.equals(that.id) &&
+                version.equals(that.version);
     }
 
     @Override
     public int hashCode() {
-        return getId().hashCode();
+        return Objects.hash(id, version);
     }
 }
