@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import xor.bcmc.taxii2.Identifiable;
 import xor.bcmc.taxii2.JsonHandler;
 import xor.bcmc.taxii2.validation.Errors;
+import xor.bcmc.taxii21.resources.ApiRoot21;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,11 +86,11 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
         this.defaultApiRoot = defaultApiRoot;
     }
 
-    public void setDefaultApiRoot(String host, int port, ApiRoot defaultApiRoot) {
+    public void setDefaultApiRoot(String host, int port, ApiRoot21 defaultApiRoot) {
         this.defaultApiRoot = String.format("https://%s:%d/%s", host, port, defaultApiRoot.getId());
     }
 
-    public Discovery withDefaultApiRoot(String host, int port, ApiRoot defaultApiRoot) {
+    public Discovery withDefaultApiRoot(String host, int port, ApiRoot21 defaultApiRoot) {
         this.defaultApiRoot = String.format("https://%s:%d/%s", host, port, defaultApiRoot.getId());
         return this;
     }
@@ -98,17 +99,17 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
         this.apiRoots = apiRoots;
     }
 
-    public void setApiRoots(String host, int port, List<ApiRoot> apiRoots) {
+    public void setApiRoots(String host, int port, List<ApiRoot21> apiRoots) {
         List<String> apiRootsList = new ArrayList<>();
-        for (ApiRoot apiRoot: apiRoots) {
+        for (ApiRoot21 apiRoot: apiRoots) {
             apiRootsList.add(String.format("https://%s:%d/%s", host, port, apiRoot.getId()));
         }
         this.apiRoots = apiRootsList;
     }
 
-    public Discovery withApiRoots(String host, int port, List<ApiRoot> apiRoots) {
+    public Discovery withApiRoots(String host, int port, List<ApiRoot21> apiRoots) {
         List<String> apiRootsList = new ArrayList<>();
-        for (ApiRoot apiRoot: apiRoots) {
+        for (ApiRoot21 apiRoot: apiRoots) {
             apiRootsList.add(String.format("https://%s:%d/%s", host, port, apiRoot.getId()));
         }
         this.apiRoots = apiRootsList;
