@@ -62,11 +62,13 @@
       <plugin>
         <groupId>org.owasp</groupId>
         <artifactId>dependency-check-maven</artifactId>
-        <version>3.3.2</version>
+        <version>5.0.0</version>
         <configuration>
           <failBuildOnCVSS>7</failBuildOnCVSS>
           <suppressionFile>suppressedDependencyCVE.xml</suppressionFile>
-          <format>ALL</format>
+	  <format>ALL</format>
+          <cveUrlModified>${urlModified}</cveUrlModified>
+          <cveUrlBase>${urlBase}</cveUrlBase>
         </configuration>
         <executions>
           <execution>
@@ -86,14 +88,9 @@
   </build>
   <distributionManagement>
     <repository>
-      <id>central</id>
-      <name>artifactory-0-releases</name>
-      <url>https://artifactory.apps.mgt.devsecops.gov/artifactory/maven-local</url>
+        <id>central</id>
+        <name>artifactory-0-releases</name>
+        <url>http://artifactory.apps.mgt.devsecops.gov/artifactory/libs-release</url>
     </repository>
-    <snapshotRepository>
-      <id>snapshots</id>
-      <name>artifactory-0-snapshots</name>
-      <url>https://artifactory.apps.mgt.devsecops.gov/artifactory/maven-local</url>
-    </snapshotRepository>
   </distributionManagement>
 </project>
