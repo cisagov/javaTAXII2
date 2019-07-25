@@ -6,7 +6,7 @@
 
     <groupId>xor.bcmc</groupId>
     <artifactId>taxii2</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1</version>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
