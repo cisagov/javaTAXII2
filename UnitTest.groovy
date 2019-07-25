@@ -18,7 +18,7 @@ node('maven') {
                 usernameVariable: 'GIT_USERNAME')]) {
             sh "git clone https://${GIT_USERNAME}:" + java.net.URLEncoder.encode(GIT_PASSWORD, "UTF-8") + "@${TEST_REPO_SSH_URL}"
             UnitTest = load TEST_BUILD_FILEPATH
-            UnitTest.runJob(LIB_NAME, POM_FILEPATH, TARGET_DIRECTORY)
+            UnitTest.runJob(LIB_NAME, POM_FILEPATH, TARGET_DIRECTORY, [])
         }
     }
 }
