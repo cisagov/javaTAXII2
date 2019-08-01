@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.2.xsd">
+  <suppress>
+    <notes>
+      <![CDATA[This suppresses CVE-2015-5183 and CVE-2015-5184 for the activemq-client JAR file. This is a false positive for the client as the CVE applies to the activemq broker rather than the client JAR.]]>
+    </notes>
+    <filePath regex="true">.*activemq-client-[0-9]*\.[0-9]*\.[0-9]*\.jar</filePath>
+    <cve>CVE-2015-5183</cve>
+    <cve>CVE-2015-5184</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: jul-to-slf4j-1.7.25.jar
+   ]]></notes>
+    <gav regex="true">^org\.slf4j:jul-to-slf4j:.*$</gav>
+    <cve>CVE-2018-8088</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: slf4j-api-1.7.25.jar
+   ]]></notes>
+    <gav regex="true">^org\.slf4j:slf4j-api:.*$</gav>
+    <cpe>cpe:/a:slf4j:slf4j</cpe>
+  </suppress>
+</suppressions>
