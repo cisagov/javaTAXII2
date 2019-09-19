@@ -70,14 +70,6 @@
           <cveUrlModified>${urlModified}</cveUrlModified>
           <cveUrlBase>${urlBase}</cveUrlBase>
         </configuration>
-        <executions>
-          <execution>
-            <phase>verify</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
