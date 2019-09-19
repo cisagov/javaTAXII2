@@ -1,5 +1,5 @@
 library(
-    identifier: "jenkins-pipeline-java-library@2.10"
+    identifier: "jenkins-pipeline-java-library@feature/CCP_203_jenkins_agent"
 )
 
 javaPipelineLibrary(
