@@ -70,14 +70,6 @@
           <cveUrlModified>${urlModified}</cveUrlModified>
           <cveUrlBase>${urlBase}</cveUrlBase>
         </configuration>
-        <executions>
-          <execution>
-            <phase>verify</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -87,10 +79,10 @@
     </plugins>
   </build>
   <distributionManagement>
-    <repository>
-        <id>central</id>
-        <name>artifactory-0-releases</name>
-        <url>http://artifactory.apps.mgt.devsecops.gov/artifactory/libs-release</url>
-    </repository>
+      <repository>
+          <id>central</id>
+          <name>artifactory-0-releases</name>
+          <url>http://artifactory.apps.ecicd.dso.ncps.us-cert.gov/artifactory/libs-release</url>
+      </repository>
   </distributionManagement>
 </project>
