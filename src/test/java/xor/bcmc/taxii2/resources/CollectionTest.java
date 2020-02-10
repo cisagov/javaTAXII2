@@ -61,7 +61,7 @@ public class CollectionTest {
     @Test
     public void withoutOptionalFieldsValidate() {
         Collection collection_ = new Collection();
-        collection_.setId("id1");
+        collection_.setId("3a5910b5-b4f5-4f1e-8852-a8eec1664847");
         collection_.setTitle("title");
         collection_.setCanRead(true);
         collection_.setCanWrite(true);
@@ -75,7 +75,6 @@ public class CollectionTest {
         collection_.setTitle("title");
         collection_.setCanRead(true);
         collection_.setCanWrite(true);
-
         String json = collection_.toJson();
         assertEquals(Collection.fromJson(json), collection_);
     }

@@ -183,6 +183,7 @@ public class Collection extends TaxiiResource implements Identifiable<String> {
         Errors errors = new Errors();
         errors.rejectIfNullOrEmpty("id", this.id);
         errors.rejectIfNullOrEmpty("title", this.title);
+        errors.rejectIfNotValidUUID("id", this.id);
         return errors;
     }
 
