@@ -59,24 +59,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.owasp</groupId>
-        <artifactId>dependency-check-maven</artifactId>
-        <version>5.0.0</version>
-        <configuration>
-          <failBuildOnCVSS>7</failBuildOnCVSS>
-          <suppressionFile>suppressedDependencyCVE.xml</suppressionFile>
-	  <format>ALL</format>
-          <cveUrlModified>${urlModified}</cveUrlModified>
-          <cveUrlBase>${urlBase}</cveUrlBase>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>sonar-maven-plugin</artifactId>
-        <version>3.2</version>
-      </plugin>
+      </plugin>   
     </plugins>
   </build>
   <distributionManagement>
