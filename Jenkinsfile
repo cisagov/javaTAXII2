@@ -1,5 +1,5 @@
 library(
-    identifier: "jenkins-pipeline-java-library@2.18"
+    identifier: "jenkins-pipeline-java-library@2.20"
 )
 
 javaPipelineLibrary(
