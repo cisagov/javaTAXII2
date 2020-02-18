@@ -9,7 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Errors extends HashMap<String, String> {
-    private static final String patterns = "";
+    private static final Pattern UUID_PATTERN = Pattern.compile("[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[0-9a-f]{12}");
+
     public Errors rejectIfNullOrEmpty(String key, String value) {
         if (value == null || value.trim().isEmpty()) {
             this.put(key, String.format("'%s' cannot be null or empty", key));
@@ -33,15 +34,16 @@ public class Errors extends HashMap<String, String> {
 
     //uuid version 4
     public Errors rejectIfNotValidUUID(String key, String value) {
-        Pattern pattern = Pattern.compile("[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[0-9a-f]{12}");
-        Matcher matcher = pattern.matcher(value);
+        Matcher matcher = UUID_PATTERN.matcher(value);
         if (!matcher.matches()) {
-            this.put(key, String.format("'%s' is not valid", key));
+            this.put(key, key + " is not a valid UUID.");
         }
         return this;
     }
 
-    //whitelist: letter upper/lower case, digit, and underscore
+    /**
+     * whitelist: letter upper/lower case, digit, and underscore
+     */
     public Errors rejectIfNotInWhitelist(String key, String value) {
         Pattern pattern = Pattern.compile("[-a-zA-Z0-9_]{1,100}");
         Matcher matcher = pattern.matcher(value);
