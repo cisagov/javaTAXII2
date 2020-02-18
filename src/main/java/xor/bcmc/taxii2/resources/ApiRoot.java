@@ -1,16 +1,12 @@
 package xor.bcmc.taxii2.resources;
 
-import com.google.gson.JsonElement;
 import com.google.gson.annotations.Expose;
 import xor.bcmc.taxii2.Constants;
 import xor.bcmc.taxii2.Identifiable;
 import xor.bcmc.taxii2.JsonHandler;
 import xor.bcmc.taxii2.validation.Errors;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * <a href="https://www.oasis-open.org/committees/download.php/59353/TAXII2.0Specification-draft3.pdf">ApiRoot Resource</a>
