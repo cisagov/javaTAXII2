@@ -61,7 +61,7 @@ public class CollectionTest {
     @Test
     public void withoutOptionalFieldsValidate() {
         Collection collection_ = new Collection();
-        collection_.setId("3a5910b5-b4f5-4f1e-8852-a8eec1664847");
+        collection_.setId("12345678-1234-4123-8123-123456789012");
         collection_.setTitle("title");
         collection_.setCanRead(true);
         collection_.setCanWrite(true);

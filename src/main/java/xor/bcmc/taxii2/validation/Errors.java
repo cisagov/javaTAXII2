@@ -43,7 +43,7 @@ public class Errors extends HashMap<String, String> {
 
     //whitelist: letter upper/lower case, digit, and underscore
     public Errors rejectIfNotInWhitelist(String key, String value) {
-        Pattern pattern = Pattern.compile("[a-zA-Z0-9_]{1,50}");
+        Pattern pattern = Pattern.compile("[-a-zA-Z0-9_]{1,100}");
         Matcher matcher = pattern.matcher(value);
         if (!matcher.matches()) {
             this.put(key, String.format("'%s' is not valid", key));
