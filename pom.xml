@@ -6,7 +6,7 @@
 
   <groupId>xor.bcmc</groupId>
   <artifactId>taxii2</artifactId>
-  <version>0.2.1</version>
+  <version>0.2.2</version>
 
   <dependencies>
     <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
@@ -14,12 +14,6 @@
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
       <version>2.8.2</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>14.0</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -34,6 +28,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
@@ -58,39 +53,14 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.owasp</groupId>
-        <artifactId>dependency-check-maven</artifactId>
-        <version>5.0.0</version>
-        <configuration>
-          <failBuildOnCVSS>7</failBuildOnCVSS>
-          <suppressionFile>suppressedDependencyCVE.xml</suppressionFile>
-	  <format>ALL</format>
-          <cveUrlModified>${urlModified}</cveUrlModified>
-          <cveUrlBase>${urlBase}</cveUrlBase>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>verify</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>sonar-maven-plugin</artifactId>
-        <version>3.2</version>
-      </plugin>
+      </plugin>   
     </plugins>
   </build>
   <distributionManagement>
-    <repository>
-        <id>central</id>
-        <name>artifactory-0-releases</name>
-        <url>http://artifactory.apps.mgt.devsecops.gov/artifactory/libs-release</url>
-    </repository>
+      <repository>
+          <id>central</id>
+          <name>artifactory-0-releases</name>
+          <url>http://artifactory.apps.ecicd.dso.ncps.us-cert.gov/artifactory/libs-release</url>
+      </repository>
   </distributionManagement>
 </project>

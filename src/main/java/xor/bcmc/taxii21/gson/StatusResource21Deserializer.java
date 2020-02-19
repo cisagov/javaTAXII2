@@ -2,8 +2,6 @@ package xor.bcmc.taxii21.gson;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import xor.bcmc.taxii2.resources.StatusFailure;
-import xor.bcmc.taxii2.resources.StatusResource;
 import xor.bcmc.taxii21.resources.StatusDetails;
 import xor.bcmc.taxii21.resources.StatusResource21;
 
