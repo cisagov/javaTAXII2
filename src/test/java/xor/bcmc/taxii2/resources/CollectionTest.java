@@ -3,7 +3,6 @@ package xor.bcmc.taxii2.resources;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import org.junit.Test;
-import xor.bcmc.taxii2.JsonHandler;
 
 import java.util.Arrays;
 import java.util.UUID;
@@ -51,11 +50,11 @@ public class CollectionTest {
     @Test
     public void withoutOptionalFieldsEquals() {
         Collection collection_ = new Collection();
-        collection_.setId("id1");
+        collection_.setId("12345678-1234-4123-8123-123456789012");
         collection_.setTitle("title");
         collection_.setCanRead(true);
         collection_.setCanWrite(true);
-        assertTrue(!collection.equals(collection_));
+        assertNotEquals(collection, collection_);
     }
 
     @Test
