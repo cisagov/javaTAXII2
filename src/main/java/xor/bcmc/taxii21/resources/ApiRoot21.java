@@ -128,6 +128,7 @@ public class ApiRoot21 extends TaxiiResource implements Identifiable<String> {
                 (66) A value of taxii-2.0 MUST be present in the api-root versions field to indicate conformance with this specification
          */
         errors.rejectIfNotContains("versions", this.versions, Constants.MediaTypes.TAXII_21);
+        errors.rejectIfLessThanOrEqual("maxContentLength", this.maxContentLength, 0);
         return errors;
     }
 

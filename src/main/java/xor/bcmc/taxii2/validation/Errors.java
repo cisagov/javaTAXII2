@@ -58,8 +58,18 @@ public class Errors extends HashMap<String, String> {
         return this;
     }
 
+    public Errors rejectIfLessThanOrEqual(String key, Integer maxContentLength, int val)
+    {
+        if ((maxContentLength != null) &&  (maxContentLength <= val)) {
+            this.put(key, String.format("'%s' is less than or equal '%d'", key, val ));
+        }
+
+        return this;
+    }
     @Override
     public String toString() {
         return JsonHandler.getInstance().toJson(this);
     }
+
+
 }
