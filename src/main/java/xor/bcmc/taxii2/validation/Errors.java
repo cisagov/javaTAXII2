@@ -60,7 +60,7 @@ public class Errors extends HashMap<String, String> {
 
     public Errors rejectIfLessThanOrEqual(String key, Integer maxContentLength, int val)
     {
-        if ( maxContentLength <= val) {
+        if ((maxContentLength != null) &&  (maxContentLength <= val)) {
             this.put(key, String.format("'%s' is less than or equal '%d'", key, val ));
         }
 
