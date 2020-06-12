@@ -25,7 +25,7 @@ public class JsonHandler {
         // Configure TAXII serialization and deserialization
         GsonBuilder builder = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")
                 .excludeFieldsWithoutExposeAnnotation();
 
         //From: https://github.com/gkopff/gson-javatime-serialisers
