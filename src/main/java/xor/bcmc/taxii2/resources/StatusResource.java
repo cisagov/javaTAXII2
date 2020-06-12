@@ -21,7 +21,7 @@ public class StatusResource extends TaxiiResource implements Identifiable<String
 
     /* --------------------------------------------------------------------- */
     public static StatusResource fromJson(String json) {
-        return JsonHandler.getInstance().fromJson(json, StatusResource.class);
+        return JsonHandler.gson.fromJson(json, StatusResource.class);
     }
 
     /* --------------------------------------------------------------------- */

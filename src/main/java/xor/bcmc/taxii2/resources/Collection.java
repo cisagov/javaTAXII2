@@ -54,7 +54,7 @@ public class Collection extends TaxiiResource implements Identifiable<String> {
     }
 
     public static Collection fromJson(String json) {
-        return JsonHandler.getInstance().fromJson(json, Collection.class);
+        return JsonHandler.gson.fromJson(json, Collection.class);
     }
 
     public String getId() {

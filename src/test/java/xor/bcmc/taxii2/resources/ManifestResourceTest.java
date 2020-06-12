@@ -22,7 +22,7 @@ public class ManifestResourceTest {
                 Collections.singletonList(entry));
 
         String json = manifestResource.toJson();
-        ManifestResource manifestResource_ = JsonHandler.getInstance().getGson().fromJson(json, ManifestResource.class);
+        ManifestResource manifestResource_ = JsonHandler.gson.fromJson(json, ManifestResource.class);
         assertEquals(manifestResource, manifestResource_);
     }
 
@@ -31,7 +31,7 @@ public class ManifestResourceTest {
         ManifestResource manifestResource = new ManifestResource();
 
         String json = manifestResource.toJson();
-        ManifestResource manifestResource_ = JsonHandler.getInstance().getGson().fromJson(json, ManifestResource.class);
+        ManifestResource manifestResource_ = JsonHandler.gson.fromJson(json, ManifestResource.class);
         assertEquals(manifestResource, manifestResource_);
     }
 
@@ -72,7 +72,7 @@ public class ManifestResourceTest {
 
         assertEquals(1, manifestResourceJson.keySet().size());
 
-        ManifestResource manifestResource_ = JsonHandler.getInstance().fromJson(manifestResourceJson.toString(), ManifestResource.class);
+        ManifestResource manifestResource_ = JsonHandler.gson.fromJson(manifestResourceJson.toString(), ManifestResource.class);
         assertEquals(manifestResource, manifestResource_);
     }
 

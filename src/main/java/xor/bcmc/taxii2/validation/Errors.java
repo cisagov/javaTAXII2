@@ -68,7 +68,7 @@ public class Errors extends HashMap<String, String> {
     }
     @Override
     public String toString() {
-        return JsonHandler.getInstance().toJson(this);
+        return JsonHandler.gson.toJson(this);
     }
 
 

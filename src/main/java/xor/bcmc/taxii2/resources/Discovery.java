@@ -47,7 +47,7 @@ public class Discovery extends TaxiiResource implements Identifiable<String> {
     }
 
     public static Discovery fromJson(String json) {
-        return JsonHandler.getInstance().fromJson(json, Discovery.class);
+        return JsonHandler.gson.fromJson(json, Discovery.class);
     }
 
     public String getTitle() {

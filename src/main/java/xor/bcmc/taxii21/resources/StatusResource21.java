@@ -23,7 +23,7 @@ public class StatusResource21 extends TaxiiResource implements Identifiable<Stri
 
     /* --------------------------------------------------------------------- */
     public static StatusResource21 fromJson(String json) {
-        return JsonHandler.getInstance().fromJson(json, StatusResource21.class);
+        return JsonHandler.gson.fromJson(json, StatusResource21.class);
     }
 
     /* --------------------------------------------------------------------- */

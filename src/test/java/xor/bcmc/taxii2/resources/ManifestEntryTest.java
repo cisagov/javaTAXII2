@@ -22,7 +22,7 @@ public class ManifestEntryTest {
         manifestEntry.withMediaType("application/vnd.oasis.stix+json; version=2.0");
 
         String json = manifestEntry.toJson();
-        assertThat(JsonHandler.getInstance().getGson().fromJson(json, ManifestEntry.class), equalTo(manifestEntry));
+        assertThat(JsonHandler.gson.fromJson(json, ManifestEntry.class), equalTo(manifestEntry));
     }
 
     @Test
@@ -34,7 +34,7 @@ public class ManifestEntryTest {
         assertThat(jsonObject.get("versions"), equalTo(null));
         assertThat(jsonObject.get("media_types"), equalTo(null));
 
-        ManifestEntry manifestEntry_ = JsonHandler.getInstance().getGson().fromJson(jsonObject, ManifestEntry.class);
+        ManifestEntry manifestEntry_ = JsonHandler.gson.fromJson(jsonObject, ManifestEntry.class);
         assertThat(manifestEntry_.getVersions(), equalTo(null));
         assertThat(manifestEntry_.getVersions(), equalTo(null));
     }
@@ -74,7 +74,7 @@ public class ManifestEntryTest {
 
         assertEquals(4, manifestEntryJson.keySet().size());
 
-        ManifestEntry manifestEntry_ = JsonHandler.getInstance().fromJson(manifestEntryJson.toString(), ManifestEntry.class);
+        ManifestEntry manifestEntry_ = JsonHandler.gson.fromJson(manifestEntryJson.toString(), ManifestEntry.class);
         assertEquals(manifestEntry, manifestEntry_);
     }
 
