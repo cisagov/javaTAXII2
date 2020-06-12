@@ -69,7 +69,7 @@ public class JsonHandlerTest {
 
         JsonObject dateJsonJson = new JsonParser().parse(JsonHandler.gson.toJson(dateJson)).getAsJsonObject();
 
-        assertThat(dateJsonJson.get("time").getAsString(), equalTo("2016-01-01T01:01:01.000000Z"));
+        assertThat(dateJsonJson.get("time").getAsString(), equalTo("2016-01-01T01:01:01Z"));
     }
 
     @Test
