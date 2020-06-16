@@ -21,9 +21,8 @@ public class JsonHandlerTest {
         ZonedDateTime timestamp = ZonedDateTime.parse(timestampStr);
 
         ZonedDateTimeJson timestampJson = new ZonedDateTimeJson(timestamp);
-        JsonHandler jsonHandler = JsonHandler.getInstance();
 
-        JsonObject timestampJsonObject = new JsonParser().parse(jsonHandler.toJson(timestampJson)).getAsJsonObject();
+        JsonObject timestampJsonObject = new JsonParser().parse(JsonHandler.gson.toJson(timestampJson)).getAsJsonObject();
 
         assertThat(timestampJsonObject.get("time").getAsString(), equalTo("2016-01-01T01:01:01Z"));
     }
@@ -35,7 +34,7 @@ public class JsonHandlerTest {
 
         ZonedDateTimeJson timestampJson = new ZonedDateTimeJson(timestamp);
 
-        JsonObject timestampJsonObject = new JsonParser().parse(JsonHandler.getInstance().toJson(timestampJson)).getAsJsonObject();
+        JsonObject timestampJsonObject = new JsonParser().parse(JsonHandler.gson.toJson(timestampJson)).getAsJsonObject();
 
         assertThat(timestampJsonObject.get("time").getAsString(), equalTo("2016-01-01T01:01:01.000001Z"));
     }
@@ -61,14 +60,14 @@ public class JsonHandlerTest {
 
     @Test
     public void testDate1 () {
-        // Note: Date has milliseconds precision - it will truncate
+        // Note: Date has milliseconds precision - it will truncate, however TAXII spec wants microsecond precision
         String timestampStr = "2016-01-01T01:01:01.000001Z";
         ZonedDateTime timestamp = ZonedDateTime.parse(timestampStr);
         Date date = Date.from(timestamp.toInstant());
 
         DateJson dateJson = new DateJson(date);
 
-        JsonObject dateJsonJson = new JsonParser().parse(JsonHandler.getInstance().toJson(dateJson)).getAsJsonObject();
+        JsonObject dateJsonJson = new JsonParser().parse(JsonHandler.gson.toJson(dateJson)).getAsJsonObject();
 
         assertThat(dateJsonJson.get("time").getAsString(), equalTo("2016-01-01T01:01:01Z"));
     }
@@ -76,7 +75,7 @@ public class JsonHandlerTest {
     @Test
     public void testJsonHandlerExpose() {
         ExposeTestClass object = new ExposeTestClass("exposedVal", "notExposedVal");
-        String objectString = JsonHandler.getInstance().toJson(object);
+        String objectString = JsonHandler.gson.toJson(object);
         System.out.println(objectString);
         assertTrue(objectString.contains("exposedVal"));
         assertFalse(objectString.contains("notExposedVal"));

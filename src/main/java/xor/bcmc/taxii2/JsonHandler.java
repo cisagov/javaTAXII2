@@ -19,13 +19,14 @@ import java.util.List;
 public class JsonHandler {
 
     private static JsonHandler instance;
-    private static Gson gson;
+    public static final Gson gson;
 
-    private JsonHandler() {
+
+    static {
         // Configure TAXII serialization and deserialization
         GsonBuilder builder = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")
                 .excludeFieldsWithoutExposeAnnotation();
 
         //From: https://github.com/gkopff/gson-javatime-serialisers
@@ -52,6 +53,11 @@ public class JsonHandler {
         return gson;
     }
 
+    /**
+     * @deprecated There is no reason to have an instance of this class
+     * and the double checked locking shows up as a bug
+     */
+    @Deprecated
     public static JsonHandler getInstance() {
         if (instance == null) {
             synchronized (JsonHandler.class) {
@@ -63,22 +69,22 @@ public class JsonHandler {
         return instance;
     }
 
-    public String toJson(Object object) {
+    public static String toJson(Object object) {
         return gson.toJson(object);
     }
 
-    public <T extends TaxiiResource> T fromJson(String json, Class<T> type) {
+    public static <T extends TaxiiResource> T fromJson(String json, Class<T> type) {
         return gson.fromJson(json, type);
     }
 
-    public <T extends TaxiiResource> JsonElement toJsonElement(T taxiiResource) {
+    public static <T extends TaxiiResource> JsonElement toJsonElement(T taxiiResource) {
         return gson.toJsonTree(taxiiResource);
     }
 
     /**
      * According to TAXII 2 spec, Section 2 Data Types: empty lists are prohibited
      */
-    class ListAdapter implements JsonSerializer<List<?>> {
+    static class ListAdapter implements JsonSerializer<List<?>> {
         @Override
         public JsonElement serialize(List<?> src, Type typeOfSrc, JsonSerializationContext context) {
             if (src == null || src.isEmpty()) // exclusion is made here. Null objects aren't serialized
@@ -99,6 +105,8 @@ public class JsonHandler {
         @Override
         public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
             ZonedDateTime date = ZonedDateTime.ofInstant(src.toInstant(), ZoneId.of("Z"));
+            //Date objects only have millisecond precision
+//            return new JsonPrimitive(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")));
             return new JsonPrimitive(date.toString());
         }
 

@@ -5,6 +5,7 @@ import com.google.gson.JsonPrimitive;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class StatusResource21Test {
         String json = status.toJson();
         System.out.println(json);
         assertThat(StatusResource21.fromJson(json), equalTo(status));
-        assertTrue(status.getCustomProperties().get("x_flarecloud_property2").getAsString().equals("value2"));
+        assertEquals("value2", status.getCustomProperties().get("x_flarecloud_property2").getAsString());
     }
 
     @Test
@@ -114,16 +115,20 @@ public class StatusResource21Test {
     @Test
     public void checkSerialization() {
         StatusResource21 status = getTestStatus();
+        Instant now = Instant.now();
+        System.out.println(now);
+        System.out.println(now.getNano());
         status.setRequestTimestamp(ZonedDateTime.now().withZoneSameLocal(ZoneId.of("Z")));
 
         setStatuses(status);
+        System.out.println(status);
 
         JsonObject statusJson = status.toJsonElement().getAsJsonObject();
-        Assert.assertTrue(statusJson.get("id").getAsString().equals(status.getId()));
-        Assert.assertTrue(statusJson.get("status").getAsString().toUpperCase().equals(status.getStatus().name()));
-        Assert.assertTrue(statusJson.get("status").getAsString().equals(status.getStatus().name().toLowerCase()));
-        Assert.assertTrue(statusJson.get("request_timestamp").getAsString().equals(status.getRequestTimestamp().withZoneSameInstant(ZoneId.of("Z")).toString()));
-        Assert.assertTrue(statusJson.get("total_count").getAsInt() == status.getTotalCount());
+        assertEquals(statusJson.get("id").getAsString(), status.getId());
+        assertEquals(statusJson.get("status").getAsString().toUpperCase(), status.getStatus().name());
+        assertEquals(statusJson.get("status").getAsString(), status.getStatus().name().toLowerCase());
+        assertEquals(statusJson.get("request_timestamp").getAsString(), status.getRequestTimestamp().withZoneSameInstant(ZoneId.of("Z")).toString());
+        assertEquals(statusJson.get("total_count").getAsInt(), status.getTotalCount());
 
         // Check successes
         Assert.assertTrue(statusJson.get("success_count").getAsInt() == status.getSuccessCount());

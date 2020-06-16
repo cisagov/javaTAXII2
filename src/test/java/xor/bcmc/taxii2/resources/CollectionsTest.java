@@ -33,7 +33,7 @@ public class CollectionsTest {
 
         String json = collections.toJson();
         System.out.println(json);
-        assertThat(JsonHandler.getInstance().getGson().fromJson(json, Collections.class), equalTo(collections));
+        assertThat(JsonHandler.gson.fromJson(json, Collections.class), equalTo(collections));
         assertEquals(collections.getCollections().get(0), collection);
     }
 
@@ -44,7 +44,7 @@ public class CollectionsTest {
         JsonObject json = collections.toJsonElement().getAsJsonObject();
         assertThat(json.get("collections"), equalTo(null));
 
-        Collections collections_ = JsonHandler.getInstance().getGson().fromJson(json, Collections.class);
+        Collections collections_ = JsonHandler.gson.fromJson(json, Collections.class);
         assertThat(collections_.getCollections(), equalTo(null));
     }
 
@@ -81,7 +81,7 @@ public class CollectionsTest {
 
         assertTrue(collectionsJson.keySet().size() == 1);
 
-        Collections collections_ = JsonHandler.getInstance().fromJson(collectionsJson.toString(), Collections.class);
+        Collections collections_ = JsonHandler.gson.fromJson(collectionsJson.toString(), Collections.class);
         assertTrue(collections.equals(collections_));
     }
 

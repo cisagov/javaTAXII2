@@ -50,7 +50,7 @@ public class ApiRoot21 extends TaxiiResource implements Identifiable<String> {
     }
 
     public static ApiRoot21 fromJson(String json) {
-        return JsonHandler.getInstance().fromJson(json, ApiRoot21.class);
+        return JsonHandler.gson.fromJson(json, ApiRoot21.class);
     }
 
     public String getTitle() {

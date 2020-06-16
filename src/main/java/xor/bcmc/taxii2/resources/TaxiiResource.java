@@ -21,7 +21,7 @@ public abstract class TaxiiResource implements Serializable, Validatable {
     }
 
     public String toJson() {
-        return JsonHandler.getInstance().toJson(this);
+        return JsonHandler.gson.toJson(this);
     }
 
     public String toString() {
@@ -29,14 +29,14 @@ public abstract class TaxiiResource implements Serializable, Validatable {
     }
 
     public JsonElement toJsonElement() {
-        return JsonHandler.getInstance().toJsonElement(this);
+        return JsonHandler.gson.toJsonTree(this);
     }
 
     /*
 
         It is strongly recommended that subclasses implement
         public static Subclass fromJson(String json) {
-            return JsonHandler.getInstance().fromJson(json, Subclass.class);
+            return JsonHandler.gson.fromJson(json, Subclass.class);
         }
 
      */

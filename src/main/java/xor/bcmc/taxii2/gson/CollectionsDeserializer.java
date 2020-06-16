@@ -20,14 +20,11 @@ public class CollectionsDeserializer implements JsonDeserializer<Collections> {
         JsonObject json = jsonElement.getAsJsonObject();
 
         for (String key : json.keySet()) {
-            switch (key){
-                case "collections":
-                    collections.setCollections(
-                            context.deserialize(((JsonArray)get(json, key, JsonArray.class)), new TypeToken<List<Collection>>(){}.getType()));
-                    break;
-                default:
-                    collections.withCustomProperty(key, json.get(key));
-                    break;
+            if ("collections".equals(key)) {
+                collections.setCollections(
+                        context.deserialize(((JsonArray) get(json, key, JsonArray.class)), new TypeToken<List<Collection>>() {}.getType()));
+            } else {
+                collections.withCustomProperty(key, json.get(key));
             }
         }
 

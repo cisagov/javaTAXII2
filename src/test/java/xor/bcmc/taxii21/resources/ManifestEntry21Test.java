@@ -18,11 +18,12 @@ public class ManifestEntry21Test {
         ManifestEntry21 manifestEntry = new ManifestEntry21();
         manifestEntry.setId("indicator--29aba82c-5393-42a8-9edb-6a2cb1df070b");
         manifestEntry.setDateAdded(ZonedDateTime.now());
-        manifestEntry.setVersion("2016-11-03T12:30:59.000Z");
+        manifestEntry.setVersion("2016-11-03T12:30:59.000001Z");
         manifestEntry.setMediaType(Constants.MediaTypes.STIX);
 
         String json = manifestEntry.toJson();
-        assertThat(JsonHandler.getInstance().getGson().fromJson(json, ManifestEntry21.class), equalTo(manifestEntry));
+//        System.out.println(json);
+        assertThat(JsonHandler.gson.fromJson(json, ManifestEntry21.class), equalTo(manifestEntry));
     }
 
     @Test
@@ -34,7 +35,7 @@ public class ManifestEntry21Test {
         assertThat(jsonObject.get("versions"), equalTo(null));
         assertThat(jsonObject.get("media_types"), equalTo(null));
 
-        ManifestEntry21 manifestEntry_ = JsonHandler.getInstance().getGson().fromJson(jsonObject, ManifestEntry21.class);
+        ManifestEntry21 manifestEntry_ = JsonHandler.gson.fromJson(jsonObject, ManifestEntry21.class);
         assertThat(manifestEntry_.getVersion(), equalTo(null));
         assertThat(manifestEntry_.getVersion(), equalTo(null));
     }
@@ -47,7 +48,7 @@ public class ManifestEntry21Test {
         ManifestEntry21 manifestEntry2 = new ManifestEntry21();
         manifestEntry2.setId("indicator--x");
 
-        assertTrue(!manifestEntry1.equals(manifestEntry2));
+        assertNotEquals(manifestEntry1, manifestEntry2);
     }
 
     @Test
@@ -74,7 +75,7 @@ public class ManifestEntry21Test {
 
         assertEquals(4, manifestEntryJson.keySet().size());
 
-        ManifestEntry21 manifestEntry_ = JsonHandler.getInstance().fromJson(manifestEntryJson.toString(), ManifestEntry21.class);
+        ManifestEntry21 manifestEntry_ = JsonHandler.gson.fromJson(manifestEntryJson.toString(), ManifestEntry21.class);
         assertEquals(manifestEntry, manifestEntry_);
     }
 
