@@ -1,5 +1,6 @@
 package xor.bcmc.taxii2.messages;
 
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import xor.bcmc.taxii2.resources.TaxiiResource;
 import xor.bcmc.taxii2.validation.Errors;
@@ -27,7 +28,7 @@ public class TaxiiError extends TaxiiResource{
     private String externalDetails;
 
     @Expose
-    private Map<String, String> details;
+    private JsonObject details;
 
     public TaxiiError() {}
 
@@ -85,11 +86,11 @@ public class TaxiiError extends TaxiiResource{
         return this;
     }
 
-    public Map<String, String> getDetails() {
+    public JsonObject getDetails() {
         return details;
     }
 
-    public TaxiiError withDetails(Map<String, String> details) {
+    public TaxiiError withDetails(JsonObject details) {
         this.details = details;
         return this;
     }
