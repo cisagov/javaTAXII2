@@ -56,11 +56,8 @@
 			</plugin>
 		</plugins>
 	</build>
-	<distributionManagement>
-		<repository>
-			<id>central</id>
-			<name>artifactory-0-releases</name>
-			<url>http://artifactory.apps.ecicd.dso.ncps.us-cert.gov/artifactory/libs-release</url>
-		</repository>
-	</distributionManagement>
+
+	<!-- <distributionManagement> <repository> <id>central</id> <name>artifactory-0-releases</name> 
+		<url>http://artifactory.apps.ecicd.dso.ncps.us-cert.gov/artifactory/libs-release</url> 
+		</repository> </distributionManagement> -->
 </project>
